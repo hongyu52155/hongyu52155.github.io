@@ -5,9 +5,9 @@
   <subtitle>摄影爱好者、吉他小白、程序猿</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https:allenYuKin.github.io/"/>
+  <link href="https://hongyu52155.github.io/"/>
   <updated>2017-12-06T09:33:45.000Z</updated>
-  <id>https:allenYuKin.github.io/</id>
+  <id>https://hongyu52155.github.io/</id>
   
   <author>
     <name>七月与安生</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>me</title>
-    <link href="https:allenYuKin.github.io/2017/12/06/me/"/>
-    <id>https:allenYuKin.github.io/2017/12/06/me/</id>
+    <link href="https://hongyu52155.github.io/2017/12/06/me/"/>
+    <id>https://hongyu52155.github.io/2017/12/06/me/</id>
     <published>2017-12-06T09:30:04.000Z</published>
     <updated>2017-12-06T09:33:45.000Z</updated>
     
@@ -34,17 +34,17 @@
     
     </summary>
     
-      <category term="摄影" scheme="https:allenYuKin.github.io/categories/%E6%91%84%E5%BD%B1/"/>
+      <category term="摄影" scheme="https://hongyu52155.github.io/categories/%E6%91%84%E5%BD%B1/"/>
     
     
-      <category term="photo" scheme="https:allenYuKin.github.io/tags/photo/"/>
+      <category term="photo" scheme="https://hongyu52155.github.io/tags/photo/"/>
     
   </entry>
   
   <entry>
     <title>街拍闲逛</title>
-    <link href="https:allenYuKin.github.io/2017/12/06/%E9%97%B2%E9%80%9B/"/>
-    <id>https:allenYuKin.github.io/2017/12/06/闲逛/</id>
+    <link href="https://hongyu52155.github.io/2017/12/06/%E9%97%B2%E9%80%9B/"/>
+    <id>https://hongyu52155.github.io/2017/12/06/闲逛/</id>
     <published>2017-12-06T09:24:04.000Z</published>
     <updated>2017-12-06T09:33:41.000Z</updated>
     
@@ -59,43 +59,17 @@
     
     </summary>
     
-      <category term="摄影" scheme="https:allenYuKin.github.io/categories/%E6%91%84%E5%BD%B1/"/>
+      <category term="摄影" scheme="https://hongyu52155.github.io/categories/%E6%91%84%E5%BD%B1/"/>
     
     
-      <category term="photo" scheme="https:allenYuKin.github.io/tags/photo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>基础架构 MVC &amp; MVVM</title>
-    <link href="https:allenYuKin.github.io/2017/12/06/iOS%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/"/>
-    <id>https:allenYuKin.github.io/2017/12/06/iOS开发文档/</id>
-    <published>2017-12-06T04:24:04.000Z</published>
-    <updated>2017-12-06T09:01:45.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="目录分级建议"><a href="#目录分级建议" class="headerlink" title="目录分级建议"></a>目录分级建议</h3><p> <img src="http://oji6h5o73.bkt.clouddn.com/1975281-3dbde6249c5262f5.jpg" alt="" title="MVC架构设计模式"></p><ul><li><p><strong>Class层级下按TabBar模块进行分类(例如Base基类、工具类Tools、开源库等等)</strong></p></li><li><p><strong>每个TabBar模块下属子模块进行分类(例如HMModuleOne、HMModuleTwo等等)，子模块按照MVC，MVVM来做处理。</strong></p><a id="more"></a><h3 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h3></li></ul><hr><h4 id="Model-建议"><a href="#Model-建议" class="headerlink" title="Model 建议"></a>Model 建议</h4><ul><li><strong>命名xxxModel 例如(speed wallet) SWTextModel</strong></li><li><strong>可使用YYModel、或基类BaseModel做容错方法。字典数组之间转换</strong></li><li><strong>可在字段后增加注释</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">@property (copy, nonatomic) NSString *name; //姓名</div><div class="line">@property (copy, nonatomic) NSString *content; //内容</div></pre></td></tr></table></figure></li></ul><hr><h4 id="Controller-建议"><a href="#Controller-建议" class="headerlink" title="Controller 建议"></a>Controller 建议</h4><ul><li><strong>UIView的创建和组织</strong></li><li><strong>网络请求&amp;数据处理</strong></li><li><strong>属性命名应见名之意、驼峰法命名</strong></li><li><strong>TableView&amp;Collection代理相关</strong></li><li><strong>数据配置cell&amp;view</strong></li><li><strong>行数过大可考虑拆分category</strong></li><li><p><strong>可在.h中增加方法名</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#pragma mark- GET</div><div class="line">+ (void)getActionWithUrl:(NSString *)url</div><div class="line">params:(NSDictionary *)params</div><div class="line">success:(void(^)(id result))result</div><div class="line">filed:(void(^)(NSString *detail, NSError *error))errors;</div></pre></td></tr></table></figure></li><li><p><strong>可在.m中增加方法详细</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">&lt;#Description#&gt;</div><div class="line"></div><div class="line">@param url &lt;#url description#&gt;</div><div class="line">@param size &lt;#size description#&gt;</div><div class="line">@param images &lt;#images description#&gt;</div><div class="line">@param result &lt;#result description#&gt;</div><div class="line">@param errors &lt;#errors description#&gt;</div><div class="line">*/</div><div class="line"></div><div class="line">快捷键 command + option + / 生成注释</div><div class="line"></div><div class="line">#pragma mark- GET</div><div class="line">+ (void)getActionWithUrl:(NSString *)url</div><div class="line">params:(NSDictionary *)params</div><div class="line">success:(void(^)(id result))result</div><div class="line">filed:(void(^)(NSString *detail, NSError *error))errors;</div></pre></td></tr></table></figure></li></ul><hr><h4 id="View-建议"><a href="#View-建议" class="headerlink" title="View 建议"></a>View 建议</h4><ul><li><strong>布局、事件绑定</strong></li><li><strong>使用model进行配置UI</strong></li></ul><hr><h4 id="ViewModel-建议"><a href="#ViewModel-建议" class="headerlink" title="ViewModel 建议"></a>ViewModel 建议</h4><ul><li><strong>VC业务逻辑拆分处理</strong></li><li><strong>数据请求</strong></li></ul><hr><h4 id="内存问题建议"><a href="#内存问题建议" class="headerlink" title="内存问题建议"></a>内存问题建议</h4><ul><li><strong>block 循环引用问题</strong></li><li><strong>NSNotificationCenter &amp; RemoveObserver 匹配</strong></li></ul><hr><h4 id="Git相关使用建议"><a href="#Git相关使用建议" class="headerlink" title="Git相关使用建议"></a>Git相关使用建议</h4><ul><li><strong>master 正式环境分支</strong></li><li><strong>dev 测试环境分支</strong></li><li><strong>dev-zhaoying 团队个人分支</strong></li><li><strong>dev-hongyu 团队个人分支</strong></li><li><strong>后续可建议，团队个人只可push个人分支，由团队负责人codeReView后进行合并等处理</strong></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;目录分级建议&quot;&gt;&lt;a href=&quot;#目录分级建议&quot; class=&quot;headerlink&quot; title=&quot;目录分级建议&quot;&gt;&lt;/a&gt;目录分级建议&lt;/h3&gt;&lt;p&gt; &lt;img src=&quot;http://oji6h5o73.bkt.clouddn.com/1975281-3dbde6249c5262f5.jpg&quot; alt=&quot;&quot; title=&quot;MVC架构设计模式&quot;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;Class层级下按TabBar模块进行分类(例如Base基类、工具类Tools、开源库等等)&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;每个TabBar模块下属子模块进行分类(例如HMModuleOne、HMModuleTwo等等)，子模块按照MVC，MVVM来做处理。&lt;/strong&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="编程" scheme="https:allenYuKin.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
-    
-    
-      <category term="oc" scheme="https:allenYuKin.github.io/tags/oc/"/>
+      <category term="photo" scheme="https://hongyu52155.github.io/tags/photo/"/>
     
   </entry>
   
   <entry>
     <title>iOS属性修饰关键字都有哪些?</title>
-    <link href="https:allenYuKin.github.io/2017/12/06/iOS%E5%B1%9E%E6%80%A7%E4%BF%AE%E9%A5%B0%E9%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B/"/>
-    <id>https:allenYuKin.github.io/2017/12/06/iOS属性修饰都有哪些/</id>
+    <link href="https://hongyu52155.github.io/2017/12/06/iOS%E5%B1%9E%E6%80%A7%E4%BF%AE%E9%A5%B0%E9%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B/"/>
+    <id>https://hongyu52155.github.io/2017/12/06/iOS属性修饰都有哪些/</id>
     <published>2017-12-06T04:24:04.000Z</published>
     <updated>2017-12-06T09:02:57.000Z</updated>
     
@@ -111,17 +85,43 @@
     
     </summary>
     
-      <category term="编程" scheme="https:allenYuKin.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
+      <category term="编程" scheme="https://hongyu52155.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
     
     
-      <category term="oc" scheme="https:allenYuKin.github.io/tags/oc/"/>
+      <category term="oc" scheme="https://hongyu52155.github.io/tags/oc/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>基础架构 MVC &amp; MVVM</title>
+    <link href="https://hongyu52155.github.io/2017/12/06/iOS%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/"/>
+    <id>https://hongyu52155.github.io/2017/12/06/iOS开发文档/</id>
+    <published>2017-12-06T04:24:04.000Z</published>
+    <updated>2017-12-06T09:01:45.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="目录分级建议"><a href="#目录分级建议" class="headerlink" title="目录分级建议"></a>目录分级建议</h3><p> <img src="http://oji6h5o73.bkt.clouddn.com/1975281-3dbde6249c5262f5.jpg" alt="" title="MVC架构设计模式"></p><ul><li><p><strong>Class层级下按TabBar模块进行分类(例如Base基类、工具类Tools、开源库等等)</strong></p></li><li><p><strong>每个TabBar模块下属子模块进行分类(例如HMModuleOne、HMModuleTwo等等)，子模块按照MVC，MVVM来做处理。</strong></p><a id="more"></a><h3 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h3></li></ul><hr><h4 id="Model-建议"><a href="#Model-建议" class="headerlink" title="Model 建议"></a>Model 建议</h4><ul><li><strong>命名xxxModel 例如(speed wallet) SWTextModel</strong></li><li><strong>可使用YYModel、或基类BaseModel做容错方法。字典数组之间转换</strong></li><li><strong>可在字段后增加注释</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">@property (copy, nonatomic) NSString *name; //姓名</div><div class="line">@property (copy, nonatomic) NSString *content; //内容</div></pre></td></tr></table></figure></li></ul><hr><h4 id="Controller-建议"><a href="#Controller-建议" class="headerlink" title="Controller 建议"></a>Controller 建议</h4><ul><li><strong>UIView的创建和组织</strong></li><li><strong>网络请求&amp;数据处理</strong></li><li><strong>属性命名应见名之意、驼峰法命名</strong></li><li><strong>TableView&amp;Collection代理相关</strong></li><li><strong>数据配置cell&amp;view</strong></li><li><strong>行数过大可考虑拆分category</strong></li><li><p><strong>可在.h中增加方法名</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#pragma mark- GET</div><div class="line">+ (void)getActionWithUrl:(NSString *)url</div><div class="line">params:(NSDictionary *)params</div><div class="line">success:(void(^)(id result))result</div><div class="line">filed:(void(^)(NSString *detail, NSError *error))errors;</div></pre></td></tr></table></figure></li><li><p><strong>可在.m中增加方法详细</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">&lt;#Description#&gt;</div><div class="line"></div><div class="line">@param url &lt;#url description#&gt;</div><div class="line">@param size &lt;#size description#&gt;</div><div class="line">@param images &lt;#images description#&gt;</div><div class="line">@param result &lt;#result description#&gt;</div><div class="line">@param errors &lt;#errors description#&gt;</div><div class="line">*/</div><div class="line"></div><div class="line">快捷键 command + option + / 生成注释</div><div class="line"></div><div class="line">#pragma mark- GET</div><div class="line">+ (void)getActionWithUrl:(NSString *)url</div><div class="line">params:(NSDictionary *)params</div><div class="line">success:(void(^)(id result))result</div><div class="line">filed:(void(^)(NSString *detail, NSError *error))errors;</div></pre></td></tr></table></figure></li></ul><hr><h4 id="View-建议"><a href="#View-建议" class="headerlink" title="View 建议"></a>View 建议</h4><ul><li><strong>布局、事件绑定</strong></li><li><strong>使用model进行配置UI</strong></li></ul><hr><h4 id="ViewModel-建议"><a href="#ViewModel-建议" class="headerlink" title="ViewModel 建议"></a>ViewModel 建议</h4><ul><li><strong>VC业务逻辑拆分处理</strong></li><li><strong>数据请求</strong></li></ul><hr><h4 id="内存问题建议"><a href="#内存问题建议" class="headerlink" title="内存问题建议"></a>内存问题建议</h4><ul><li><strong>block 循环引用问题</strong></li><li><strong>NSNotificationCenter &amp; RemoveObserver 匹配</strong></li></ul><hr><h4 id="Git相关使用建议"><a href="#Git相关使用建议" class="headerlink" title="Git相关使用建议"></a>Git相关使用建议</h4><ul><li><strong>master 正式环境分支</strong></li><li><strong>dev 测试环境分支</strong></li><li><strong>dev-zhaoying 团队个人分支</strong></li><li><strong>dev-hongyu 团队个人分支</strong></li><li><strong>后续可建议，团队个人只可push个人分支，由团队负责人codeReView后进行合并等处理</strong></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;目录分级建议&quot;&gt;&lt;a href=&quot;#目录分级建议&quot; class=&quot;headerlink&quot; title=&quot;目录分级建议&quot;&gt;&lt;/a&gt;目录分级建议&lt;/h3&gt;&lt;p&gt; &lt;img src=&quot;http://oji6h5o73.bkt.clouddn.com/1975281-3dbde6249c5262f5.jpg&quot; alt=&quot;&quot; title=&quot;MVC架构设计模式&quot;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Class层级下按TabBar模块进行分类(例如Base基类、工具类Tools、开源库等等)&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;每个TabBar模块下属子模块进行分类(例如HMModuleOne、HMModuleTwo等等)，子模块按照MVC，MVVM来做处理。&lt;/strong&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="编程" scheme="https://hongyu52155.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
+    
+    
+      <category term="oc" scheme="https://hongyu52155.github.io/tags/oc/"/>
     
   </entry>
   
   <entry>
     <title>自动化神器 fastlane</title>
-    <link href="https:allenYuKin.github.io/2017/12/06/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7/"/>
-    <id>https:allenYuKin.github.io/2017/12/06/自动化打包工具/</id>
+    <link href="https://hongyu52155.github.io/2017/12/06/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7/"/>
+    <id>https://hongyu52155.github.io/2017/12/06/自动化打包工具/</id>
     <published>2017-12-06T04:24:04.000Z</published>
     <updated>2017-12-06T09:04:44.000Z</updated>
     
@@ -133,17 +133,17 @@
     
     </summary>
     
-      <category term="编程" scheme="https:allenYuKin.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
+      <category term="编程" scheme="https://hongyu52155.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
     
     
-      <category term="oc" scheme="https:allenYuKin.github.io/tags/oc/"/>
+      <category term="oc" scheme="https://hongyu52155.github.io/tags/oc/"/>
     
   </entry>
   
   <entry>
     <title>基于AFN的网络库封装</title>
-    <link href="https:allenYuKin.github.io/2017/12/03/%E5%9F%BA%E4%BA%8EAFN%E7%BD%91%E7%BB%9C%E5%BA%93/"/>
-    <id>https:allenYuKin.github.io/2017/12/03/基于AFN网络库/</id>
+    <link href="https://hongyu52155.github.io/2017/12/03/%E5%9F%BA%E4%BA%8EAFN%E7%BD%91%E7%BB%9C%E5%BA%93/"/>
+    <id>https://hongyu52155.github.io/2017/12/03/基于AFN网络库/</id>
     <published>2017-12-03T01:33:04.000Z</published>
     <updated>2017-12-06T09:07:01.000Z</updated>
     
@@ -161,10 +161,10 @@
     
     </summary>
     
-      <category term="编程" scheme="https:allenYuKin.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
+      <category term="编程" scheme="https://hongyu52155.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
     
     
-      <category term="oc" scheme="https:allenYuKin.github.io/tags/oc/"/>
+      <category term="oc" scheme="https://hongyu52155.github.io/tags/oc/"/>
     
   </entry>
   
