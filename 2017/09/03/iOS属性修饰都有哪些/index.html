@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="oc," />
 
 
 
@@ -86,16 +86,18 @@
 
 
 
-<meta name="description" content="愿你的眼中总有光芒，活成你想要的模样。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="七月与安生">
-<meta property="og:url" content="https://hongyu52155.github.io/index.html">
+<meta name="description" content="atomic    原子性访问，对属性赋值的时候加锁 noatomic  非原子性访问，对属性赋值的时候不加锁，多线程并发访问会提高性能 strong    OC对象-强引用，表示实例变量对传入的对象要有所有权关系 assige    非OC对象(number,bool)，简单赋值，引用计数不会增加">
+<meta name="keywords" content="oc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS属性修饰关键字都有哪些?">
+<meta property="og:url" content="https://hongyu52155.github.io/2017/09/03/iOS属性修饰都有哪些/index.html">
 <meta property="og:site_name" content="七月与安生">
-<meta property="og:description" content="愿你的眼中总有光芒，活成你想要的模样。">
+<meta property="og:description" content="atomic    原子性访问，对属性赋值的时候加锁 noatomic  非原子性访问，对属性赋值的时候不加锁，多线程并发访问会提高性能 strong    OC对象-强引用，表示实例变量对传入的对象要有所有权关系 assige    非OC对象(number,bool)，简单赋值，引用计数不会增加">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-12T04:15:25.619Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="七月与安生">
-<meta name="twitter:description" content="愿你的眼中总有光芒，活成你想要的模样。">
+<meta name="twitter:title" content="iOS属性修饰关键字都有哪些?">
+<meta name="twitter:description" content="atomic    原子性访问，对属性赋值的时候加锁 noatomic  非原子性访问，对属性赋值的时候不加锁，多线程并发访问会提高性能 strong    OC对象-强引用，表示实例变量对传入的对象要有所有权关系 assige    非OC对象(number,bool)，简单赋值，引用计数不会增加">
 
 
 
@@ -125,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="https://hongyu52155.github.io/"/>
+  <link rel="canonical" href="https://hongyu52155.github.io/2017/09/03/iOS属性修饰都有哪些/"/>
 
 
 
 
 
-  <title>七月与安生</title>
+  <title>iOS属性修饰关键字都有哪些? | 七月与安生</title>
   
 
 
@@ -150,8 +152,7 @@
     
   
 
-  <div class="container sidebar-position-right 
-  page-home">
+  <div class="container sidebar-position-right page-post-detail">
     <div class="headband"></div>
    <a href="https://github.com/hongyu52155"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -289,1169 +290,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-categories" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hongyu52155.github.io/2017/12/06/iOS开发文档/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="七月与安生">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://sowcar.com/t6/680/1552364816x1699166072.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="七月与安生">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/06/iOS开发文档/" itemprop="url">基础架构 MVC & MVVM</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-06T10:30:00+08:00">
-                2017-12-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程/" itemprop="url" rel="index">
-                    <span itemprop="name">编程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/12/06/iOS开发文档/" class="leancloud_visitors" data-flag-title="基础架构 MVC & MVVM">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  379
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="目录分级建议"><a href="#目录分级建议" class="headerlink" title="目录分级建议"></a>目录分级建议</h3><p> <img src="http://sowcar.com/t6/680/1552365048x2890173729.jpg" alt="" title="MVC架构设计模式"></p>
-<ul>
-<li><p><strong>Class层级下按TabBar模块进行分类(例如Base基类、工具类Tools、开源库等等)</strong></p>
-</li>
-<li><p><strong>每个TabBar模块下属子模块进行分类(例如HMModuleOne、HMModuleTwo等等)，子模块按照MVC，MVVM来做处理。</strong></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/12/06/iOS开发文档/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-    
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-categories" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hongyu52155.github.io/2018/03/03/基于AFN网络库/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="七月与安生">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://sowcar.com/t6/680/1552364816x1699166072.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="七月与安生">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/03/基于AFN网络库/" itemprop="url">基于AFN的网络库封装</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-03T09:33:04+08:00">
-                2018-03-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程/" itemprop="url" rel="index">
-                    <span itemprop="name">编程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/03/03/基于AFN网络库/" class="leancloud_visitors" data-flag-title="基于AFN的网络库封装">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  921
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  5
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <hr>
-<h4 id="第一层-HMRequest-功能"><a href="#第一层-HMRequest-功能" class="headerlink" title="第一层 HMRequest 功能"></a><strong>第一层 HMRequest 功能</strong></h4><ul>
-<li>HTTP  常用请求方式 GET POST PUT PATCH DELETE</li>
-<li>POST  上传JSON数据</li>
-<li>PHOTO 单张多张照片上传</li>
-</ul>
-<hr>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/03/03/基于AFN网络库/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-    
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-categories" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hongyu52155.github.io/2018/01/12/fastlane/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="七月与安生">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://sowcar.com/t6/680/1552364816x1699166072.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="七月与安生">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/12/fastlane/" itemprop="url">自动化神器 fastlane</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-12T20:11:23+08:00">
-                2018-01-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程/" itemprop="url" rel="index">
-                    <span itemprop="name">编程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/01/12/fastlane/" class="leancloud_visitors" data-flag-title="自动化神器 fastlane">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,062
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><strong>Fastlane</strong> 是用Ruby语言编写的一套自动化工具集和框架，每一个工具实际都对应一个Ruby脚本，用来执行某一个特定的任务，而Fastlane核心框架则允许使用者通过类似配置文件的形式，将不同的工具有机而灵活的结合在一起，从而形成一个个完整的自动化流程。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/01/12/fastlane/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-    
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-categories" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hongyu52155.github.io/2018/09/22/iOS代码混淆/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="七月与安生">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://sowcar.com/t6/680/1552364816x1699166072.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="七月与安生">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/22/iOS代码混淆/" itemprop="url">iOS代码混淆</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-22T09:30:22+08:00">
-                2018-09-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程/" itemprop="url" rel="index">
-                    <span itemprop="name">编程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/09/22/iOS代码混淆/" class="leancloud_visitors" data-flag-title="iOS代码混淆">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  538
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p> <img src="http://sowcar.com/t6/680/1552365628x2728329149.png" alt="" title="iOS代码混淆"></p>
-<h4 id="iOS-审核4-3金融类APP马甲包问题"><a href="#iOS-审核4-3金融类APP马甲包问题" class="headerlink" title="iOS 审核4.3金融类APP马甲包问题"></a>iOS 审核4.3金融类APP马甲包问题</h4><blockquote>
-<p>利用shell脚本更改.h中暴露的接口 用宏定义随机字母代替混淆代码<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/22/iOS代码混淆/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-    
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-categories" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hongyu52155.github.io/2018/09/22/ 设计模式的副本/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="七月与安生">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://sowcar.com/t6/680/1552364816x1699166072.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="七月与安生">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/22/ 设计模式的副本/" itemprop="url">iOS代码混淆</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-22T09:30:22+08:00">
-                2018-09-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程/" itemprop="url" rel="index">
-                    <span itemprop="name">编程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/09/22/ 设计模式的副本/" class="leancloud_visitors" data-flag-title="iOS代码混淆">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  538
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p> <img src="http://sowcar.com/t6/680/1552365628x2728329149.png" alt="" title="iOS代码混淆"></p>
-<h4 id="iOS-审核4-3金融类APP马甲包问题"><a href="#iOS-审核4-3金融类APP马甲包问题" class="headerlink" title="iOS 审核4.3金融类APP马甲包问题"></a>iOS 审核4.3金融类APP马甲包问题</h4><blockquote>
-<p>利用shell脚本更改.h中暴露的接口 用宏定义随机字母代替混淆代码<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/22/ 设计模式的副本/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-    
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-categories" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hongyu52155.github.io/2018/05/11/ 设计模式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="七月与安生">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://sowcar.com/t6/680/1552364816x1699166072.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="七月与安生">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/11/ 设计模式/" itemprop="url">iOS设计模式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-11T12:33:22+08:00">
-                2018-05-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程/" itemprop="url" rel="index">
-                    <span itemprop="name">编程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/05/11/ 设计模式/" class="leancloud_visitors" data-flag-title="iOS设计模式">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  569
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p> <img src="http://sowcar.com/t6/680/1552365391x2890174166.jpg" alt="" title="iOS-设计模式相关"><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/11/ 设计模式/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-    
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
 
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -1481,9 +322,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/03/iOS属性修饰都有哪些/" itemprop="url">iOS属性修饰关键字都有哪些?</a></h1>
+          <h1 class="post-title" itemprop="name headline">iOS属性修饰关键字都有哪些?</h1>
         
 
         <div class="post-meta">
@@ -1548,6 +387,11 @@
           
 
           
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye"></i> 阅读次数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
 
           
             <div class="post-wordcount">
@@ -1597,20 +441,35 @@
       
 
       
-        
-          <ul>
+        <ul>
 <li>atomic    原子性访问，对属性赋值的时候加锁</li>
 <li>noatomic  非原子性访问，对属性赋值的时候不加锁，多线程并发访问会提高性能</li>
 <li>strong    OC对象-强引用，表示实例变量对传入的对象要有所有权关系</li>
-<li>assige    非OC对象(number,bool)，简单赋值，引用计数不会增加
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/09/03/iOS属性修饰都有哪些/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+<li>assige    非OC对象(number,bool)，简单赋值，引用计数不会增加<a id="more"></a></li>
+<li>retain    release旧对象，将旧对象的值赋予输入对象，属于浅拷贝-指针复制</li>
+<li>copy      setter方法进行copy操作,和retain处理流程一样，先旧值release，开辟内存copy对象，属于深拷贝-内容复制</li>
+<li>weak      引用对象的引用计数不会增加，并在对象被释放的时候自动被设置为nil</li>
+<li>readwrite 可读可写，表示该属性同时拥有setter和getter</li>
+<li>readonly  只读属性，表示只有getter没有setter，不希望属性在类外部改变</li>
+<li>nullable  声明的属性可以为空</li>
+<li>nonnull   声明的属性不能为空</li>
+</ul>
+<h4 id="非集合类对象copy和mutableCopy"><a href="#非集合类对象copy和mutableCopy" class="headerlink" title="非集合类对象copy和mutableCopy"></a>非集合类对象copy和mutableCopy</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[不可变对象 copy] //浅复制</div><div class="line">[不可变对象 mutableCopy] //深复制</div><div class="line">[可变对象 copy] //深复制</div><div class="line">[可变对象 mutableCopy] //深复制</div><div class="line">copy是不可以被修改的 mutableCopy是可以修改的</div></pre></td></tr></table></figure>
+<h4 id="用-property声明的NSString（或NSArray，NSDictionary）经常使用copy关键字，为什么？如果改用strong关键字，可能造成什么问题？"><a href="#用-property声明的NSString（或NSArray，NSDictionary）经常使用copy关键字，为什么？如果改用strong关键字，可能造成什么问题？" class="headerlink" title="用@property声明的NSString（或NSArray，NSDictionary）经常使用copy关键字，为什么？如果改用strong关键字，可能造成什么问题？"></a>用@property声明的NSString（或NSArray，NSDictionary）经常使用copy关键字，为什么？如果改用strong关键字，可能造成什么问题？</h4><ul>
+<li>因为父类指针可以指向子类对象,使用copy的目的是为了让本对象的属性不受外界影响,使用copy无论给我传入是一个可变对象还是不可对象,我本身持有的就是一个不可变的副本</li>
+<li>如果我们使用是strong,那么这个属性就有可能指向一个可变对象,如果这个可变对象在外部被修改了,那么会影响该属性</li>
+</ul>
+<h4 id="代理为什么用weak修饰？"><a href="#代理为什么用weak修饰？" class="headerlink" title="代理为什么用weak修饰？"></a>代理为什么用weak修饰？</h4><ul>
+<li>确保代理执行后，在程序运行的时候不会造成循环引用,对象都会被顺利的销毁,所以会调用代理类的delloc方法</li>
+<li>使用strong修饰，在程序运行的时候会造成循环引用，对象都不会的销毁，从而造成了内存泄露的问题</li>
+</ul>
+<h4 id="block为什么要用copy修饰？"><a href="#block为什么要用copy修饰？" class="headerlink" title="block为什么要用copy修饰？"></a>block为什么要用copy修饰？</h4><ul>
+<li>block的内存地址开辟在栈区，栈区的特点就是创建的对象随时会被销毁掉，一但这个销毁了，再去调用这个对象，就会造成crash，用copy修饰后内存在堆区，不会函数调用完就结束，随对象销毁才销毁</li>
+</ul>
+<h4 id="assign与weak区别"><a href="#assign与weak区别" class="headerlink" title="assign与weak区别"></a>assign与weak区别</h4><p>assign 适用于基本数据类型，weak 适用于 NSObject 对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Q: assign 其实可以修饰对象，那为什么不用来修饰对象呢？</div><div class="line">被 assign 修饰的对象在释放后，指针的地址还是存在的，也就是说指针并没有被置为 nil，造成野指针。</div><div class="line">Q: 为什么可以用 assign 修饰基本数据类型？</div><div class="line">基本数据类型一般分配在栈上，栈中的内存是有系统自动管理的，不会造成野指针</div><div class="line">weak 修饰的对象在释放后，指针地址会被置为 nil。</div></pre></td></tr></table></figure>
+<h4 id="weak实现原理？"><a href="#weak实现原理？" class="headerlink" title="weak实现原理？"></a>weak实现原理？</h4><h6 id="runtime-维护了一个weak表，本质是哈希表-hash-，key是所指对象的地址，value是weak指针的地址组成的数组"><a href="#runtime-维护了一个weak表，本质是哈希表-hash-，key是所指对象的地址，value是weak指针的地址组成的数组" class="headerlink" title="runtime 维护了一个weak表，本质是哈希表(hash)，key是所指对象的地址，value是weak指针的地址组成的数组"></a>runtime 维护了一个weak表，本质是哈希表(hash)，key是所指对象的地址，value是weak指针的地址组成的数组</h6><hr>
+<h6 id="1-初始化创建时，runtime会调用objc-initWeak函数，创建一个new-weak指针指向对象地址"><a href="#1-初始化创建时，runtime会调用objc-initWeak函数，创建一个new-weak指针指向对象地址" class="headerlink" title="1.初始化创建时，runtime会调用objc_initWeak函数，创建一个new weak指针指向对象地址"></a>1.初始化创建时，runtime会调用objc_initWeak函数，创建一个new weak指针指向对象地址</h6><h6 id="2-添加引用时，objc-initWeak会调用objc-storeWeak，更新指针指向，创建对应的weak弱引用表"><a href="#2-添加引用时，objc-initWeak会调用objc-storeWeak，更新指针指向，创建对应的weak弱引用表" class="headerlink" title="2.添加引用时，objc_initWeak会调用objc_storeWeak，更新指针指向，创建对应的weak弱引用表"></a>2.添加引用时，objc_initWeak会调用objc_storeWeak，更新指针指向，创建对应的weak弱引用表</h6><h6 id="3-释放时，会调用clearDeallocating函数，通过对象地址也是key的值，找到对应的value数组，进行遍历，将其中的要处理的数据设为nil，把这个entry从weak表中删除，清理对象"><a href="#3-释放时，会调用clearDeallocating函数，通过对象地址也是key的值，找到对应的value数组，进行遍历，将其中的要处理的数据设为nil，把这个entry从weak表中删除，清理对象" class="headerlink" title="3.释放时，会调用clearDeallocating函数，通过对象地址也是key的值，找到对应的value数组，进行遍历，将其中的要处理的数据设为nil，把这个entry从weak表中删除，清理对象"></a>3.释放时，会调用clearDeallocating函数，通过对象地址也是key的值，找到对应的value数组，进行遍历，将其中的要处理的数据设为nil，把这个entry从weak表中删除，清理对象</h6>
       
     </div>
     
@@ -1619,23 +478,74 @@
 
     <div>
     
+    
+
+    
     </div>
     
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/weChat.jpg" alt="七月与安生 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信二维码，联系我</div>
+</div>
+
+      </div>
+    
 
     
 
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    七月与安生
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hongyu52155.github.io/2017/09/03/iOS属性修饰都有哪些/" title="iOS属性修饰关键字都有哪些?">https://hongyu52155.github.io/2017/09/03/iOS属性修饰都有哪些/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
     
 
     <footer class="post-footer">
       
-
+    <div class="post-tags">
+        
+    <a href="/tags/oc/" rel="tag"><i class="fa fa-tag"></i> oc</a>
+        
+    </div>
       
 
       
+      
+      
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/06/iOS开发文档/" rel="prev" title="基础架构 MVC & MVVM">
+                基础架构 MVC & MVVM <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </footer>
   </div>
@@ -1645,10 +555,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -1656,6 +567,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -1676,8 +591,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1769,6 +693,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#非集合类对象copy和mutableCopy"><span class="nav-number">1.</span> <span class="nav-text">非集合类对象copy和mutableCopy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用-property声明的NSString（或NSArray，NSDictionary）经常使用copy关键字，为什么？如果改用strong关键字，可能造成什么问题？"><span class="nav-number">2.</span> <span class="nav-text">用@property声明的NSString（或NSArray，NSDictionary）经常使用copy关键字，为什么？如果改用strong关键字，可能造成什么问题？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代理为什么用weak修饰？"><span class="nav-number">3.</span> <span class="nav-text">代理为什么用weak修饰？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#block为什么要用copy修饰？"><span class="nav-number">4.</span> <span class="nav-text">block为什么要用copy修饰？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#assign与weak区别"><span class="nav-number">5.</span> <span class="nav-text">assign与weak区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#weak实现原理？"><span class="nav-number">6.</span> <span class="nav-text">weak实现原理？</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#runtime-维护了一个weak表，本质是哈希表-hash-，key是所指对象的地址，value是weak指针的地址组成的数组"><span class="nav-number">6.0.1.</span> <span class="nav-text">runtime 维护了一个weak表，本质是哈希表(hash)，key是所指对象的地址，value是weak指针的地址组成的数组</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-初始化创建时，runtime会调用objc-initWeak函数，创建一个new-weak指针指向对象地址"><span class="nav-number">6.0.2.</span> <span class="nav-text">1.初始化创建时，runtime会调用objc_initWeak函数，创建一个new weak指针指向对象地址</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-添加引用时，objc-initWeak会调用objc-storeWeak，更新指针指向，创建对应的weak弱引用表"><span class="nav-number">6.0.3.</span> <span class="nav-text">2.添加引用时，objc_initWeak会调用objc_storeWeak，更新指针指向，创建对应的weak弱引用表</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-释放时，会调用clearDeallocating函数，通过对象地址也是key的值，找到对应的value数组，进行遍历，将其中的要处理的数据设为nil，把这个entry从weak表中删除，清理对象"><span class="nav-number">6.0.4.</span> <span class="nav-text">3.释放时，会调用clearDeallocating函数，通过对象地址也是key的值，找到对应的value数组，进行遍历，将其中的要处理的数据设为nil，把这个entry从weak表中删除，清理对象</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1918,6 +858,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 
