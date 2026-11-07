@@ -313,7 +313,7 @@
                 
                 <span class="tag">
                     
-                    <a href="/tags/Flutter/" style="color: #c48a82">
+                    <a href="/tags/Flutter/" style="color: #5a9aa8">
                         Flutter
                     </a>
                 </span>
@@ -324,7 +324,7 @@
 
         
             <div class="content" v-pre>
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>原 Lofter 通过 FlutterBoost 实现的单引擎，现在迁移到多引擎就无法继续直接使用 FlutterBoost（主要是也没这个必要继续使用 FlutterBoost，所以就不考虑改造 FlutterBoost 了）。但是为了减少原生工程的改动，改造后还是尽量贴合原 FlutterBoost 的调用逻辑。</p>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>通过 FlutterBoost 实现的单引擎，现在迁移到多引擎就无法继续直接使用 FlutterBoost（主要是也没这个必要继续使用 FlutterBoost，所以就不考虑改造 FlutterBoost 了）。但是为了减少原生工程的改动，改造后还是尽量贴合原 FlutterBoost 的调用逻辑。</p>
 <h2 id="为什么要换多引擎？"><a href="#为什么要换多引擎？" class="headerlink" title="为什么要换多引擎？"></a>为什么要换多引擎？</h2><p>针对多引擎和单引擎之间的优缺点，再结合我们项目的实际情况，自己取舍是否有必要使用多引擎。</p>
 <table>
 <thead>
@@ -438,7 +438,7 @@ self.flutterVC = FlutterViewController(engine: newEngine, nibName: nil, bundle: 
 
 // 3. 创建 method_channel
 channel = FlutterMethodChannel(
-    name: &quot;com.netease.lofter&quot;, binaryMessenger: engine.binaryMessenger)
+    name: &quot;com.netease.xxx&quot;, binaryMessenger: engine.binaryMessenger)
 
 // 4. 将当前 channel 添加到单例数组中，以便后续发送消息给 Flutter
 LFTRegisterFlutter.methodChannels.append(channel!)

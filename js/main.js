@@ -28,8 +28,13 @@ const app = Vue.createApp({
         },
         handleScroll() {
             let wrap = this.$refs.homePostsWrap;
-            let newScrollTop = document.documentElement.scrollTop;
-            if (this.scrollTop < newScrollTop) {
+            // iOS/iPadOS Safari 顶部下拉回弹时 scrollTop 会先变负再回 0，
+            // 回弹阶段会被误判为“向下滚动”而隐藏菜单；钳到非负并在顶部强制显示。
+            let newScrollTop = Math.max(0, document.documentElement.scrollTop || 0);
+            if (newScrollTop <= 0) {
+                this.hiddenMenu = false;
+                this.showMenuItems = false;
+            } else if (this.scrollTop < newScrollTop) {
                 this.hiddenMenu = true;
                 this.showMenuItems = false;
             } else this.hiddenMenu = false;
