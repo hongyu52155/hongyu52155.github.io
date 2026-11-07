@@ -2622,3 +2622,37 @@ summary {
 #home-info .wrap h5 {
     display: none;
 }
+
+/* ===== 移动端适配：视频按 16:9 完整居中展示，标题块再缩小 ===== */
+@media (max-width: 900px) {
+    /* 竖屏下 cover 会把横版视频裁成竖条；改为按视口宽的 16:9 容器
+       居中展示完整画面，上下露出深色页面底与星空 */
+    #home-head #home-video {
+        top: 50%;
+        left: 0;
+        width: 100vw;
+        height: 56.25vw; /* 16:9 */
+        transform: translateY(-50%);
+        object-fit: cover; /* 容器即 16:9，裁切可忽略 */
+        -webkit-mask-image: none;
+        mask-image: none;
+        background: transparent;
+    }
+    /* iPhone 上标题块缩小到约 1/3 */
+    #home-head #home-info {
+        top: 64px;
+        left: 12px;
+        transform: scale(0.32);
+    }
+}
+
+/* 声音开关图标配色：深色模式白色 / 浅色模式黑色（覆盖主题强调色） */
+#home-head #home-sound-toggle,
+#home-head #home-sound-toggle i {
+    color: #ffffff !important;
+}
+[data-theme="light"] #home-head #home-sound-toggle,
+[data-theme="light"] #home-head #home-sound-toggle i {
+    color: #111111 !important;
+    border-color: rgba(0, 0, 0, 0.35);
+}
