@@ -2656,3 +2656,36 @@ summary {
     color: #111111 !important;
     border-color: rgba(0, 0, 0, 0.35);
 }
+
+/* ===== 蓝色强调色全部替换：深色模式白色 / 浅色模式 #141918 ===== */
+#theme-toggle,
+#theme-toggle i,
+#home-card .icon-link a,
+#home-card .icon-link i,
+#home-card .friend-link a,
+#home-posts a,
+#home-head #home-sound-toggle,
+#home-head #home-sound-toggle i {
+    color: #ffffff !important;
+}
+
+[data-theme="light"] #theme-toggle,
+[data-theme="light"] #theme-toggle i,
+[data-theme="light"] #home-card .icon-link a,
+[data-theme="light"] #home-card .icon-link i,
+[data-theme="light"] #home-card .friend-link a,
+[data-theme="light"] #home-posts a,
+[data-theme="light"] #home-head #home-sound-toggle,
+[data-theme="light"] #home-head #home-sound-toggle i {
+    color: #141918 !important;
+}
+
+/* 页脚同规则：深色白 / 浅色 #141918 */
+#footer #footer-icon i,
+#footer #footer-wrap a {
+    color: #ffffff !important;
+}
+[data-theme="light"] #footer #footer-icon i,
+[data-theme="light"] #footer #footer-wrap a {
+    color: #141918 !important;
+}
