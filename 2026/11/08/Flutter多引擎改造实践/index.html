@@ -1,0 +1,907 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <script>
+    (function(){var t,dt;try{t=localStorage.getItem("theme");dt="dark"}catch(e){dt="dark"}if(t!=="light"&&t!=="dark")t=dt;document.documentElement.setAttribute("data-theme",t);})();
+    </script>
+    <title>Flutter 多引擎改造实践 | 穿来的纸片人</title>
+    <meta name="author" content="ALLENYUKIN" />
+    <meta name="description" content="愿你的眼中总有光芒，活成你想要的模样" />
+    <meta name="keywords" content="iOS, Objective-C, 摄影, 程序员" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.png" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap"
+/>
+<script>
+    const mixins = {};
+    window.__PARTICLEX_I18N__ = {
+        codeExpand: "展开全部 (undefined 行)",
+        codeCollapse: "收起",
+        copyCode: "复制代码",
+        copiedCode: "已复制"
+    };
+</script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <link
+        id="hljs-theme-dark"
+        rel="stylesheet"
+        href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark-reasonable.min.css"
+    />
+    <link
+        id="hljs-theme-light"
+        rel="stylesheet"
+        href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css"
+        disabled
+    />
+    <script>
+    (function () {
+        var t = document.documentElement.getAttribute("data-theme") || "dark";
+        var dark = document.getElementById("hljs-theme-dark");
+        var light = document.getElementById("hljs-theme-light");
+        if (dark && light) {
+            dark.disabled = t === "light";
+            light.disabled = t !== "light";
+        }
+    })();
+    window.__PARTICLEX_HIGHLIGHT__ = {
+        wrap: true,
+        collapseEnable: true,
+        collapseLines: 20
+    };
+    </script>
+    <script src="/js/lib/highlight.js"></script>
+
+
+<script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+<script>if (window.mermaid) {mermaid.initialize({theme: 'forest'});}</script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<script src="/js/lib/toc-light.js"></script>
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<style>
+:root {
+  --bg-page: #18191b;
+  --bg-surface: #222325;
+  --bg-surface-elevated: #292a2e;
+  --bg-code: #1b1b1d;
+  --bg-inline-code: #242528;
+  --text-primary: #c6c7cd;
+  --text-secondary: #888991;
+  --text-heading: #d4d5d8;
+  --accent: #4a6cf7;
+  --accent-hover: #8098f9;
+  --accent-muted: #3e52a5;
+  --border: #3b3c40;
+  --shadow: rgba(0, 0, 0, 0.25);
+  --danger: #e06c75;
+  --success: #6bbf8a;
+  --shadow-card: 0 4px 24px var(--shadow);
+  --menu-bg: rgba(34, 35, 37, 0.92);
+  --menu-bg-scrolled: rgba(24, 25, 27, 0.55);
+  --overlay-bg: rgba(24, 25, 27, 0.85);
+  --home-info-bg: rgba(24, 25, 27, 0.72);
+  --on-accent: #ffffff;
+  --accent-rgb: 74, 108, 247;
+  --accent-muted-rgb: 62, 82, 165;
+  --danger-rgb: 224, 108, 117;
+  --success-rgb: 107, 191, 138;
+  --shadow-rgb: 0, 0, 0;
+  --shadow-card-hover: 0 8px 20px rgba(0, 0, 0, 0.35);
+  --loop-bg-1: #374ca4;
+  --loop-bg-2: #4e6dea;
+  --loop-bg-3: #304188;
+  --loop-bg-4: #5578de;
+}
+
+[data-theme="light"] {
+  --bg-page: #efeff1;
+  --bg-surface: #fcfcfd;
+  --bg-surface-elevated: #e7e7e9;
+  --bg-code: #e4e4e7;
+  --bg-inline-code: #dfdfe2;
+  --text-primary: #2a2b32;
+  --text-secondary: #595b64;
+  --text-heading: #1e1f24;
+  --accent: #3b5bf6;
+  --accent-hover: #2f49c5;
+  --accent-muted: #a2aee9;
+  --border: #cccdd1;
+  --shadow: rgba(40, 36, 28, 0.12);
+  --danger: #c94c57;
+  --success: #3d8f5c;
+  --shadow-card: 0 4px 24px var(--shadow);
+  --menu-bg: rgba(252, 252, 253, 0.92);
+  --menu-bg-scrolled: rgba(239, 239, 241, 0.7);
+  --overlay-bg: rgba(239, 239, 241, 0.88);
+  --home-info-bg: rgba(239, 239, 241, 0.82);
+  --on-accent: #ffffff;
+  --accent-rgb: 59, 91, 246;
+  --accent-muted-rgb: 162, 174, 233;
+  --danger-rgb: 201, 76, 87;
+  --success-rgb: 61, 143, 92;
+  --shadow-rgb: 40, 36, 28;
+  --shadow-card-hover: 0 8px 20px rgba(0, 0, 0, 0.35);
+  --loop-bg-1: #394eb8;
+  --loop-bg-2: #7185e8;
+  --loop-bg-3: #6b7cd8;
+  --loop-bg-4: #4b6dde;
+}
+</style>
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <canvas id="starCanvas"></canvas>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>页面加载中...</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>ALLENYUKIN</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw" :class="{ 'is-open': showMenuItems }"></i>
+            <span>&emsp;ALLENYUKIN</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                
+            </div>
+        </transition>
+    </nav>
+    
+    <button id="theme-toggle" type="button" aria-label="Switch theme">
+        <i class="fa-solid fa-sun theme-icon-sun" aria-hidden="true"></i>
+        <i class="fa-solid fa-moon theme-icon-moon" aria-hidden="true"></i>
+    </button>
+    
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            
+
+<div class="post-main-wrapper has-toc">
+    <div class="article">
+        <div>
+            <h1>Flutter 多引擎改造实践</h1>
+        </div>
+        <div class="info">
+            <span class="date">
+                <span class="icon">
+                    <i class="fa-solid fa-calendar fa-fw"></i>
+                </span>
+                2026/11/8
+            </span>
+            
+            <span class="category">
+                <a href="/categories/%E7%BC%96%E7%A8%8B/">
+                    <span class="icon">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </span>
+                    编程
+                </a>
+            </span>
+            
+            
+            <span class="tags">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                
+                
+                <span class="tag">
+                    
+                    <a href="/tags/Flutter/" style="color: #c48a82">
+                        Flutter
+                    </a>
+                </span>
+                
+            </span>
+            
+        </div>
+
+        
+            <div class="content" v-pre>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>原 Lofter 通过 FlutterBoost 实现的单引擎，现在迁移到多引擎就无法继续直接使用 FlutterBoost（主要是也没这个必要继续使用 FlutterBoost，所以就不考虑改造 FlutterBoost 了）。但是为了减少原生工程的改动，改造后还是尽量贴合原 FlutterBoost 的调用逻辑。</p>
+<h2 id="为什么要换多引擎？"><a href="#为什么要换多引擎？" class="headerlink" title="为什么要换多引擎？"></a>为什么要换多引擎？</h2><p>针对多引擎和单引擎之间的优缺点，再结合我们项目的实际情况，自己取舍是否有必要使用多引擎。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>单引擎</th>
+<th>多引擎</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>内存释放</td>
+<td>❌ 内存会常驻，不会跟随页面销毁而销毁，但是优点是在 App 应用生命周期内只会有一份引擎内存开销</td>
+<td>✅ 内存随用随销，不会因为开启的页面多了而导致应用内存持续居高不下，但是缺点是跟随每个页面（局部组件）创建而 spawn 一份新的引擎</td>
+</tr>
+<tr>
+<td>同屏多视图</td>
+<td>❌ 同屏幕中只能存在一个 Flutter 视图，不管是页面还是局部视图</td>
+<td>✅ 可以在同一个屏幕中绘制多个不同的 Flutter 视图</td>
+</tr>
+<tr>
+<td>插件适配</td>
+<td>✅ 不存在插件适配问题</td>
+<td>❌ 少部分插件可能在多引擎环境下无法使用，需要针对多引擎重新适配（如 PowerImage）</td>
+</tr>
+<tr>
+<td>热刷&#x2F;热更调试</td>
+<td>✅ 不存在调试问题，Flutter Attach 可直接调用</td>
+<td>❌ 因多引擎会产生多个入口，在 attach 时无法预知需调试哪个入口，只能通过热刷后重新初始化页面&#x2F;组件进行调试</td>
+</tr>
+<tr>
+<td>通信通道</td>
+<td>✅ 因为只有一个引擎，所以只需要有一份 method_channel</td>
+<td>❌ 每个引擎都要创建一个新的 channel，并统一管理</td>
+</tr>
+</tbody></table>
+<p>在我们 Lofter 中，考虑到未来可能会出现原生页面中使用局部 Flutter 视图，且单引擎下很容易内存持续维持在高位（因为我们有些 Flutter 页面中有很多图片或者 lottie 动画，会导致内存暴涨）。结合以上两点问题，所以我们决定将单引擎更换到多引擎上。</p>
+<h2 id="改造流程介绍"><a href="#改造流程介绍" class="headerlink" title="改造流程介绍"></a>改造流程介绍</h2><ul>
+<li>Flutter 部分多引擎流程：Flutter 相对改造点不多，只要重新处理一下页面生成逻辑以及生命周期即可。</li>
+<li>原生部分多引擎流程。</li>
+</ul>
+<h2 id="Flutter-部分具体改造内容"><a href="#Flutter-部分具体改造内容" class="headerlink" title="Flutter 部分具体改造内容"></a>Flutter 部分具体改造内容</h2><h3 id="1-统一入口组件"><a href="#1-统一入口组件" class="headerlink" title="1. 统一入口组件"></a>1. 统一入口组件</h3><pre><code class="dart">class _MainAppState extends State&lt;MainAppWidget&gt; &#123;
+  @override
+  Widget build(BuildContext context) &#123;
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: SkinProvider.getInstance()),
+      ],
+      child: const MaterialApp(
+        home: MainWidget(), // 不再在此处根据传入页面名称跳转不同页面，而是写死一个名为 MainWidget 的组件
+      ),
+    );
+  &#125;
+  // xxxxx...
+&#125;
+</code></pre>
+<h3 id="2-一个包含页面传参数据的-InheritedWidget"><a href="#2-一个包含页面传参数据的-InheritedWidget" class="headerlink" title="2. 一个包含页面传参数据的 InheritedWidget"></a>2. 一个包含页面传参数据的 InheritedWidget</h3><pre><code class="dart">import &#39;package:flutter/material.dart&#39;;
+
+// 利用 InheritedWidget 的特性，持有页面初始化时传入的一系列视图信息，比如 uniqueId 等数据
+class LoftContainer extends InheritedWidget &#123;
+  final Map&lt;String, dynamic&gt;? arg;
+
+  const LoftContainer(&#123;required Widget child, Key? key, this.arg&#125;)
+      : super(key: key, child: child);
+
+  static LoftContainer? of(BuildContext context) &#123;
+    if (context.dependOnInheritedWidgetOfExactType&lt;LoftContainer&gt;() != null) &#123;
+      return context.dependOnInheritedWidgetOfExactType&lt;LoftContainer&gt;()
+          as LoftContainer;
+    &#125; else &#123;
+      return null;
+    &#125;
+  &#125;
+
+  @override
+  bool updateShouldNotify(covariant LoftContainer oldWidget) &#123;
+    return arg.toString() != oldWidget.arg.toString();
+  &#125;
+&#125;
+</code></pre>
+<h3 id="3-接收页面刷新"><a href="#3-接收页面刷新" class="headerlink" title="3. 接收页面刷新"></a>3. 接收页面刷新</h3><p>（按业务实现页面刷新回调。）</p>
+<h3 id="4-创建生命周期混入类"><a href="#4-创建生命周期混入类" class="headerlink" title="4. 创建生命周期混入类"></a>4. 创建生命周期混入类</h3><pre><code class="dart">mixin LifecycleMixin&lt;T extends StatefulWidget&gt; on State&lt;T&gt; &#123;
+  // 利用 Flutter 3.13 之后新增的 AppLifecycleListener 类可以实现监听视图生命周期
+  late final AppLifecycleListener _listener;
+
+  @override
+  void initState() &#123;
+    super.initState();
+    _listener = AppLifecycleListener(
+      onDetach: () =&gt; print(&quot;onDetach&quot;),
+      onShow: () =&gt; print(&quot;onShow&quot;),
+      onHide: () =&gt; print(&quot;onHide&quot;),
+      // xxxx....
+    );
+  &#125;
+
+  @override
+  void dispose() &#123;
+    super.dispose();
+    _listener.dispose();
+  &#125;
+&#125;
+</code></pre>
+<h2 id="iOS-部分具体改造内容"><a href="#iOS-部分具体改造内容" class="headerlink" title="iOS 部分具体改造内容"></a>iOS 部分具体改造内容</h2><h3 id="1-初始化-EngineGroup"><a href="#1-初始化-EngineGroup" class="headerlink" title="1. 初始化 EngineGroup"></a>1. 初始化 EngineGroup</h3><p>随便找个地方写个静态变量：</p>
+<pre><code class="swift">static let engines = FlutterEngineGroup(name: &quot;multiple-flutters&quot;, project: nil)
+</code></pre>
+<h3 id="2-Flutter-页面初始化"><a href="#2-Flutter-页面初始化" class="headerlink" title="2. Flutter 页面初始化"></a>2. Flutter 页面初始化</h3><pre><code class="swift">// 1. 找到 engineGroup 对象，调用 makeEngine，传入的 initialRoute 为 uniqueId
+let newEngine = LFTRegisterFlutter.engines.makeEngine(withEntrypoint: nil, libraryURI: nil, initialRoute: self.uniqueId)
+
+// 2. 初始化 FlutterViewController
+self.flutterVC = FlutterViewController(engine: newEngine, nibName: nil, bundle: nil)
+
+// 3. 创建 method_channel
+channel = FlutterMethodChannel(
+    name: &quot;com.netease.lofter&quot;, binaryMessenger: engine.binaryMessenger)
+
+// 4. 将当前 channel 添加到单例数组中，以便后续发送消息给 Flutter
+LFTRegisterFlutter.methodChannels.append(channel!)
+
+// 5. 为 method_channel 赋值
+channel.setMethodCallHandler &#123; nativeMethodCalled, replyToFlutter in
+    // xxxx...
+&#125;
+</code></pre>
+<h3 id="3-Flutter-页面销毁"><a href="#3-Flutter-页面销毁" class="headerlink" title="3. Flutter 页面销毁"></a>3. Flutter 页面销毁</h3><pre><code class="swift">deinit &#123;
+    // 将当前视图对应的 methodchannel 从单例数组中移除
+    LFTRegisterFlutter.methodChannel.removeAll &#123; channel in
+        if channel == self.channel &#123;
+            channel.setMethodCallHandler(nil)
+            return true
+        &#125;
+        return false
+    &#125;
+    // 销毁引擎
+    engine?.destroyContext()
+&#125;
+</code></pre>
+<h3 id="4-页面跳转事件"><a href="#4-页面跳转事件" class="headerlink" title="4. 页面跳转事件"></a>4. 页面跳转事件</h3><pre><code class="swift">// 1. 创建一个接收 flutter 页面数据的类
+class FlutterRouteOptions: NSObject &#123;
+    var pageName: String?
+    var opaque: Bool = true
+    var arguments: [AnyHashable: Any]?
+    var onPageFinished: (([AnyHashable: Any]?) -&gt; Void)?
+&#125;
+
+// 创建一个专门处理 Flutter 路由跳转相关的单例类
+class LFTFlutterRouteDelegate: NSObject &#123;
+    static let shared = LFTFlutterRouteDelegate()
+&#125;
+</code></pre>
+<pre><code class="swift">// 2. 实现从 Flutter 页面跳转到 iOS 原生页面（也可能是 Flutter 页面，但都视为原生页）
+func pushNativeRoute(_ path: String) &#123;
+    let url = URL(string: path)
+    // 一般原生都会实现这种 schema 跳转或者应用内路由跳转的 api
+    LofterApplication.open(url)
+&#125;
+</code></pre>
+<pre><code class="swift">// 3. 实现从 iOS 原生页面跳转到 Flutter 页面
+func pushFlutterRoute(_ options: FlutterRouteOptions!) &#123;
+    guard let pageName = options.pageName else &#123; return &#125;
+
+    let letters = &quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&quot;
+    let uniqueId = &quot;\(String((0..&lt;32).map &#123; _ in letters.randomElement()! &#125;))-\(isInWindow ? &quot;1&quot; : &quot;0&quot;)&quot;
+
+    let flutterVC = LFTFlutterViewController()
+    flutterVC.configFlutter(pageName: pageName, uniqueId: uniqueId, params: options.arguments, opaque: options.opaque)
+
+    let isPresent = (options.arguments?[&quot;isPresent&quot;] as? Bool) ?? false
+    let isAnimated = (options.arguments?[&quot;isAnimated&quot;] as? Bool) ?? true
+
+    // 保存 Flutter 页面返回原生页面时的回调
+    // 避免同时打开多个相同 pageName 的 Flutter 视图导致回调异常
+    // 这里使用 uniqueId 而不是 pageName 作为标识
+    resultTable[uniqueId] = options.onPageFinished
+
+    if isPresent || !options.opaque &#123;
+        let pnav = PanNavigationController(rootViewController: flutterVC)
+        pnav.modalPresentationStyle = .overFullScreen
+        pnav.modalPresentationCapturesStatusBarAppearance = true
+        if let vc = sharedAppDelegate().topPresentedViewController() &#123;
+            vc.present(pnav, animated: isAnimated)
+        &#125;
+    &#125; else &#123;
+        guard let panNavigationController = Util.findPushViewController()?.panNavigationController else &#123; return &#125;
+        panNavigationController.pushViewController(flutterVC, hasTitleBar: false)
+    &#125;
+&#125;
+</code></pre>
+<pre><code class="swift">// 4. 实现从 Flutter 页面返回原生页面
+func popRoute(_ arguments: [AnyHashable: Any]) &#123;
+    let flutterVC = Util.findPushViewController() as? LFTFlutterViewController
+    guard let pageInfo = arguments[&quot;pageInfo&quot;] as? [AnyHashable: Any] else &#123; return &#125;
+    guard let uniqueId = pageInfo[&quot;uniqueId&quot;] as? String else &#123; return &#125;
+
+    if let vc = flutterVC, vc.uniqueIdString() == uniqueId, vc.presentingViewController != nil &#123; // dismiss
+        popRouteWhenNeedDismissVC(vc, arguments: arguments)
+    &#125; else &#123; // pop
+        popRouteWhenNeedPopVC(arguments)
+        configPageFinshed(arguments: arguments)
+    &#125;
+&#125;
+
+// 5. 实现 Flutter 页面消失后，触发回调，同时移除该 uniqueId 对应的回调
+private func configPageFinshed(arguments: [AnyHashable: Any]) &#123;
+    let pageInfo = arguments[&quot;pageInfo&quot;] as? [AnyHashable: Any] ?? [:]
+    guard let uniqueId = pageInfo[&quot;uniqueId&quot;] as? String else &#123; return &#125;
+    guard let onPageFinshed = resultTable[uniqueId] else &#123; return &#125;
+
+    onPageFinshed(arguments)
+    resultTable.removeValue(forKey: uniqueId)
+&#125;
+</code></pre>
+<h3 id="5-原生主动发送通信至-Flutter"><a href="#5-原生主动发送通信至-Flutter" class="headerlink" title="5. 原生主动发送通信至 Flutter"></a>5. 原生主动发送通信至 Flutter</h3><pre><code class="swift">/// 从原生模块传递信息给 Flutter 模块，以此来调用 Flutter 模块的方法
+class func invokeFlutterMethod(moduleName: String, methodName: String, arguments: Dictionary&lt;String, Any&gt;?, completion: (() -&gt; Void)?) &#123;
+    let methodNameWithModule = moduleName + &quot;_&quot; + methodName
+    for channel in LFTRegisterFlutter.methodChannel &#123;
+        channel.invokeMethod(methodNameWithModule, arguments: arguments) &#123; result in
+            completion?()
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="Android-部分具体改造内容"><a href="#Android-部分具体改造内容" class="headerlink" title="Android 部分具体改造内容"></a>Android 部分具体改造内容</h2><h3 id="1-初始化-EngineGroup-1"><a href="#1-初始化-EngineGroup-1" class="headerlink" title="1. 初始化 EngineGroup"></a>1. 初始化 EngineGroup</h3><pre><code class="kotlin">val engines: FlutterEngineGroup by lazy &#123;
+    FlutterEngineGroup(ContextHelper.getAppContext())
+&#125;
+</code></pre>
+<h3 id="2-Flutter-页面初始化-1"><a href="#2-Flutter-页面初始化-1" class="headerlink" title="2. Flutter 页面初始化"></a>2. Flutter 页面初始化</h3><pre><code class="kotlin">// 1. 创建引擎，此处 engineId == uniqueId
+fun flutterEngine(context: Context, engineId: String): FlutterEngine &#123;
+    var engine = FlutterEngineCache.getInstance().get(engineId)
+    if (engine == null) &#123;
+        val engines = FlutterNativeManager.engines
+        val dartEntrypoint = DartExecutor.DartEntrypoint(
+            FlutterInjector.instance().flutterLoader().findAppBundlePath(), &quot;main&quot;
+        )
+        engine = engines?.createAndRunEngine(context, dartEntrypoint, engineId)
+        FlutterEngineCache.getInstance().put(engineId, engine)
+    &#125;
+    return engine!!
+&#125;
+
+// 2. 初始化 FlutterFragment
+fun createFragment(engineId: String): FlutterFragment &#123;
+    return FlutterFragment.withCachedEngine(engineId).build&lt;FlutterFragment&gt;()
+&#125;
+
+// 3. 创建 method_channel
+channel = MethodChannel(engine.dartExecutor.binaryMessenger, FlutterNativeConst.CHANNEL_NAME)
+
+// 4. 将当前 channel 添加到单例数组中，以便后续发送消息给 Flutter
+FlutterNativeManager.methodChannels.add(channel)
+
+// 5. 为 method_channel 赋值
+methodChannel.setMethodCallHandler &#123; call: MethodCall, methodChannelResult: MethodChannel.Result -&gt;
+    // xxxx...
+&#125;
+</code></pre>
+<h3 id="3-Flutter-页面销毁-1"><a href="#3-Flutter-页面销毁-1" class="headerlink" title="3. Flutter 页面销毁"></a>3. Flutter 页面销毁</h3><pre><code class="kotlin">override fun onDestroy() &#123;
+    // 引擎从缓存中移除
+    FlutterEngineCache.getInstance().remove(uniqueId)
+    super.onDestroy()
+
+    engine.destroy()
+    FlutterNativeManager.methodChannels.removeAll &#123; it == channel &#125;
+&#125;
+</code></pre>
+<h3 id="4-页面跳转事件-1"><a href="#4-页面跳转事件-1" class="headerlink" title="4. 页面跳转事件"></a>4. 页面跳转事件</h3><pre><code class="kotlin">// 1. 创建一个接收 flutter 页面数据的类
+class RouteOptions private constructor(builder: Builder) &#123;
+    private val pageName: String? = builder.pageName
+    private val arguments: MutableMap&lt;String, Any&gt;? = builder.arguments
+    private val requestCode: Int = builder.requestCode
+    private val uniqueId: String? = builder.uniqueId
+    private val opaque: Boolean = builder.opaque
+
+    fun pageName(): String? = pageName
+    fun arguments(): MutableMap&lt;String, Any&gt;? = arguments
+    fun requestCode(): Int = requestCode
+    fun uniqueId(): String? = uniqueId
+    fun opaque(): Boolean = opaque
+&#125;
+
+// 创建一个专门处理 Flutter 路由跳转相关的单例类
+object FlutterNativeManager &#123;&#125;
+</code></pre>
+<pre><code class="kotlin">// 2. 实现从 Flutter 页面跳转到原生页面（也可能是 Flutter 页面，但都视为原生页）
+val path = params[&quot;path&quot;] as String?
+if (path != null) &#123;
+    val nativeRoute = object : IActivityRouter &#123;
+        override fun startBrowser(
+            context: Context?,
+            uriString: String?,
+            extras: Bundle?,
+            openNew: Boolean
+        ): Boolean &#123;
+            return RouteHelper.jumpTarget(context, uriString)
+        &#125;
+    &#125;
+    nativeRoute.startBrowser(ActivityLifeCallBackHelper.getInstance().getTopActivity(), path, null, true)
+&#125; else &#123;
+    ToastUtil.showToast(&quot;未设置原生路由&quot;)
+&#125;
+</code></pre>
+<pre><code class="kotlin">// 3. 实现从原生页面跳转到 Flutter 页面
+fun route(context: Context, config: RouteConfig) &#123;
+    ARouter.getInstance().build(MODULE_FLUTTER_NATIVE_CONTAINER_ACTIVITY)
+        .withString(ACTIVITY_PARAM_KEY_ROUTER_NAME, config.routeName)
+        .withString(ACTIVITY_PARAM_KEY_ROUTER_SCENE, config.scene)
+        .withString(ACTIVITY_PARAM_KEY_ROUTER_OPEN_TIME, System.currentTimeMillis().toString())
+        .withParcelable(ACTIVITY_PARAM_KEY_ROUTER_PARAMS, config.routeParams)
+        .navigation(context)
+&#125;
+
+// 4. 实现从 Flutter 页面返回原生页面
+val act = ActivityLifeCallBackHelper.getInstance().topActivity
+if (!act.isDestroyed &amp;&amp; (act is FlutterContainerActivity || act is FlutterPopupContainerActivity)) &#123;
+    act.setResult(Activity.RESULT_OK, Intent().apply &#123;
+        putExtra(ACTIVITY_RESULT_KEY_DATA, params.toString())
+    &#125;)
+    act.finish()
+&#125;
+</code></pre>
+<h3 id="5-原生主动发送通信至-Flutter-1"><a href="#5-原生主动发送通信至-Flutter-1" class="headerlink" title="5. 原生主动发送通信至 Flutter"></a>5. 原生主动发送通信至 Flutter</h3><pre><code class="kotlin">/// 从原生模块传递信息给 Flutter 模块，以此来调用 Flutter 模块的方法
+fun invokeFlutterMethod(moduleName: String, methodName: String, arguments: Map&lt;String, Any?&gt;, callback: FlutterNativeMethodChannelResult?) &#123;
+    for (channel in methodChannels) &#123;
+        channel.invokeMethod(&quot;$&#123;moduleName.toLowerCase()&#125;_$methodName&quot;, arguments, object : MethodChannel.Result &#123;
+            override fun success(result: Any?) &#123;
+                callback?.success(result)
+            &#125;
+
+            override fun error(errorCode: String, errorMessage: String?, errorDetails: Any?) &#123;
+                callback?.error(errorCode, errorMessage, errorDetails)
+            &#125;
+
+            override fun notImplemented() &#123;
+                callback?.notImplemented()
+            &#125;
+        &#125;)
+    &#125;
+&#125;
+</code></pre>
+<h2 id="引擎优化"><a href="#引擎优化" class="headerlink" title="引擎优化"></a>引擎优化</h2><p>在多引擎环境下，发现页面跳转时有明显的视图创建过程（即页面从空白到渲染出对应 Flutter 页面）。同时当页面销毁时，因为对应引擎被销毁，将会跳过 Flutter 组件的 dispose 调用（类似于应用从后台直接杀死将不会走完完整的生命周期）。基于目前发现的两点问题，做了以下优化。</p>
+<h3 id="优化点-1：优化视图渲染耗时"><a href="#优化点-1：优化视图渲染耗时" class="headerlink" title="优化点 1：优化视图渲染耗时"></a>优化点 1：优化视图渲染耗时</h3><p>测试时发现进入 Flutter 页面从创建引擎到渲染视图中间需要 250~300ms 的耗时，单单创建引擎就需要占用 100ms 多的时间。遂突发奇想：如果我们将「初始化引擎」这一步的时间提前——意味着当我们首次创建引擎（预热引擎）时，就要创建两个引擎，同时为了避免引擎被释放，我们要将第二个创建的引擎持有。而后进入 FlutterVC 时，读取这个已被创建但未使用的引擎，再在下一个 runloop 中创建下一个空置引擎（避免因为在当前线程中创建引擎而占用视图渲染时间）。</p>
+<h4 id="iOS-改造引擎初始化时机的整个过程"><a href="#iOS-改造引擎初始化时机的整个过程" class="headerlink" title="iOS 改造引擎初始化时机的整个过程"></a>iOS 改造引擎初始化时机的整个过程</h4><p>创建引擎数组所需要的模型：</p>
+<pre><code class="swift">class LFTFlutterEngineModel: NSObject &#123;
+    // 引擎
+    var engine: FlutterEngine?
+    // 唯一标识
+    var uniqueId: String?
+    // 对应绑定的页面
+    weak var bindVC: FlutterViewController?
+&#125;
+
+// 创建数组
+private var engines: [LFTFlutterEngineModel] = []
+</code></pre>
+<p>修改预热代码：</p>
+<pre><code class="swift">// 引擎预热
+func warmUpEngine() &#123;
+    // 创建预热引擎
+    makeNewEngine(isInitial: true)
+    // 下个 runloop 创建空置引擎
+    DispatchQueue.main.async &#123;
+        self.makeNewEngine()
+    &#125;
+&#125;
+</code></pre>
+<p>修改创建引擎代码：</p>
+<pre><code class="swift">@discardableResult func makeNewEngine(isInitial: Bool = false) -&gt; LFTFlutterEngineModel? &#123;
+    let letters = &quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&quot;
+    let uniqueIdStr = &quot;\(String((0..&lt;32).map &#123; _ in letters.randomElement()! &#125;))&quot;
+
+    let newEngine = LFTRegisterFlutter.groupEngine.makeEngine(withEntrypoint: nil, libraryURI: nil, initialRoute: isInitial ? &quot;initialRoute&quot; : uniqueIdStr)
+    if !isInitial &#123;
+        let model = LFTFlutterEngineModel()
+        GeneratedPluginRegistrant.register(with: newEngine)
+        model.engine = newEngine
+        model.uniqueId = uniqueIdStr
+        engines.append(model)
+        return model
+    &#125; else &#123;
+        self.initializedEngine = newEngine
+        return nil
+    &#125;
+&#125;
+</code></pre>
+<p>获取空置引擎：</p>
+<pre><code class="swift">func getLastUnuseEngine() -&gt; LFTFlutterEngineModel? &#123;
+    for model in engines &#123;
+        if model.bindVC == nil &#123;
+            return model
+        &#125;
+    &#125;
+    return nil
+&#125;
+</code></pre>
+<p>销毁引擎：</p>
+<pre><code class="swift">func destroyEngine(model: LFTFlutterEngineModel?) &#123;
+    guard let model = model else &#123; return &#125;
+    // 销毁引擎
+    model.engine?.destroyContext()
+    // 将引擎从数组中移除
+    engines.removeAll &#123; element in
+        return element == model
+    &#125;
+&#125;
+</code></pre>
+<p>修改 FlutterViewController 的创建流程：</p>
+<pre><code class="swift">private func createEngine() &#123;
+    // 获取上次创建好的空置引擎
+    if let engineModel = LFTRegisterFlutter.instance.getLastUnuseEngine(),
+       let engine = engineModel.engine &#123;
+        self.engineModel = engineModel
+        self.flutterVC = FlutterViewController(engine: engine, nibName: nil, bundle: nil)
+        // 赋值当前引擎所绑定的 VC
+        engineModel.bindVC = self.flutterVC
+        self.addMethodChannel(engine)
+        self.addFlutterView(false)
+    &#125;
+    // 在下一次 runloop 中创建下一个引擎
+    DispatchQueue.main.async &#123;
+        LFTRegisterFlutter.instance.makeNewEngine()
+    &#125;
+&#125;
+</code></pre>
+<p>修改赋值 Flutter 路由数据的方法：</p>
+<pre><code class="swift">func configFlutter(pageEnum: String, params: [AnyHashable: Any]?) &#123;
+    // 此处移除原创建引擎相关代码
+    if !uniqueIdString().isEmpty &#123;
+        let uniqueId = uniqueIdString()
+        var params = params ?? [:]
+        params[&quot;pageName&quot;] = pageEnum
+        params[&quot;uniqueId&quot;] = uniqueId
+        params[&quot;time&quot;] = Int(time)
+
+        self.channel?.invokeMethod(&quot;view_setRoute&quot;, arguments: params)
+    &#125;
+&#125;
+</code></pre>
+<p>至此我们的引擎初始化时机改造已经完成。</p>
+<h4 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h4><p>修改前：进入 Flutter 页面从创建引擎到渲染视图需要 250~300ms；修改后：平均创建到渲染耗时 150ms 左右，有时候甚至只有 30ms 的耗时。</p>
+<h3 id="优化点-2：视图销毁时机"><a href="#优化点-2：视图销毁时机" class="headerlink" title="优化点 2：视图销毁时机"></a>优化点 2：视图销毁时机</h3><p>关于销毁时机，我最初的想法是当视图即将被销毁时，通知 Flutter 页面销毁视图，并且强行持有当前 VC，延迟一秒后再释放引擎（为了保证此时已触发了完整的 dispose）。然后同事反馈，这种做法属实有点 low。</p>
+<p>为什么当时选择用延迟一秒的方式去释放呢？主要原因在于，Flutter 中的 dispose 是生命周期最后一个方法，其中也没有是否完成 dispose 的判断方式。</p>
+<p>后来有一天突然想到，Flutter 的 eventLoop 是优先处理主任务，其次是 MicroTask，最后才会继续处理 eventQueue。而 dispose 的任务队列处于第一梯队的主任务中，那我们就可以利用异步任务 Future 降低任务执行优先级（Future 任务在 eventQueue 队列中执行），以此达到当 dispose 方法执行完毕后再通过通信通道告知原生侧，视图已被完全销毁。</p>
+<h4 id="改造释放回调核心"><a href="#改造释放回调核心" class="headerlink" title="改造释放回调核心"></a>改造释放回调核心</h4><p>首先第一点，就是需要在 FlutterViewController 即将被销毁时通知到 Flutter 侧，并且原生侧持有该 VC 延迟释放。我的办法就是利用 GCD 中的延迟调用，达到强行持有当前 VC 的目的：</p>
+<pre><code class="swift">// 这里还有一点需要注意，不是所有 disappear 都表示视图即将被销毁
+// 也有可能是视图即将 push 或者 present，需要自行判断
+override func viewDidDisappear(_ animated: Bool) &#123;
+    // 当视图即将被销毁时，通信通道告知 Flutter 页面移除当前组件
+    channel?.invokeMethod(&quot;view_viewDispose&quot;, arguments: nil)
+    // 通过 DispatchWorkItem 回调中持有当前对象 self，这里的 description 只是为了持有
+    workItem = DispatchWorkItem(block: &#123;
+        _ = self.description
+    &#125;)
+    // 避免特殊情况下未触发销毁回调，所以延迟 5 秒做个保护，5 秒后强行释放
+    DispatchQueue.main.asyncAfter(deadline: .now() + 5) &#123; [weak self] in
+        self?.workItem?.cancel()
+        self?.workItem = nil
+    &#125;
+&#125;
+</code></pre>
+<p>通过 method_channel 回调，销毁当前强行持有的 workItem：</p>
+<pre><code class="swift">channel?.setMethodCallHandler(&#123; [weak self] call, reply in
+    let arguments = call.arguments as? Dictionary&lt;String, Any&gt;
+    if call.method == &quot;view_dispose&quot; &#123;
+        self?.workItem?.cancel()
+        self?.workItem = nil
+    &#125; else &#123;
+        // xxxxxxx.....
+    &#125;
+&#125;)
+</code></pre>
+<p>Flutter 侧新增监听：</p>
+<pre><code class="dart">static void invokeMethod(String methodName, Map? arguments) &#123;
+  final methodNameType = methodName.toEnum(LFTFlutterViewMethodName.values);
+  switch (methodNameType) &#123;
+    case LFTFlutterViewMethodName.viewDispose:
+      // 当收到视图即将被销毁的通知时，移除当前视图
+      mainWidgetKey.currentState?.remove();
+    default:
+  &#125;
+&#125;
+</code></pre>
+<p>并且修改 dispose 方法：</p>
+<pre><code class="dart">@override
+void dispose() &#123;
+  super.dispose();
+  // 通过 Future 降低任务队列优先级，保证视图被 dispose 完成后再触发通知
+  Future(() &#123;
+    debugPrint(&quot;future 释放完成&quot;);
+    LFTMethodChannel.invokeNativeMethod(&quot;view_dispose&quot;, null);
+  &#125;);
+&#125;
+</code></pre>
+<p>修改后：视图销毁时 dispose 能够被完整执行，原生侧在收到 <code>view_dispose</code> 回调后再释放引擎，不再依赖固定延迟。</p>
+
+            </div>
+        
+
+        
+            <div class="comments-section">
+                
+                
+                
+                
+            </div>
+        
+    </div>
+
+     
+
+<aside class="toc-sidebar" id="toc-sidebar" aria-label="目录">
+    <div class="toc-panel" id="toc-panel">
+        <div class="toc-panel-header">
+            <div class="toc-header">
+                <i class="fa-solid fa-list"></i> 目录
+            </div>
+            <button type="button" class="toc-close" id="toc-close" aria-label="关闭目录">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+        </div>
+        <div class="toc-wrapper" id="toc-wrapper">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%8D%A2%E5%A4%9A%E5%BC%95%E6%93%8E%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">为什么要换多引擎？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%B9%E9%80%A0%E6%B5%81%E7%A8%8B%E4%BB%8B%E7%BB%8D"><span class="toc-number">3.</span> <span class="toc-text">改造流程介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flutter-%E9%83%A8%E5%88%86%E5%85%B7%E4%BD%93%E6%94%B9%E9%80%A0%E5%86%85%E5%AE%B9"><span class="toc-number">4.</span> <span class="toc-text">Flutter 部分具体改造内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%BB%9F%E4%B8%80%E5%85%A5%E5%8F%A3%E7%BB%84%E4%BB%B6"><span class="toc-number">4.1.</span> <span class="toc-text">1. 统一入口组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%B8%80%E4%B8%AA%E5%8C%85%E5%90%AB%E9%A1%B5%E9%9D%A2%E4%BC%A0%E5%8F%82%E6%95%B0%E6%8D%AE%E7%9A%84-InheritedWidget"><span class="toc-number">4.2.</span> <span class="toc-text">2. 一个包含页面传参数据的 InheritedWidget</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%8E%A5%E6%94%B6%E9%A1%B5%E9%9D%A2%E5%88%B7%E6%96%B0"><span class="toc-number">4.3.</span> <span class="toc-text">3. 接收页面刷新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%88%9B%E5%BB%BA%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%B7%B7%E5%85%A5%E7%B1%BB"><span class="toc-number">4.4.</span> <span class="toc-text">4. 创建生命周期混入类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#iOS-%E9%83%A8%E5%88%86%E5%85%B7%E4%BD%93%E6%94%B9%E9%80%A0%E5%86%85%E5%AE%B9"><span class="toc-number">5.</span> <span class="toc-text">iOS 部分具体改造内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9D%E5%A7%8B%E5%8C%96-EngineGroup"><span class="toc-number">5.1.</span> <span class="toc-text">1. 初始化 EngineGroup</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Flutter-%E9%A1%B5%E9%9D%A2%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">5.2.</span> <span class="toc-text">2. Flutter 页面初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Flutter-%E9%A1%B5%E9%9D%A2%E9%94%80%E6%AF%81"><span class="toc-number">5.3.</span> <span class="toc-text">3. Flutter 页面销毁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E4%BA%8B%E4%BB%B6"><span class="toc-number">5.4.</span> <span class="toc-text">4. 页面跳转事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%8E%9F%E7%94%9F%E4%B8%BB%E5%8A%A8%E5%8F%91%E9%80%81%E9%80%9A%E4%BF%A1%E8%87%B3-Flutter"><span class="toc-number">5.5.</span> <span class="toc-text">5. 原生主动发送通信至 Flutter</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Android-%E9%83%A8%E5%88%86%E5%85%B7%E4%BD%93%E6%94%B9%E9%80%A0%E5%86%85%E5%AE%B9"><span class="toc-number">6.</span> <span class="toc-text">Android 部分具体改造内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9D%E5%A7%8B%E5%8C%96-EngineGroup-1"><span class="toc-number">6.1.</span> <span class="toc-text">1. 初始化 EngineGroup</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Flutter-%E9%A1%B5%E9%9D%A2%E5%88%9D%E5%A7%8B%E5%8C%96-1"><span class="toc-number">6.2.</span> <span class="toc-text">2. Flutter 页面初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Flutter-%E9%A1%B5%E9%9D%A2%E9%94%80%E6%AF%81-1"><span class="toc-number">6.3.</span> <span class="toc-text">3. Flutter 页面销毁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E4%BA%8B%E4%BB%B6-1"><span class="toc-number">6.4.</span> <span class="toc-text">4. 页面跳转事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%8E%9F%E7%94%9F%E4%B8%BB%E5%8A%A8%E5%8F%91%E9%80%81%E9%80%9A%E4%BF%A1%E8%87%B3-Flutter-1"><span class="toc-number">6.5.</span> <span class="toc-text">5. 原生主动发送通信至 Flutter</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E6%93%8E%E4%BC%98%E5%8C%96"><span class="toc-number">7.</span> <span class="toc-text">引擎优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E7%82%B9-1%EF%BC%9A%E4%BC%98%E5%8C%96%E8%A7%86%E5%9B%BE%E6%B8%B2%E6%9F%93%E8%80%97%E6%97%B6"><span class="toc-number">7.1.</span> <span class="toc-text">优化点 1：优化视图渲染耗时</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#iOS-%E6%94%B9%E9%80%A0%E5%BC%95%E6%93%8E%E5%88%9D%E5%A7%8B%E5%8C%96%E6%97%B6%E6%9C%BA%E7%9A%84%E6%95%B4%E4%B8%AA%E8%BF%87%E7%A8%8B"><span class="toc-number">7.1.1.</span> <span class="toc-text">iOS 改造引擎初始化时机的整个过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C"><span class="toc-number">7.1.2.</span> <span class="toc-text">测试结果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E7%82%B9-2%EF%BC%9A%E8%A7%86%E5%9B%BE%E9%94%80%E6%AF%81%E6%97%B6%E6%9C%BA"><span class="toc-number">7.2.</span> <span class="toc-text">优化点 2：视图销毁时机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%94%B9%E9%80%A0%E9%87%8A%E6%94%BE%E5%9B%9E%E8%B0%83%E6%A0%B8%E5%BF%83"><span class="toc-number">7.2.1.</span> <span class="toc-text">改造释放回调核心</span></a></li></ol></li></ol></li></ol>
+        </div>
+        <div class="toc-nav-buttons">
+            <a href="javascript:;" class="toc-btn" id="toc-btn-top" title="回到顶部">
+                <i class="fa-solid fa-arrow-up"></i> 回到顶部
+            </a>
+            <a href="#footer" class="toc-btn" id="toc-btn-comment" title="前往底部">
+                <i class="fa-solid fa-arrow-down"></i> 底部
+            </a>
+        </div>
+    </div>
+</aside>
+<button type="button" class="toc-fab" id="toc-fab" aria-label="打开目录" aria-controls="toc-sidebar" aria-expanded="false">
+    <i class="fa-solid fa-list" aria-hidden="true"></i>
+    <span>目录</span>
+</button>
+
+ 
+    
+</div>
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2017 - 2026 穿来的纸片人
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;ALLENYUKIN
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/FloranceYeh/hexo-theme-particlexf">ParticleXF Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    <script src="/js/theme.js"></script>
+    
+    <script src="/js/lib/stellars.js"></script>
+    
+    
+    
+
+
+
+
+    
+</body>
+</html>

@@ -1,0 +1,699 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <script>
+    (function(){var t,dt;try{t=localStorage.getItem("theme");dt="dark"}catch(e){dt="dark"}if(t!=="light"&&t!=="dark")t=dt;document.documentElement.setAttribute("data-theme",t);})();
+    </script>
+    <title>Android Picker 组件适配 | 穿来的纸片人</title>
+    <meta name="author" content="ALLENYUKIN" />
+    <meta name="description" content="愿你的眼中总有光芒，活成你想要的模样" />
+    <meta name="keywords" content="iOS, Objective-C, 摄影, 程序员" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.png" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap"
+/>
+<script>
+    const mixins = {};
+    window.__PARTICLEX_I18N__ = {
+        codeExpand: "展开全部 (undefined 行)",
+        codeCollapse: "收起",
+        copyCode: "复制代码",
+        copiedCode: "已复制"
+    };
+</script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <link
+        id="hljs-theme-dark"
+        rel="stylesheet"
+        href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark-reasonable.min.css"
+    />
+    <link
+        id="hljs-theme-light"
+        rel="stylesheet"
+        href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css"
+        disabled
+    />
+    <script>
+    (function () {
+        var t = document.documentElement.getAttribute("data-theme") || "dark";
+        var dark = document.getElementById("hljs-theme-dark");
+        var light = document.getElementById("hljs-theme-light");
+        if (dark && light) {
+            dark.disabled = t === "light";
+            light.disabled = t !== "light";
+        }
+    })();
+    window.__PARTICLEX_HIGHLIGHT__ = {
+        wrap: true,
+        collapseEnable: true,
+        collapseLines: 20
+    };
+    </script>
+    <script src="/js/lib/highlight.js"></script>
+
+
+<script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+<script>if (window.mermaid) {mermaid.initialize({theme: 'forest'});}</script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<script src="/js/lib/toc-light.js"></script>
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<style>
+:root {
+  --bg-page: #18191b;
+  --bg-surface: #222325;
+  --bg-surface-elevated: #292a2e;
+  --bg-code: #1b1b1d;
+  --bg-inline-code: #242528;
+  --text-primary: #c6c7cd;
+  --text-secondary: #888991;
+  --text-heading: #d4d5d8;
+  --accent: #4a6cf7;
+  --accent-hover: #8098f9;
+  --accent-muted: #3e52a5;
+  --border: #3b3c40;
+  --shadow: rgba(0, 0, 0, 0.25);
+  --danger: #e06c75;
+  --success: #6bbf8a;
+  --shadow-card: 0 4px 24px var(--shadow);
+  --menu-bg: rgba(34, 35, 37, 0.92);
+  --menu-bg-scrolled: rgba(24, 25, 27, 0.55);
+  --overlay-bg: rgba(24, 25, 27, 0.85);
+  --home-info-bg: rgba(24, 25, 27, 0.72);
+  --on-accent: #ffffff;
+  --accent-rgb: 74, 108, 247;
+  --accent-muted-rgb: 62, 82, 165;
+  --danger-rgb: 224, 108, 117;
+  --success-rgb: 107, 191, 138;
+  --shadow-rgb: 0, 0, 0;
+  --shadow-card-hover: 0 8px 20px rgba(0, 0, 0, 0.35);
+  --loop-bg-1: #374ca4;
+  --loop-bg-2: #4e6dea;
+  --loop-bg-3: #304188;
+  --loop-bg-4: #5578de;
+}
+
+[data-theme="light"] {
+  --bg-page: #efeff1;
+  --bg-surface: #fcfcfd;
+  --bg-surface-elevated: #e7e7e9;
+  --bg-code: #e4e4e7;
+  --bg-inline-code: #dfdfe2;
+  --text-primary: #2a2b32;
+  --text-secondary: #595b64;
+  --text-heading: #1e1f24;
+  --accent: #3b5bf6;
+  --accent-hover: #2f49c5;
+  --accent-muted: #a2aee9;
+  --border: #cccdd1;
+  --shadow: rgba(40, 36, 28, 0.12);
+  --danger: #c94c57;
+  --success: #3d8f5c;
+  --shadow-card: 0 4px 24px var(--shadow);
+  --menu-bg: rgba(252, 252, 253, 0.92);
+  --menu-bg-scrolled: rgba(239, 239, 241, 0.7);
+  --overlay-bg: rgba(239, 239, 241, 0.88);
+  --home-info-bg: rgba(239, 239, 241, 0.82);
+  --on-accent: #ffffff;
+  --accent-rgb: 59, 91, 246;
+  --accent-muted-rgb: 162, 174, 233;
+  --danger-rgb: 201, 76, 87;
+  --success-rgb: 61, 143, 92;
+  --shadow-rgb: 40, 36, 28;
+  --shadow-card-hover: 0 8px 20px rgba(0, 0, 0, 0.35);
+  --loop-bg-1: #394eb8;
+  --loop-bg-2: #7185e8;
+  --loop-bg-3: #6b7cd8;
+  --loop-bg-4: #4b6dde;
+}
+</style>
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <canvas id="starCanvas"></canvas>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>页面加载中...</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>ALLENYUKIN</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw" :class="{ 'is-open': showMenuItems }"></i>
+            <span>&emsp;ALLENYUKIN</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                
+            </div>
+        </transition>
+    </nav>
+    
+    <button id="theme-toggle" type="button" aria-label="Switch theme">
+        <i class="fa-solid fa-sun theme-icon-sun" aria-hidden="true"></i>
+        <i class="fa-solid fa-moon theme-icon-moon" aria-hidden="true"></i>
+    </button>
+    
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            
+
+<div class="post-main-wrapper has-toc">
+    <div class="article">
+        <div>
+            <h1>Android Picker 组件适配</h1>
+        </div>
+        <div class="info">
+            <span class="date">
+                <span class="icon">
+                    <i class="fa-solid fa-calendar fa-fw"></i>
+                </span>
+                2026/11/7
+            </span>
+            
+            <span class="category">
+                <a href="/categories/%E7%BC%96%E7%A8%8B/">
+                    <span class="icon">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </span>
+                    编程
+                </a>
+            </span>
+            
+            
+            <span class="tags">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                
+                
+                <span class="tag">
+                    
+                    <a href="/tags/Android/" style="color: #4a6cf7">
+                        Android
+                    </a>
+                </span>
+                
+            </span>
+            
+        </div>
+
+        
+            <div class="content" v-pre>
+                <h2 id="场景梳理"><a href="#场景梳理" class="headerlink" title="场景梳理"></a>场景梳理</h2><p>适配指南：<a target="_blank" rel="noopener" href="https://dev.mi.com/xiaomihyperos/documentation/detail?pId=2224">https://dev.mi.com/xiaomihyperos/documentation/detail?pId=2224</a></p>
+<p>涉及的场景<strong>照片视频、文件、剪贴板、日历</strong>（联系人未涉及）需要进行统一的 Pick 组件适配。</p>
+<p>当前支持 Picker 的操作系统版本如下：</p>
+<ul>
+<li>HyperOS 3（基于 Android 16）及以上</li>
+<li>ColorOS 16（基于 Android 16）及以上</li>
+<li>OriginOS 6（基于 Android 16）及以上</li>
+<li>MagicOS 10（基于 Android 16）及以上</li>
+</ul>
+<h2 id="项目兼容适配"><a href="#项目兼容适配" class="headerlink" title="项目兼容适配"></a>项目兼容适配</h2><h3 id="1-照片视频选择适配"><a href="#1-照片视频选择适配" class="headerlink" title="1. 照片视频选择适配"></a>1. 照片视频选择适配</h3><p>主要模块：LofterLocalAlbum</p>
+<table>
+<thead>
+<tr>
+<th>模块</th>
+<th>场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>module_publish</td>
+<td>发布文章选图</td>
+</tr>
+<tr>
+<td>module_publish</td>
+<td>动态发布选图</td>
+</tr>
+<tr>
+<td>module_collection</td>
+<td>合集封面选择</td>
+</tr>
+<tr>
+<td>module_fav</td>
+<td>收藏夹封面</td>
+</tr>
+<tr>
+<td>module_person_detail</td>
+<td>头像选择</td>
+</tr>
+<tr>
+<td>middle_component</td>
+<td>评论表情图片</td>
+</tr>
+<tr>
+<td>middle_component</td>
+<td>Flutter 桥接</td>
+</tr>
+<tr>
+<td>app (H5)</td>
+<td>H5 页面选图</td>
+</tr>
+</tbody></table>
+<h3 id="2-文件上传"><a href="#2-文件上传" class="headerlink" title="2. 文件上传"></a>2. 文件上传</h3><p>主要模块：H5Fragment</p>
+<table>
+<thead>
+<tr>
+<th>模块</th>
+<th>场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>H5Fragment, onActivityResult-uploadMsgCallbacks</td>
+<td>H5 页面选择文件</td>
+</tr>
+</tbody></table>
+<h3 id="3-日历"><a href="#3-日历" class="headerlink" title="3. 日历"></a>3. 日历</h3><p>主要模块：SystemCalendarHelper</p>
+<table>
+<thead>
+<tr>
+<th>模块</th>
+<th>场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>H5Presentor</td>
+<td>H5 活动预约</td>
+</tr>
+<tr>
+<td>TagDetailAtmosphereWidget</td>
+<td>标签活动预约</td>
+</tr>
+</tbody></table>
+<h3 id="4-剪切板"><a href="#4-剪切板" class="headerlink" title="4. 剪切板"></a>4. 剪切板</h3><p>主要模块：AndroidUtil</p>
+<table>
+<thead>
+<tr>
+<th>模块</th>
+<th>场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PersonDetailInfoView</td>
+<td>文章，问答，合集复制分享链接</td>
+</tr>
+<tr>
+<td>CommentViewImpl</td>
+<td>评论信息复制</td>
+</tr>
+<tr>
+<td>PersonDetailInfoView</td>
+<td>个人资料 id 复制</td>
+</tr>
+<tr>
+<td>H5Fragment</td>
+<td>H5 内复制</td>
+</tr>
+<tr>
+<td>MoreMenuClickListener</td>
+<td>口令</td>
+</tr>
+<tr>
+<td>LofterFlutterBridge</td>
+<td>flutter 侧通道</td>
+</tr>
+</tbody></table>
+<h2 id="SystemPhotoPickerHelper-工具类"><a href="#SystemPhotoPickerHelper-工具类" class="headerlink" title="SystemPhotoPickerHelper 工具类"></a>SystemPhotoPickerHelper 工具类</h2><pre><code class="kotlin">package com.lofter.android.album.systemUtils
+
+import android.app.Activity
+import android.content.ClipData
+import android.content.Intent
+import android.net.Uri
+import android.provider.MediaStore
+import lofter.framework.log.wmlog.NTLog
+import lofter.framework.tools.utils.business.AndroidUtil
+
+/**
+ * Android 16+ 系统 Photo Picker 适配工具类
+ */
+object SystemPhotoPickerHelper &#123;
+
+    private const val TAG = &quot;SystemPhotoPickerHelper&quot;
+
+    const val SYSTEM_PICKER_REQUEST_CODE = 10035
+
+    private const val EXTRA_PICKER_PRE_SELECTION_URIS = &quot;android.provider.extra.PICKER_PRE_SELECTION_URIS&quot;
+
+    /**
+     * 是否可以使用系统 Photo Picker
+     *
+     * 1. Android 16 (API 36)
+     * 2. 设备支持 ACTION_PICK_IMAGES
+     */
+    @JvmStatic
+    fun shouldUseSystemPicker(activity: Activity?): Boolean &#123;
+        if (activity == null || !AndroidUtil.isCheckSystemVersion()) &#123;
+            return false
+        &#125;
+
+        return try &#123;
+            val intent = Intent(MediaStore.ACTION_PICK_IMAGES)
+            activity.packageManager.resolveActivity(intent, 0) != null
+        &#125; catch (e: Exception) &#123;
+            NTLog.e(TAG, &quot;shouldUseSystemPicker error: $&#123;e.message&#125;&quot;)
+            false
+        &#125;
+    &#125;
+
+    /**
+     * 判断是否为“部分访问”权限状态（Android 16+ 特性）
+     *
+     * 当用户在权限弹窗中选择“选择部分照片”时，
+     * 应该引导使用系统 Photo Picker 以获取更好的体验
+     */
+    @JvmStatic
+    fun isPartialAccessGranted(activity: Activity?): Boolean &#123;
+        if (activity == null || !AndroidUtil.isCheckSystemVersion()) &#123;
+            return false
+        &#125;
+
+        return try &#123;
+            // READ_MEDIA_VISUAL_USER_SELECTED 是 Android 14 新增的权限
+            // 表示用户选择了“部分访问”
+            val permission = &quot;android.permission.READ_MEDIA_VISUAL_USER_SELECTED&quot;
+            activity.checkSelfPermission(permission) == android.content.pm.PackageManager.PERMISSION_GRANTED
+        &#125; catch (e: Exception) &#123;
+            NTLog.e(TAG, &quot;isPartialAccessGranted error: $&#123;e.message&#125;&quot;)
+            false
+        &#125;
+    &#125;
+
+    /**
+     * 启动系统 Photo Picker（单选模式）
+     *
+     * @param activity 当前 Activity
+     * @param onlyImage true: 仅图片, false: 图片和视频
+     */
+    @JvmStatic
+    fun launchPickerSingle(activity: Activity, onlyImage: Boolean = true) &#123;
+        if (AndroidUtil.isCheckSystemVersion()) &#123;
+            val intent = Intent(MediaStore.ACTION_PICK_IMAGES).apply &#123;
+                if (onlyImage) &#123;
+                    type = &quot;image/*&quot;
+                &#125;
+            &#125;
+
+            NTLog.d(TAG, &quot;launchPickerSingle, onlyImage: $onlyImage&quot;)
+            activity.startActivityForResult(intent, SYSTEM_PICKER_REQUEST_CODE)
+        &#125;
+    &#125;
+
+    /**
+     * 启动系统 Photo Picker（多选模式）
+     *
+     * @param activity 当前 Activity
+     * @param maxCount 最大选择数量 (1-100)
+     * @param onlyImage true: 仅图片, false: 图片和视频
+     * @param preSelectedUris 预选的 Uri 列表（可选）
+     */
+    @JvmStatic
+    @JvmOverloads
+    fun launchPickerMultiple(
+        activity: Activity,
+        maxCount: Int = 9,
+        onlyImage: Boolean = false,
+        preSelectedUris: ArrayList&lt;Uri&gt;? = null
+    ) &#123;
+        if (AndroidUtil.isCheckSystemVersion()) &#123;
+            val safeMaxCount = maxCount.coerceIn(1, 100)
+
+            val intent = Intent(MediaStore.ACTION_PICK_IMAGES).apply &#123;
+                if (onlyImage) &#123;
+                    type = &quot;image/*&quot;
+                &#125;
+                putExtra(MediaStore.EXTRA_PICK_IMAGES_MAX, safeMaxCount)
+
+                // 预选设置（Android 14+）
+                if (!preSelectedUris.isNullOrEmpty()) &#123;
+                    putExtra(EXTRA_PICKER_PRE_SELECTION_URIS, preSelectedUris)
+                &#125;
+            &#125;
+
+            NTLog.d(TAG, &quot;launchPickerMultiple, maxCount: $safeMaxCount, onlyImage: $onlyImage&quot;)
+            activity.startActivityForResult(intent, SYSTEM_PICKER_REQUEST_CODE)
+        &#125;
+    &#125;
+
+    /**
+     * 处理系统 Photo Picker 返回结果
+     *
+     * @param requestCode 请求码
+     * @param resultCode 结果码
+     * @param data Intent 数据
+     * @return 选中的 Uri 列表，如果取消或失败返回 null
+     */
+    @JvmStatic
+    fun handlePickerResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ): ArrayList&lt;Uri&gt;? &#123;
+        if (requestCode != SYSTEM_PICKER_REQUEST_CODE) &#123;
+            return null
+        &#125;
+
+        if (resultCode != Activity.RESULT_OK || data == null) &#123;
+            NTLog.d(TAG, &quot;handlePickerResult: cancelled or no data&quot;)
+            return null
+        &#125;
+
+        val resultUris = ArrayList&lt;Uri&gt;()
+
+        val clipData: ClipData? = data.clipData
+        if (clipData != null &amp;&amp; clipData.itemCount &gt; 0) &#123;
+            for (i in 0 until clipData.itemCount) &#123;
+                clipData.getItemAt(i)?.uri?.let &#123; uri -&gt;
+                    resultUris.add(uri)
+                &#125;
+            &#125;
+            NTLog.d(TAG, &quot;handlePickerResult: multi-select, count: $&#123;resultUris.size&#125;&quot;)
+        &#125; else &#123;
+            data.data?.let &#123; uri -&gt;
+                resultUris.add(uri)
+                NTLog.d(TAG, &quot;handlePickerResult: single-select, uri: $uri&quot;)
+            &#125;
+        &#125;
+
+        return resultUris.ifEmpty &#123;
+            null
+        &#125;
+    &#125;
+
+    @JvmStatic
+    fun checkRequestCode(requestCode: Int): Boolean &#123;
+        return requestCode == SYSTEM_PICKER_REQUEST_CODE
+    &#125;
+&#125;
+</code></pre>
+
+            </div>
+        
+
+        
+            <div class="comments-section">
+                
+                
+                
+                
+            </div>
+        
+    </div>
+
+     
+
+<aside class="toc-sidebar" id="toc-sidebar" aria-label="目录">
+    <div class="toc-panel" id="toc-panel">
+        <div class="toc-panel-header">
+            <div class="toc-header">
+                <i class="fa-solid fa-list"></i> 目录
+            </div>
+            <button type="button" class="toc-close" id="toc-close" aria-label="关闭目录">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+        </div>
+        <div class="toc-wrapper" id="toc-wrapper">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E6%A2%B3%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">场景梳理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%85%BC%E5%AE%B9%E9%80%82%E9%85%8D"><span class="toc-number">2.</span> <span class="toc-text">项目兼容适配</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%85%A7%E7%89%87%E8%A7%86%E9%A2%91%E9%80%89%E6%8B%A9%E9%80%82%E9%85%8D"><span class="toc-number">2.1.</span> <span class="toc-text">1. 照片视频选择适配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="toc-number">2.2.</span> <span class="toc-text">2. 文件上传</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%97%A5%E5%8E%86"><span class="toc-number">2.3.</span> <span class="toc-text">3. 日历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%89%AA%E5%88%87%E6%9D%BF"><span class="toc-number">2.4.</span> <span class="toc-text">4. 剪切板</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SystemPhotoPickerHelper-%E5%B7%A5%E5%85%B7%E7%B1%BB"><span class="toc-number">3.</span> <span class="toc-text">SystemPhotoPickerHelper 工具类</span></a></li></ol>
+        </div>
+        <div class="toc-nav-buttons">
+            <a href="javascript:;" class="toc-btn" id="toc-btn-top" title="回到顶部">
+                <i class="fa-solid fa-arrow-up"></i> 回到顶部
+            </a>
+            <a href="#footer" class="toc-btn" id="toc-btn-comment" title="前往底部">
+                <i class="fa-solid fa-arrow-down"></i> 底部
+            </a>
+        </div>
+    </div>
+</aside>
+<button type="button" class="toc-fab" id="toc-fab" aria-label="打开目录" aria-controls="toc-sidebar" aria-expanded="false">
+    <i class="fa-solid fa-list" aria-hidden="true"></i>
+    <span>目录</span>
+</button>
+
+ 
+    
+</div>
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2017 - 2026 穿来的纸片人
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;ALLENYUKIN
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/FloranceYeh/hexo-theme-particlexf">ParticleXF Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    <script src="/js/theme.js"></script>
+    
+    <script src="/js/lib/stellars.js"></script>
+    
+    
+    
+
+
+
+
+    
+</body>
+</html>

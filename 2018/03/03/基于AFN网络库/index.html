@@ -1,1324 +1,683 @@
+
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<meta name="theme-color" content="#222">
-
-
-
-  
-  
-    
-    
-  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="oc," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="第一层 HMRequest 功能 HTTP  常用请求方式 GET POST PUT PATCH DELETE POST  上传JSON数据 PHOTO 单张多张照片上传">
-<meta name="keywords" content="oc">
-<meta property="og:type" content="article">
-<meta property="og:title" content="基于AFN的网络库封装">
-<meta property="og:url" content="https://hongyu52155.github.io/2018/03/03/基于AFN网络库/index.html">
-<meta property="og:site_name" content="七月与安生">
-<meta property="og:description" content="第一层 HMRequest 功能 HTTP  常用请求方式 GET POST PUT PATCH DELETE POST  上传JSON数据 PHOTO 单张多张照片上传">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-12T04:16:09.881Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="基于AFN的网络库封装">
-<meta name="twitter:description" content="第一层 HMRequest 功能 HTTP  常用请求方式 GET POST PUT PATCH DELETE POST  上传JSON数据 PHOTO 单张多张照片上传">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    version: '5.1.3',
-    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
+    <meta charset="utf-8" />
+    <script>
+    (function(){var t,dt;try{t=localStorage.getItem("theme");dt="dark"}catch(e){dt="dark"}if(t!=="light"&&t!=="dark")t=dt;document.documentElement.setAttribute("data-theme",t);})();
+    </script>
+    <title>基于AFN的网络库封装 | 穿来的纸片人</title>
+    <meta name="author" content="ALLENYUKIN" />
+    <meta name="description" content="愿你的眼中总有光芒，活成你想要的模样" />
+    <meta name="keywords" content="iOS, Objective-C, 摄影, 程序员" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.png" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap"
+/>
+<script>
+    const mixins = {};
+    window.__PARTICLEX_I18N__ = {
+        codeExpand: "展开全部 (undefined 行)",
+        codeCollapse: "收起",
+        copyCode: "复制代码",
+        copiedCode: "已复制"
+    };
 </script>
 
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
 
 
-  <link rel="canonical" href="https://hongyu52155.github.io/2018/03/03/基于AFN网络库/"/>
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <link
+        id="hljs-theme-dark"
+        rel="stylesheet"
+        href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark-reasonable.min.css"
+    />
+    <link
+        id="hljs-theme-light"
+        rel="stylesheet"
+        href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css"
+        disabled
+    />
+    <script>
+    (function () {
+        var t = document.documentElement.getAttribute("data-theme") || "dark";
+        var dark = document.getElementById("hljs-theme-dark");
+        var light = document.getElementById("hljs-theme-light");
+        if (dark && light) {
+            dark.disabled = t === "light";
+            light.disabled = t !== "light";
+        }
+    })();
+    window.__PARTICLEX_HIGHLIGHT__ = {
+        wrap: true,
+        collapseEnable: true,
+        collapseLines: 20
+    };
+    </script>
+    <script src="/js/lib/highlight.js"></script>
 
 
+<script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+<script>if (window.mermaid) {mermaid.initialize({theme: 'forest'});}</script>
 
 
-
-  <title>基于AFN的网络库封装 | 七月与安生</title>
-  
-
-
-
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
 
 
-
-
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-right page-post-detail">
-    <div class="headband"></div>
-   <a href="https://github.com/hongyu52155"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">七月与安生</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
-      
-        <p class="site-subtitle">摄影爱好者、吉他小白、程序猿</p>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            搜索
-          </a>
-        </li>
-      
-    </ul>
-  
-
-  
-    <div class="site-search">
-      
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off"
-             placeholder="搜索..." spellcheck="false"
-             type="text" id="local-search-input">
-    </div>
-  </div>
-  <div id="local-search-result"></div>
-</div>
+<script src="/js/lib/preview.js"></script>
 
 
 
-    </div>
-  
-</nav>
 
 
 
- </div>
-    </header>
 
 
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
 
-  <div id="posts" class="posts-expand">
-    
+<script src="/js/lib/toc-light.js"></script>
 
-  
 
-  
-  
-  
+<link rel="stylesheet" href="/css/main.css" />
 
-  <article class="post post-type-categories" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hongyu52155.github.io/2018/03/03/基于AFN网络库/">
+<style>
+:root {
+  --bg-page: #18191b;
+  --bg-surface: #222325;
+  --bg-surface-elevated: #292a2e;
+  --bg-code: #1b1b1d;
+  --bg-inline-code: #242528;
+  --text-primary: #c6c7cd;
+  --text-secondary: #888991;
+  --text-heading: #d4d5d8;
+  --accent: #4a6cf7;
+  --accent-hover: #8098f9;
+  --accent-muted: #3e52a5;
+  --border: #3b3c40;
+  --shadow: rgba(0, 0, 0, 0.25);
+  --danger: #e06c75;
+  --success: #6bbf8a;
+  --shadow-card: 0 4px 24px var(--shadow);
+  --menu-bg: rgba(34, 35, 37, 0.92);
+  --menu-bg-scrolled: rgba(24, 25, 27, 0.55);
+  --overlay-bg: rgba(24, 25, 27, 0.85);
+  --home-info-bg: rgba(24, 25, 27, 0.72);
+  --on-accent: #ffffff;
+  --accent-rgb: 74, 108, 247;
+  --accent-muted-rgb: 62, 82, 165;
+  --danger-rgb: 224, 108, 117;
+  --success-rgb: 107, 191, 138;
+  --shadow-rgb: 0, 0, 0;
+  --shadow-card-hover: 0 8px 20px rgba(0, 0, 0, 0.35);
+  --loop-bg-1: #374ca4;
+  --loop-bg-2: #4e6dea;
+  --loop-bg-3: #304188;
+  --loop-bg-4: #5578de;
+}
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="七月与安生">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://sowcar.com/t6/680/1552364816x1699166072.jpg">
-    </span>
+[data-theme="light"] {
+  --bg-page: #efeff1;
+  --bg-surface: #fcfcfd;
+  --bg-surface-elevated: #e7e7e9;
+  --bg-code: #e4e4e7;
+  --bg-inline-code: #dfdfe2;
+  --text-primary: #2a2b32;
+  --text-secondary: #595b64;
+  --text-heading: #1e1f24;
+  --accent: #3b5bf6;
+  --accent-hover: #2f49c5;
+  --accent-muted: #a2aee9;
+  --border: #cccdd1;
+  --shadow: rgba(40, 36, 28, 0.12);
+  --danger: #c94c57;
+  --success: #3d8f5c;
+  --shadow-card: 0 4px 24px var(--shadow);
+  --menu-bg: rgba(252, 252, 253, 0.92);
+  --menu-bg-scrolled: rgba(239, 239, 241, 0.7);
+  --overlay-bg: rgba(239, 239, 241, 0.88);
+  --home-info-bg: rgba(239, 239, 241, 0.82);
+  --on-accent: #ffffff;
+  --accent-rgb: 59, 91, 246;
+  --accent-muted-rgb: 162, 174, 233;
+  --danger-rgb: 201, 76, 87;
+  --success-rgb: 61, 143, 92;
+  --shadow-rgb: 40, 36, 28;
+  --shadow-card-hover: 0 8px 20px rgba(0, 0, 0, 0.35);
+  --loop-bg-1: #394eb8;
+  --loop-bg-2: #7185e8;
+  --loop-bg-3: #6b7cd8;
+  --loop-bg-4: #4b6dde;
+}
+</style>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="七月与安生">
-    </span>
 
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">基于AFN的网络库封装</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-03T09:33:04+08:00">
-                2018-03-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程/" itemprop="url" rel="index">
-                    <span itemprop="name">编程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/03/03/基于AFN网络库/" class="leancloud_visitors" data-flag-title="基于AFN的网络库封装">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  921
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  5
-                </span>
-              
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <canvas id="starCanvas"></canvas>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>页面加载中...</p>
+                    <img src="/images/loading.gif" />
+                </div>
             </div>
-          
-
-          
-
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>ALLENYUKIN</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw" :class="{ 'is-open': showMenuItems }"></i>
+            <span>&emsp;ALLENYUKIN</span>
         </div>
-      </header>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                
+            </div>
+        </transition>
+    </nav>
     
+    <button id="theme-toggle" type="button" aria-label="Switch theme">
+        <i class="fa-solid fa-sun theme-icon-sun" aria-hidden="true"></i>
+        <i class="fa-solid fa-moon theme-icon-moon" aria-hidden="true"></i>
+    </button>
+    
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            
 
-      
-      
+<div class="post-main-wrapper has-toc">
+    <div class="article">
+        <div>
+            <h1>基于AFN的网络库封装</h1>
+        </div>
+        <div class="info">
+            <span class="date">
+                <span class="icon">
+                    <i class="fa-solid fa-calendar fa-fw"></i>
+                </span>
+                2018/3/3
+            </span>
+            
+            <span class="category">
+                <a href="/categories/%E7%BC%96%E7%A8%8B/">
+                    <span class="icon">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </span>
+                    编程
+                </a>
+            </span>
+            
+            
+            <span class="tags">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                
+                
+                <span class="tag">
+                    
+                    <a href="/tags/iOS/" style="color: #5a9aa8">
+                        iOS
+                    </a>
+                </span>
+                
+            </span>
+            
+        </div>
 
-      
-        <hr>
+        
+            <div class="content" v-pre>
+                <hr>
 <h4 id="第一层-HMRequest-功能"><a href="#第一层-HMRequest-功能" class="headerlink" title="第一层 HMRequest 功能"></a><strong>第一层 HMRequest 功能</strong></h4><ul>
-<li>HTTP  常用请求方式 GET POST PUT PATCH DELETE</li>
-<li>POST  上传JSON数据</li>
+<li>HTTP 常用请求方式 GET POST PUT PATCH DELETE</li>
+<li>POST 上传JSON数据</li>
 <li>PHOTO 单张多张照片上传</li>
 </ul>
 <hr>
-<a id="more"></a>
-<h5 id="HMRequest-h"><a href="#HMRequest-h" class="headerlink" title="HMRequest.h"></a>HMRequest.h</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">#import &lt;UIKit/UIKit.h&gt;</div><div class="line">#import &lt;Foundation/Foundation.h&gt;</div><div class="line"></div><div class="line">@interface HMRequestModel : HMBaseModel</div><div class="line">@property (nonatomic, strong) NSNumber *code;</div><div class="line">@property (nonatomic, copy) NSString   *message;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">typedef void(^HMRequestSuccessBlock)(id result, HMRequestModel *model);</div><div class="line">typedef void(^HMRequestFailureBlock)(NSString *msg);</div><div class="line"></div><div class="line">typedef NS_ENUM(NSInteger, HMRequestMethod) &#123;</div><div class="line">HTTP_REQUEST_TYPE_GET    = 0,</div><div class="line">HTTP_REQUEST_TYPE_POST   = 1,</div><div class="line">HTTP_REQUEST_TYPE_PUT    = 2,</div><div class="line">HTTP_REQUEST_TYPE_PATCH  = 3,</div><div class="line">HTTP_REQUEST_TYPE_DELETE = 4,</div><div class="line">&#125;;</div><div class="line"></div><div class="line">typedef NS_ENUM(NSInteger, HMRequestStatus) &#123;</div><div class="line">HTTP_REQUEST_STATUS_FAILURE = -1,</div><div class="line">HTTP_REQUEST_STATUS_SUCCESS = 0</div><div class="line">&#125;;</div><div class="line"></div><div class="line">@interface HMRequest : NSObject</div><div class="line"></div><div class="line">#pragma mark- http request</div><div class="line">+ (void)hm_requestActionWithUrl:(NSString *)url</div><div class="line">params:(NSDictionary *)params</div><div class="line">method:(HMRequestMethod)method</div><div class="line">success:(HMRequestSuccessBlock)success</div><div class="line">failure:(HMRequestFailureBlock)failure;</div><div class="line"></div><div class="line">#pragma mark- json request</div><div class="line">+ (void)hm_postJsonDataWithUrl:(NSString *)url</div><div class="line">params:(NSDictionary *)params</div><div class="line">success:(HMRequestSuccessBlock)success</div><div class="line">failure:(HMRequestFailureBlock)failure;</div><div class="line"></div><div class="line">#pragma mark- photo request</div><div class="line">+ (void)hm_upLoadPhotoWithUrl:(NSString *)url</div><div class="line">params:(NSDictionary *)params</div><div class="line">photoSize:(CGSize)photoSize</div><div class="line">photos:(NSArray *)photos</div><div class="line">success:(HMRequestSuccessBlock)success</div><div class="line">failure:(HMRequestFailureBlock)failure;</div><div class="line">@end</div></pre></td></tr></table></figure>
-<h5 id="HMRequest-m"><a href="#HMRequest-m" class="headerlink" title="HMRequest.m"></a>HMRequest.m</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div></pre></td><td class="code"><pre><div class="line">#import &quot;HMRequest.h&quot;</div><div class="line"></div><div class="line">@implementation HMRequestModel</div><div class="line"></div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@implementation HMRequest</div><div class="line"></div><div class="line">+ (void)hm_requestActionWithUrl:(NSString *)url</div><div class="line">params:(NSDictionary *)params</div><div class="line">method:(HMRequestMethod)method</div><div class="line">success:(HMRequestSuccessBlock)success</div><div class="line">failure:(HMRequestFailureBlock)failure</div><div class="line">&#123;</div><div class="line">// [HMServerConfig HMServerAddress] 为正式/测试环境前缀可自行处理</div><div class="line">NSString *requestUrl = HM_FORMAT_TWO(@&quot;%@%@&quot;, [HMServerConfig HMServerAddress], url);</div><div class="line">requestUrl = [requestUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];</div><div class="line"></div><div class="line">if (method == HTTP_REQUEST_TYPE_GET) &#123;</div><div class="line">[[HMRequest manager] GET:requestUrl</div><div class="line">parameters:params</div><div class="line">progress:nil</div><div class="line">success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) &#123;</div><div class="line">HMRequestModel *model = [HMRequestModel yy_modelWithDictionary:responseObject];</div><div class="line">if ([model.code integerValue] == HTTP_REQUEST_STATUS_SUCCESS) success(responseObject, model);</div><div class="line">if ([model.code integerValue] == HTTP_REQUEST_STATUS_FAILURE) success(nil, model);</div><div class="line">&#125;</div><div class="line">failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) &#123;</div><div class="line">failure([HMRequest errorInfo:error]);</div><div class="line">&#125;];</div><div class="line">&#125;</div><div class="line">if (method == HTTP_REQUEST_TYPE_POST) &#123;</div><div class="line">[[HMRequest manager] POST:requestUrl</div><div class="line">parameters:params progress:nil</div><div class="line">success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) &#123;</div><div class="line">HMRequestModel *model = [HMRequestModel yy_modelWithDictionary:responseObject];</div><div class="line">if ([model.code integerValue] == HTTP_REQUEST_STATUS_SUCCESS) success(responseObject, model);</div><div class="line">if ([model.code integerValue] == HTTP_REQUEST_STATUS_FAILURE) success(nil, model);</div><div class="line">&#125;</div><div class="line">failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) &#123;</div><div class="line">failure([HMRequest errorInfo:error]);</div><div class="line">&#125;];</div><div class="line">&#125;</div><div class="line">if (method == HTTP_REQUEST_TYPE_PUT) &#123;</div><div class="line">[[HMRequest manager] PUT:requestUrl</div><div class="line">parameters:params</div><div class="line">success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) &#123;</div><div class="line">HMRequestModel *model = [HMRequestModel yy_modelWithDictionary:responseObject];</div><div class="line">if ([model.code integerValue] == HTTP_REQUEST_STATUS_SUCCESS) success(responseObject, model);</div><div class="line">if ([model.code integerValue] == HTTP_REQUEST_STATUS_FAILURE) success(nil, model);</div><div class="line">&#125;</div><div class="line">failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) &#123;</div><div class="line">failure([HMRequest errorInfo:error]);</div><div class="line">&#125;];</div><div class="line">&#125;</div><div class="line">if (method == HTTP_REQUEST_TYPE_PATCH) &#123;</div><div class="line">[[HMRequest manager] PATCH:requestUrl</div><div class="line">parameters:params</div><div class="line">success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) &#123;</div><div class="line">HMRequestModel *model = [HMRequestModel yy_modelWithDictionary:responseObject];</div><div class="line">if ([model.code integerValue] == HTTP_REQUEST_STATUS_SUCCESS) success(responseObject, model);</div><div class="line">if ([model.code integerValue] == HTTP_REQUEST_STATUS_FAILURE) success(nil, model);</div><div class="line">&#125;</div><div class="line">failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) &#123;</div><div class="line">failure([HMRequest errorInfo:error]);</div><div class="line">&#125;];</div><div class="line">&#125;</div><div class="line">if (method == HTTP_REQUEST_TYPE_DELETE) &#123;</div><div class="line">[[HMRequest manager] DELETE:requestUrl</div><div class="line">parameters:params</div><div class="line">success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) &#123;</div><div class="line">HMRequestModel *model = [HMRequestModel yy_modelWithDictionary:responseObject];</div><div class="line">if ([model.code integerValue] == HTTP_REQUEST_STATUS_SUCCESS) success(responseObject, model);</div><div class="line">if ([model.code integerValue] == HTTP_REQUEST_STATUS_FAILURE) success(nil, model);</div><div class="line">&#125;</div><div class="line">failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) &#123;</div><div class="line">failure([HMRequest errorInfo:error]);</div><div class="line">&#125;];</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (void)hm_postJsonDataWithUrl:(NSString *)url</div><div class="line">params:(NSDictionary *)params</div><div class="line">success:(HMRequestSuccessBlock)success</div><div class="line">failure:(HMRequestFailureBlock)failure</div><div class="line">&#123;</div><div class="line">NSString *requestUrl = HM_FORMAT_TWO(@&quot;%@%@&quot;, [HMServerConfig HMServerAddress], url);</div><div class="line">requestUrl = [requestUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];</div><div class="line">NSError *error;</div><div class="line">NSData *jsonData     = [NSJSONSerialization dataWithJSONObject:params options:0 error:&amp;error];</div><div class="line">NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];</div><div class="line">AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];</div><div class="line">NSMutableURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@&quot;POST&quot; URLString:requestUrl parameters:nil error:nil];</div><div class="line">[request setValue:@&quot;application/json&quot; forHTTPHeaderField:@&quot;Content-Type&quot;];</div><div class="line">[request setValue:@&quot;application/json&quot; forHTTPHeaderField:@&quot;Accept&quot;];</div><div class="line">[request setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];</div><div class="line">[[manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) &#123;</div><div class="line">if (responseObject) &#123;</div><div class="line">HMRequestModel *model = [HMRequestModel yy_modelWithDictionary:responseObject];</div><div class="line">if ([model.code integerValue] == HTTP_REQUEST_STATUS_SUCCESS) success(responseObject, model);</div><div class="line">if ([model.code integerValue] == HTTP_REQUEST_STATUS_FAILURE) success(nil, model);</div><div class="line">&#125; else &#123;</div><div class="line">failure([HMRequest errorInfo:error]);</div><div class="line">&#125;</div><div class="line">&#125;] resume];</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (void)hm_upLoadPhotoWithUrl:(NSString *)url</div><div class="line">params:(NSDictionary *)params</div><div class="line">photoSize:(CGSize)photoSize</div><div class="line">photos:(NSArray *)photos</div><div class="line">success:(HMRequestSuccessBlock)success</div><div class="line">failure:(HMRequestFailureBlock)failure</div><div class="line">&#123;</div><div class="line">NSString *requestUrl = HM_FORMAT_TWO(@&quot;%@%@&quot;, [HMServerConfig HMServerAddress], url);</div><div class="line">requestUrl = [requestUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];</div><div class="line">NSLog(@&quot;url:%@\nparams:%@&quot;, requestUrl, params);</div><div class="line">AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];</div><div class="line">manager.requestSerializer     = [AFHTTPRequestSerializer serializer];</div><div class="line">manager.responseSerializer    = [AFJSONResponseSerializer serializer];</div><div class="line">[SVProgressHUD show];</div><div class="line">[manager POST:requestUrl parameters:params constructingBodyWithBlock:^(id&lt;AFMultipartFormData&gt;  _Nonnull formData) &#123;</div><div class="line">for (int i = 0; i &lt; photos.count; i++) &#123;</div><div class="line">NSData *imageData = UIImageJPEGRepresentation(photos[i], 0.6f);</div><div class="line">NSLog(@&quot;upload image size: %ld k&quot;, (long)(imageData.length / 1024));</div><div class="line">NSDateFormatter *formatter = [NSDateFormatter new];</div><div class="line">formatter.dateFormat       = @&quot;yyyyMMddHHmmss&quot;;</div><div class="line">NSString *imageName        = [formatter stringFromDate:[NSDate date]];</div><div class="line">NSString *fileName         = [NSString stringWithFormat:@&quot;%@.jpg&quot;,imageName];</div><div class="line">[formData appendPartWithFileData:imageData name:@&quot;image&quot; fileName:fileName mimeType:@&quot;image/jpeg&quot;];</div><div class="line">&#125;</div><div class="line">&#125; progress:^(NSProgress * _Nonnull uploadProgress) &#123;</div><div class="line">&#125; success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) &#123;</div><div class="line">HMRequestModel *model = [HMRequestModel yy_modelWithDictionary:responseObject];</div><div class="line">if ([model.code integerValue] == HTTP_REQUEST_STATUS_SUCCESS) success(responseObject, model);</div><div class="line">if ([model.code integerValue] == HTTP_REQUEST_STATUS_FAILURE) success(nil, model);</div><div class="line">NSLog(@&quot;responseObject:%@&quot;, responseObject);</div><div class="line">[SVProgressHUD dismiss];</div><div class="line"></div><div class="line">&#125; failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) &#123;</div><div class="line">failure([HMRequest errorInfo:error]);</div><div class="line">&#125;];</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (NSString *)errorInfo:(NSError *)error</div><div class="line">&#123;</div><div class="line">return error.userInfo[@&quot;message&quot;] ? error.userInfo[@&quot;message&quot;] : @&quot;网络断开连接，请稍后再试&quot;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (AFHTTPSessionManager *)manager</div><div class="line">&#123;</div><div class="line">AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];</div><div class="line">[manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@&quot;text/html&quot;,</div><div class="line">@&quot;text/css&quot;,</div><div class="line">@&quot;text/json&quot;,</div><div class="line">@&quot;text/javascript&quot;,</div><div class="line">@&quot;text/plain&quot;,</div><div class="line">@&quot;application/json&quot;,</div><div class="line">@&quot;application/x-javascript&quot;,</div><div class="line">@&quot;application/javascript&quot;,</div><div class="line">@&quot;application/vnd.api+json&quot;, nil]];</div><div class="line">return manager;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<h5 id="HMRequest-h"><a href="#HMRequest-h" class="headerlink" title="HMRequest.h"></a>HMRequest.h</h5><pre><code>#import &lt;UIKit/UIKit.h&gt;
+#import &lt;Foundation/Foundation.h&gt;
+
+@interface HMRequestModel : HMBaseModel
+@property (nonatomic, strong) NSNumber *code;
+@property (nonatomic, copy) NSString   *message;
+
+@end
+
+typedef void(^HMRequestSuccessBlock)(id result, HMRequestModel *model);
+typedef void(^HMRequestFailureBlock)(NSString *msg);
+
+typedef NS_ENUM(NSInteger, HMRequestMethod) &#123;
+HTTP_REQUEST_TYPE_GET    = 0,
+HTTP_REQUEST_TYPE_POST   = 1,
+HTTP_REQUEST_TYPE_PUT    = 2,
+HTTP_REQUEST_TYPE_PATCH  = 3,
+HTTP_REQUEST_TYPE_DELETE = 4,
+&#125;;
+
+typedef NS_ENUM(NSInteger, HMRequestStatus) &#123;
+HTTP_REQUEST_STATUS_FAILURE = -1,
+HTTP_REQUEST_STATUS_SUCCESS = 0
+&#125;;
+
+@interface HMRequest : NSObject
+
+#pragma mark- http request
++ (void)hm_requestActionWithUrl:(NSString *)url
+params:(NSDictionary *)params
+method:(HMRequestMethod)method
+success:(HMRequestSuccessBlock)success
+failure:(HMRequestFailureBlock)failure;
+
+#pragma mark- json request
++ (void)hm_postJsonDataWithUrl:(NSString *)url
+params:(NSDictionary *)params
+success:(HMRequestSuccessBlock)success
+failure:(HMRequestFailureBlock)failure;
+
+#pragma mark- photo request
++ (void)hm_upLoadPhotoWithUrl:(NSString *)url
+params:(NSDictionary *)params
+photoSize:(CGSize)photoSize
+photos:(NSArray *)photos
+success:(HMRequestSuccessBlock)success
+failure:(HMRequestFailureBlock)failure;
+@end
+</code></pre>
+<h5 id="HMRequest-m"><a href="#HMRequest-m" class="headerlink" title="HMRequest.m"></a>HMRequest.m</h5><pre><code>#import &quot;HMRequest.h&quot;
+
+@implementation HMRequestModel
+
+@end
+
+@implementation HMRequest
+
++ (void)hm_requestActionWithUrl:(NSString *)url
+params:(NSDictionary *)params
+method:(HMRequestMethod)method
+success:(HMRequestSuccessBlock)success
+failure:(HMRequestFailureBlock)failure
+&#123;
+// [HMServerConfig HMServerAddress] 为正式/测试环境前缀可自行处理
+NSString *requestUrl = HM_FORMAT_TWO(@&quot;%@%@&quot;, [HMServerConfig HMServerAddress], url);
+requestUrl = [requestUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+
+if (method == HTTP_REQUEST_TYPE_GET) &#123;
+[[HMRequest manager] GET:requestUrl
+parameters:params
+progress:nil
+success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) &#123;
+HMRequestModel *model = [HMRequestModel yy_modelWithDictionary:responseObject];
+if ([model.code integerValue] == HTTP_REQUEST_STATUS_SUCCESS) success(responseObject, model);
+if ([model.code integerValue] == HTTP_REQUEST_STATUS_FAILURE) success(nil, model);
+&#125;
+failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) &#123;
+failure([HMRequest errorInfo:error]);
+&#125;];
+&#125;
+if (method == HTTP_REQUEST_TYPE_POST) &#123;
+[[HMRequest manager] POST:requestUrl
+parameters:params progress:nil
+success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) &#123;
+HMRequestModel *model = [HMRequestModel yy_modelWithDictionary:responseObject];
+if ([model.code integerValue] == HTTP_REQUEST_STATUS_SUCCESS) success(responseObject, model);
+if ([model.code integerValue] == HTTP_REQUEST_STATUS_FAILURE) success(nil, model);
+&#125;
+failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) &#123;
+failure([HMRequest errorInfo:error]);
+&#125;];
+&#125;
+if (method == HTTP_REQUEST_TYPE_PUT) &#123;
+[[HMRequest manager] PUT:requestUrl
+parameters:params
+success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) &#123;
+HMRequestModel *model = [HMRequestModel yy_modelWithDictionary:responseObject];
+if ([model.code integerValue] == HTTP_REQUEST_STATUS_SUCCESS) success(responseObject, model);
+if ([model.code integerValue] == HTTP_REQUEST_STATUS_FAILURE) success(nil, model);
+&#125;
+failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) &#123;
+failure([HMRequest errorInfo:error]);
+&#125;];
+&#125;
+if (method == HTTP_REQUEST_TYPE_PATCH) &#123;
+[[HMRequest manager] PATCH:requestUrl
+parameters:params
+success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) &#123;
+HMRequestModel *model = [HMRequestModel yy_modelWithDictionary:responseObject];
+if ([model.code integerValue] == HTTP_REQUEST_STATUS_SUCCESS) success(responseObject, model);
+if ([model.code integerValue] == HTTP_REQUEST_STATUS_FAILURE) success(nil, model);
+&#125;
+failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) &#123;
+failure([HMRequest errorInfo:error]);
+&#125;];
+&#125;
+if (method == HTTP_REQUEST_TYPE_DELETE) &#123;
+[[HMRequest manager] DELETE:requestUrl
+parameters:params
+success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) &#123;
+HMRequestModel *model = [HMRequestModel yy_modelWithDictionary:responseObject];
+if ([model.code integerValue] == HTTP_REQUEST_STATUS_SUCCESS) success(responseObject, model);
+if ([model.code integerValue] == HTTP_REQUEST_STATUS_FAILURE) success(nil, model);
+&#125;
+failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) &#123;
+failure([HMRequest errorInfo:error]);
+&#125;];
+&#125;
+&#125;
+
++ (void)hm_postJsonDataWithUrl:(NSString *)url
+params:(NSDictionary *)params
+success:(HMRequestSuccessBlock)success
+failure:(HMRequestFailureBlock)failure
+&#123;
+NSString *requestUrl = HM_FORMAT_TWO(@&quot;%@%@&quot;, [HMServerConfig HMServerAddress], url);
+requestUrl = [requestUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+NSError *error;
+NSData *jsonData     = [NSJSONSerialization dataWithJSONObject:params options:0 error:&amp;error];
+NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+NSMutableURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@&quot;POST&quot; URLString:requestUrl parameters:nil error:nil];
+[request setValue:@&quot;application/json&quot; forHTTPHeaderField:@&quot;Content-Type&quot;];
+[request setValue:@&quot;application/json&quot; forHTTPHeaderField:@&quot;Accept&quot;];
+[request setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
+[[manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) &#123;
+if (responseObject) &#123;
+HMRequestModel *model = [HMRequestModel yy_modelWithDictionary:responseObject];
+if ([model.code integerValue] == HTTP_REQUEST_STATUS_SUCCESS) success(responseObject, model);
+if ([model.code integerValue] == HTTP_REQUEST_STATUS_FAILURE) success(nil, model);
+&#125; else &#123;
+failure([HMRequest errorInfo:error]);
+&#125;
+&#125;] resume];
+&#125;
+
++ (void)hm_upLoadPhotoWithUrl:(NSString *)url
+params:(NSDictionary *)params
+photoSize:(CGSize)photoSize
+photos:(NSArray *)photos
+success:(HMRequestSuccessBlock)success
+failure:(HMRequestFailureBlock)failure
+&#123;
+NSString *requestUrl = HM_FORMAT_TWO(@&quot;%@%@&quot;, [HMServerConfig HMServerAddress], url);
+requestUrl = [requestUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+NSLog(@&quot;url:%@\nparams:%@&quot;, requestUrl, params);
+AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+manager.requestSerializer     = [AFHTTPRequestSerializer serializer];
+manager.responseSerializer    = [AFJSONResponseSerializer serializer];
+[SVProgressHUD show];
+[manager POST:requestUrl parameters:params constructingBodyWithBlock:^(id&lt;AFMultipartFormData&gt;  _Nonnull formData) &#123;
+for (int i = 0; i &lt; photos.count; i++) &#123;
+NSData *imageData = UIImageJPEGRepresentation(photos[i], 0.6f);
+NSLog(@&quot;upload image size: %ld k&quot;, (long)(imageData.length / 1024));
+NSDateFormatter *formatter = [NSDateFormatter new];
+formatter.dateFormat       = @&quot;yyyyMMddHHmmss&quot;;
+NSString *imageName        = [formatter stringFromDate:[NSDate date]];
+NSString *fileName         = [NSString stringWithFormat:@&quot;%@.jpg&quot;,imageName];
+[formData appendPartWithFileData:imageData name:@&quot;image&quot; fileName:fileName mimeType:@&quot;image/jpeg&quot;];
+&#125;
+&#125; progress:^(NSProgress * _Nonnull uploadProgress) &#123;
+&#125; success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) &#123;
+HMRequestModel *model = [HMRequestModel yy_modelWithDictionary:responseObject];
+if ([model.code integerValue] == HTTP_REQUEST_STATUS_SUCCESS) success(responseObject, model);
+if ([model.code integerValue] == HTTP_REQUEST_STATUS_FAILURE) success(nil, model);
+NSLog(@&quot;responseObject:%@&quot;, responseObject);
+[SVProgressHUD dismiss];
+
+&#125; failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) &#123;
+failure([HMRequest errorInfo:error]);
+&#125;];
+&#125;
+
++ (NSString *)errorInfo:(NSError *)error
+&#123;
+return error.userInfo[@&quot;message&quot;] ? error.userInfo[@&quot;message&quot;] : @&quot;网络断开连接，请稍后再试&quot;;
+&#125;
+
++ (AFHTTPSessionManager *)manager
+&#123;
+AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+[manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@&quot;text/html&quot;,
+@&quot;text/css&quot;,
+@&quot;text/json&quot;,
+@&quot;text/javascript&quot;,
+@&quot;text/plain&quot;,
+@&quot;application/json&quot;,
+@&quot;application/x-javascript&quot;,
+@&quot;application/javascript&quot;,
+@&quot;application/vnd.api+json&quot;, nil]];
+return manager;
+&#125;
+
+@end
+</code></pre>
 <hr>
-<h4 id="第二层-HMService-功能"><a href="#第二层-HMService-功能" class="headerlink" title="第二层 HMService 功能"></a><strong>第二层 HMService 功能</strong></h4><h2 id="按模块进行category类别划分（例如HMNetService、HMNetService-mine）"><a href="#按模块进行category类别划分（例如HMNetService、HMNetService-mine）" class="headerlink" title="- 按模块进行category类别划分（例如HMNetService、HMNetService+mine）"></a>- 按模块进行category类别划分（例如HMNetService、HMNetService+mine）</h2><h5 id="HMService-h"><a href="#HMService-h" class="headerlink" title="HMService.h"></a>HMService.h</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#import &quot;HMNetService.h&quot;</div><div class="line"></div><div class="line">@interface HMNetService (mine)</div><div class="line"></div><div class="line">// 个人信息 -&gt; 上传照片</div><div class="line">+ (void)upLoadWithPhotos:(NSArray *)photos</div><div class="line">type:(NSNumber *)type</div><div class="line">complete:(MultiActionBlock)complete;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
-<h5 id="HMService-m"><a href="#HMService-m" class="headerlink" title="HMService.m"></a>HMService.m</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">#import &quot;HMNetService+mine.h&quot;</div><div class="line"></div><div class="line">static NSString * const upLoadImageUrl = @&quot;/upload/image&quot;;</div><div class="line"></div><div class="line">@implementation HMNetService (mine)</div><div class="line"></div><div class="line">+ (void)upLoadWithPhotos:(NSArray *)photos</div><div class="line">type:(NSNumber *)type</div><div class="line">complete:(MultiActionBlock)complete</div><div class="line">&#123;</div><div class="line">HMParams *params = [HMParams new];</div><div class="line">[params addParam:@&quot;type&quot; value:type];</div><div class="line">[HMRequest hm_upLoadPhotoWithUrl:upLoadImageUrl</div><div class="line">params:params.params</div><div class="line">photoSize:CGSizeMake(50, 50)</div><div class="line">photos:photos</div><div class="line">success:^(id result, HMRequestModel *model) &#123;</div><div class="line">complete(result, model, model.message);</div><div class="line">&#125; failure:^(NSString *msg) &#123;</div><div class="line">complete(nil, nil, msg);</div><div class="line">&#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="第二层-HMService-功能"><a href="#第二层-HMService-功能" class="headerlink" title="第二层 HMService 功能"></a><strong>第二层 HMService 功能</strong></h4><h2 id="按模块进行category类别划分（例如HMNetService、HMNetService-mine）"><a href="#按模块进行category类别划分（例如HMNetService、HMNetService-mine）" class="headerlink" title="- 按模块进行category类别划分（例如HMNetService、HMNetService+mine）"></a>- 按模块进行category类别划分（例如HMNetService、HMNetService+mine）</h2><h5 id="HMService-h"><a href="#HMService-h" class="headerlink" title="HMService.h"></a>HMService.h</h5><pre><code>#import &quot;HMNetService.h&quot;
+
+@interface HMNetService (mine)
+
+// 个人信息 -&gt; 上传照片
++ (void)upLoadWithPhotos:(NSArray *)photos
+type:(NSNumber *)type
+complete:(MultiActionBlock)complete;
+
+@end
+</code></pre>
+<h5 id="HMService-m"><a href="#HMService-m" class="headerlink" title="HMService.m"></a>HMService.m</h5><pre><code>#import &quot;HMNetService+mine.h&quot;
+
+static NSString * const upLoadImageUrl = @&quot;/upload/image&quot;;
+
+@implementation HMNetService (mine)
+
++ (void)upLoadWithPhotos:(NSArray *)photos
+type:(NSNumber *)type
+complete:(MultiActionBlock)complete
+&#123;
+HMParams *params = [HMParams new];
+[params addParam:@&quot;type&quot; value:type];
+[HMRequest hm_upLoadPhotoWithUrl:upLoadImageUrl
+params:params.params
+photoSize:CGSizeMake(50, 50)
+photos:photos
+success:^(id result, HMRequestModel *model) &#123;
+complete(result, model, model.message);
+&#125; failure:^(NSString *msg) &#123;
+complete(nil, nil, msg);
+&#125;];
+&#125;
+</code></pre>
 <hr>
-<h4 id="第三层-外部调用实现功能"><a href="#第三层-外部调用实现功能" class="headerlink" title="第三层 外部调用实现功能"></a><strong>第三层 外部调用实现功能</strong></h4><h2 id="block回调，非常简洁只关注最后结果做处理"><a href="#block回调，非常简洁只关注最后结果做处理" class="headerlink" title="- block回调，非常简洁只关注最后结果做处理"></a>- block回调，非常简洁只关注最后结果做处理</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[HMNetService upLoadWithPhotos:@[photo]</div><div class="line">type:@(type)</div><div class="line">complete:^(NSDictionary *result, HMRequestModel *requestModel, NSString *message) &#123;</div><div class="line">if (result) &#123;</div><div class="line">// 成功处理</div><div class="line">&#125; else &#123;</div><div class="line">// 失败处理</div><div class="line">&#125;</div><div class="line">[[iToast makeText:message] show];</div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<h4 id="第三层-外部调用实现功能"><a href="#第三层-外部调用实现功能" class="headerlink" title="第三层 外部调用实现功能"></a><strong>第三层 外部调用实现功能</strong></h4><h2 id="block回调，非常简洁只关注最后结果做处理"><a href="#block回调，非常简洁只关注最后结果做处理" class="headerlink" title="- block回调，非常简洁只关注最后结果做处理"></a>- block回调，非常简洁只关注最后结果做处理</h2><pre><code>[HMNetService upLoadWithPhotos:@[photo]
+type:@(type)
+complete:^(NSDictionary *result, HMRequestModel *requestModel, NSString *message) &#123;
+if (result) &#123;
+// 成功处理
+&#125; else &#123;
+// 失败处理
+&#125;
+[[iToast makeText:message] show];
+&#125;];
+</code></pre>
 
-      
-    </div>
-    
-    
-    
-
-    <div>
-    
-    
-
-    
-    </div>
-    
-      <div>
-        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
-    <img id="wechat_subscriber_qcode" src="/uploads/weChat.jpg" alt="七月与安生 wechat" style="width: 200px; max-width: 100%;"/>
-    <div>欢迎您扫一扫上面的微信二维码，联系我</div>
-</div>
-
-      </div>
-    
-
-    
-
-    
-      <div>
-        <ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>本文作者：</strong>
-    七月与安生
-  </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://hongyu52155.github.io/2018/03/03/基于AFN网络库/" title="基于AFN的网络库封装">https://hongyu52155.github.io/2018/03/03/基于AFN网络库/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>
-    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-
-      </div>
-    
-
-    <footer class="post-footer">
-      
-    <div class="post-tags">
+            </div>
         
-    <a href="/tags/oc/" rel="tag"><i class="fa fa-tag"></i> oc</a>
+
+        
+            <div class="comments-section">
+                
+                
+                
+                
+            </div>
         
     </div>
-      
 
-      
-      
-      
+     
 
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/01/12/fastlane/" rel="next" title="自动化神器 fastlane">
-                <i class="fa fa-chevron-left"></i> 自动化神器 fastlane
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/11/设计模式/" rel="prev" title="iOS设计模式">
-                iOS设计模式 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
+<aside class="toc-sidebar" id="toc-sidebar" aria-label="目录">
+    <div class="toc-panel" id="toc-panel">
+        <div class="toc-panel-header">
+            <div class="toc-header">
+                <i class="fa-solid fa-list"></i> 目录
+            </div>
+            <button type="button" class="toc-close" id="toc-close" aria-label="关闭目录">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
         </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
+        <div class="toc-wrapper" id="toc-wrapper">
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E5%B1%82-HMRequest-%E5%8A%9F%E8%83%BD"><span class="toc-number">1.</span> <span class="toc-text">第一层 HMRequest 功能</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#HMRequest-h"><span class="toc-number">1.1.</span> <span class="toc-text">HMRequest.h</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#HMRequest-m"><span class="toc-number">1.2.</span> <span class="toc-text">HMRequest.m</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E5%B1%82-HMService-%E5%8A%9F%E8%83%BD"><span class="toc-number">2.</span> <span class="toc-text">第二层 HMService 功能</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%89%E6%A8%A1%E5%9D%97%E8%BF%9B%E8%A1%8Ccategory%E7%B1%BB%E5%88%AB%E5%88%92%E5%88%86%EF%BC%88%E4%BE%8B%E5%A6%82HMNetService%E3%80%81HMNetService-mine%EF%BC%89"><span class="toc-number"></span> <span class="toc-text">- 按模块进行category类别划分（例如HMNetService、HMNetService+mine）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#HMService-h"><span class="toc-number">0.1.</span> <span class="toc-text">HMService.h</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#HMService-m"><span class="toc-number">0.2.</span> <span class="toc-text">HMService.m</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E5%B1%82-%E5%A4%96%E9%83%A8%E8%B0%83%E7%94%A8%E5%AE%9E%E7%8E%B0%E5%8A%9F%E8%83%BD"><span class="toc-number">1.</span> <span class="toc-text">第三层 外部调用实现功能</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#block%E5%9B%9E%E8%B0%83%EF%BC%8C%E9%9D%9E%E5%B8%B8%E7%AE%80%E6%B4%81%E5%8F%AA%E5%85%B3%E6%B3%A8%E6%9C%80%E5%90%8E%E7%BB%93%E6%9E%9C%E5%81%9A%E5%A4%84%E7%90%86"><span class="toc-number"></span> <span class="toc-text">- block回调，非常简洁只关注最后结果做处理</span></a>
+        </div>
+        <div class="toc-nav-buttons">
+            <a href="javascript:;" class="toc-btn" id="toc-btn-top" title="回到顶部">
+                <i class="fa-solid fa-arrow-up"></i> 回到顶部
+            </a>
+            <a href="#footer" class="toc-btn" id="toc-btn-comment" title="前往底部">
+                <i class="fa-solid fa-arrow-down"></i> 底部
+            </a>
+        </div>
     </div>
-  </div>
+</aside>
+<button type="button" class="toc-fab" id="toc-fab" aria-label="打开目录" aria-controls="toc-sidebar" aria-expanded="false">
+    <i class="fa-solid fa-list" aria-hidden="true"></i>
+    <span>目录</span>
+</button>
 
-
-          </div>
-          
-
-
-          
-
-  
-
-
+ 
+    
+</div>
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2017 - 2026 穿来的纸片人
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;ALLENYUKIN
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/FloranceYeh/hexo-theme-particlexf">ParticleXF Theme</a>
+        </div>
+        
+    </div>
+</footer>
 
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
     </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
+    <script src="/js/main.js"></script>
+    <script src="/js/theme.js"></script>
     
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image"
-                src="http://sowcar.com/t6/680/1552364816x1699166072.jpg"
-                alt="七月与安生" />
-            
-              <p class="site-author-name" itemprop="name">七月与安生</p>
-              <p class="site-description motion-element" itemprop="description">愿你的眼中总有光芒，活成你想要的模样。</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives">
-              
-                  <span class="site-state-item-count">6</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          <div class="links-of-author motion-element">
-            
-              
-                <span class="links-of-author-item">
-                  <a href="https://github.com/hongyu52155" target="_blank" title="GitHub">
-                    
-                      <i class="fa fa-fw fa-github"></i>GitHub</a>
-                </span>
-              
-                <span class="links-of-author-item">
-                  <a href="https://weibo.com/2211927541/profile?topnav=1&wvr=6" target="_blank" title="Weibo">
-                    
-                      <i class="fa fa-fw fa-weibo"></i>Weibo</a>
-                </span>
-              
-                <span class="links-of-author-item">
-                  <a href="mailto:my_redyu@163.com" target="_blank" title="E-Mail">
-                    
-                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                </span>
-              
-                <span class="links-of-author-item">
-                  <a href="https://google.com/" target="_blank" title="Google">
-                    
-                      <i class="fa fa-fw fa-google"></i>Google</a>
-                </span>
-              
-            
-          </div>
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一层-HMRequest-功能"><span class="nav-number">1.</span> <span class="nav-text">第一层 HMRequest 功能</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#HMRequest-h"><span class="nav-number">1.1.</span> <span class="nav-text">HMRequest.h</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HMRequest-m"><span class="nav-number">1.2.</span> <span class="nav-text">HMRequest.m</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二层-HMService-功能"><span class="nav-number">2.</span> <span class="nav-text">第二层 HMService 功能</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按模块进行category类别划分（例如HMNetService、HMNetService-mine）"><span class="nav-number"></span> <span class="nav-text">- 按模块进行category类别划分（例如HMNetService、HMNetService+mine）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#HMService-h"><span class="nav-number">0.1.</span> <span class="nav-text">HMService.h</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HMService-m"><span class="nav-number">0.2.</span> <span class="nav-text">HMService.m</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三层-外部调用实现功能"><span class="nav-number">1.</span> <span class="nav-text">第三层 外部调用实现功能</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#block回调，非常简洁只关注最后结果做处理"><span class="nav-number"></span> <span class="nav-text">- block回调，非常简洁只关注最后结果做处理</span></a></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
-    <i class="fa fa-diamond"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">七月与安生</span>
-
-  
-</div>
-
-
-
-
-
-
-
-
-
-        
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-
-  
-</div>
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
+    <script src="/js/lib/stellars.js"></script>
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-          <span id="scrollpercent"><span>0</span>%</span>
-        
-      </div>
+    
     
 
+
+
+
     
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "search.xml";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (/json$/i.test(search_path)) {
-      isXml = false;
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
-
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
-                    }
-                  });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
-                }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
-
-
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("", "");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
 </body>
 </html>
