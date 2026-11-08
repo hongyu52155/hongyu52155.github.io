@@ -313,7 +313,7 @@
                 
                 <span class="tag">
                     
-                    <a href="/tags/Flutter/" style="color: #8f9a5c">
+                    <a href="/tags/Flutter/" style="color: #c48a82">
                         Flutter
                     </a>
                 </span>
@@ -360,7 +360,7 @@
 <td>❌ 每个引擎都要创建一个新的 channel，并统一管理</td>
 </tr>
 </tbody></table>
-<p>在我们 Lofter 中，考虑到未来可能会出现原生页面中使用局部 Flutter 视图，且单引擎下很容易内存持续维持在高位（因为我们有些 Flutter 页面中有很多图片或者 lottie 动画，会导致内存暴涨）。结合以上两点问题，所以我们决定将单引擎更换到多引擎上。</p>
+<p>在我们项目中，考虑到未来可能会出现原生页面中使用局部 Flutter 视图，且单引擎下很容易内存持续维持在高位（因为我们有些 Flutter 页面中有很多图片或者 lottie 动画，会导致内存暴涨）。结合以上两点问题，所以我们决定将单引擎更换到多引擎上。</p>
 <h2 id="改造流程介绍"><a href="#改造流程介绍" class="headerlink" title="改造流程介绍"></a>改造流程介绍</h2><ul>
 <li>Flutter 部分多引擎流程：Flutter 相对改造点不多，只要重新处理一下页面生成逻辑以及生命周期即可。</li>
 <li>原生部分多引擎流程。</li>
@@ -478,7 +478,7 @@ class LFTFlutterRouteDelegate: NSObject &#123;
 func pushNativeRoute(_ path: String) &#123;
     let url = URL(string: path)
     // 一般原生都会实现这种 schema 跳转或者应用内路由跳转的 api
-    LofterApplication.open(url)
+    AppRouter.open(url)
 &#125;
 </code></pre>
 <pre><code class="swift">// 3. 实现从 iOS 原生页面跳转到 Flutter 页面
