@@ -2646,46 +2646,28 @@ summary {
     }
 }
 
-/* 声音开关图标配色：深色模式白色 / 浅色模式黑色（覆盖主题强调色） */
-#home-head #home-sound-toggle,
-#home-head #home-sound-toggle i {
-    color: #ffffff !important;
-}
-[data-theme="light"] #home-head #home-sound-toggle,
-[data-theme="light"] #home-head #home-sound-toggle i {
-    color: #111111 !important;
-    border-color: rgba(0, 0, 0, 0.35);
-}
 
-/* ===== 蓝色强调色全部替换：深色模式白色 / 浅色模式 #141918 ===== */
-#theme-toggle,
-#theme-toggle i,
-#home-card .icon-link a,
-#home-card .icon-link i,
-#home-card .friend-link a,
-#home-posts a,
-#home-head #home-sound-toggle,
-#home-head #home-sound-toggle i {
-    color: #ffffff !important;
-}
 
-[data-theme="light"] #theme-toggle,
-[data-theme="light"] #theme-toggle i,
-[data-theme="light"] #home-card .icon-link a,
-[data-theme="light"] #home-card .icon-link i,
-[data-theme="light"] #home-card .friend-link a,
-[data-theme="light"] #home-posts a,
-[data-theme="light"] #home-head #home-sound-toggle,
-[data-theme="light"] #home-head #home-sound-toggle i {
-    color: #141918 !important;
-}
 
-/* 页脚同规则：深色白 / 浅色 #141918 */
-#footer #footer-icon i,
-#footer #footer-wrap a {
-    color: #ffffff !important;
+/* ===== Loading 特效：隐藏外圈圆环 + 绿色 gif 换成 #FF4848 spinner ===== */
+#loading-circle {
+    border: none !important;
 }
-[data-theme="light"] #footer #footer-icon i,
-[data-theme="light"] #footer #footer-wrap a {
-    color: #141918 !important;
+#loading img {
+    display: none !important;
+}
+#loading-circle::after {
+    content: "";
+    width: 46px;
+    height: 46px;
+    border: 4px solid rgba(255, 72, 72, 0.25);
+    border-top-color: #ff4848;
+    border-radius: 50%;
+    animation: ff4848-spin 0.9s linear infinite;
+    margin-top: 12px;
+}
+@keyframes ff4848-spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
