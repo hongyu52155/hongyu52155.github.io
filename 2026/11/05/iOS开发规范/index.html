@@ -313,7 +313,7 @@
                 
                 <span class="tag">
                     
-                    <a href="/tags/iOS/" style="color: #4a6cf7">
+                    <a href="/tags/iOS/" style="color: #6a8fb0">
                         iOS
                     </a>
                 </span>
@@ -324,8 +324,7 @@
 
         
             <div class="content" v-pre>
-                <h2 id="一：命名规范"><a href="#一：命名规范" class="headerlink" title="一：命名规范"></a>一：命名规范</h2><p><img src="https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/9ce20f4e9a384981a1c9ee3dfd7fcd25~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgeHh0aHk=:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMzI4MTQxNDY3ODY0NDI2NCJ9&rk3s=f64ab15b&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1794681447&x-orig-sign=f2Y92sGFHoYCHYGYrCuYh3+hOAM=" alt="通用命名规范"></p>
-<h3 id="通用命名规范"><a href="#通用命名规范" class="headerlink" title="通用命名规范"></a>通用命名规范</h3><ol>
+                <h2 id="一：命名规范"><a href="#一：命名规范" class="headerlink" title="一：命名规范"></a>一：命名规范</h2><h3 id="通用命名规范"><a href="#通用命名规范" class="headerlink" title="通用命名规范"></a>通用命名规范</h3><ol>
 <li><p>清晰简洁性：可读性高，意思明确。通过：<code>removeObject:</code>，不通过：<code>remove:</code>（不明确移除什么）。命名要尽可能的清晰并简洁，如果两者不能兼得，则以清晰为主。</p>
 </li>
 <li><p>杜绝中文命名和数字命名。</p>
@@ -345,10 +344,8 @@
 <li><p>所有类，方法，属性等，做到见名知意，采用驼峰式命名。</p>
 </li>
 </ol>
-<h3 id="类命名"><a href="#类命名" class="headerlink" title="类命名"></a>类命名</h3><p><img src="https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/f633159ff0964706834c7d0a8d458e34~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgeHh0aHk=:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMzI4MTQxNDY3ODY0NDI2NCJ9&rk3s=f64ab15b&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1794681447&x-orig-sign=c/ZcNVWrJE3mYymbcC9u3S0oL2E=" alt="类命名"></p>
-<p>应该用大写开头的大驼峰命名，类名中必须包含一个名词来说明这个类是做什么。例子：<code>ZKRLoginViewController</code>。</p>
-<h3 id="方法命名"><a href="#方法命名" class="headerlink" title="方法命名"></a>方法命名</h3><p><img src="https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/cb6ecf59376a4af7b800af8736f8330e~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgeHh0aHk=:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMzI4MTQxNDY3ODY0NDI2NCJ9&rk3s=f64ab15b&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-sign=3YzJRuzGI1z2toSV5LZlf5OY9uM=" alt="方法命名"></p>
-<p>注意点：</p>
+<h3 id="类命名"><a href="#类命名" class="headerlink" title="类命名"></a>类命名</h3><p>应该用大写开头的大驼峰命名，类名中必须包含一个名词来说明这个类是做什么。例子：<code>ZKRLoginViewController</code>。</p>
+<h3 id="方法命名"><a href="#方法命名" class="headerlink" title="方法命名"></a>方法命名</h3><p>注意点：</p>
 <ul>
 <li>所有方法名称禁止以 <code>new</code> 开始。</li>
 <li>所有方法名称禁止使用 <code>_</code> 开始。系统会使用 <code>_</code> 开头命名一些系统私有方法。</li>
@@ -362,13 +359,10 @@
 <li>参数之前的单词尽量能描述参数的意义。比如：<code>- (id)viewWithTag:(NSInteger)aTag;</code></li>
 <li>方法的每个参数前都必须添加关键字。正例：<code>- (void)sendAction:(SEL)aSelector toObject:(id)anObject</code>；反例：<code>- (void)sendAction:(SEL)aSelector :(id)anObject :(BOOL)flag;</code></li>
 </ol>
-<h3 id="类别命名"><a href="#类别命名" class="headerlink" title="类别命名"></a>类别命名</h3><p><img src="https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/7ec23154111b4429b2dde7f5f2503474~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgeHh0aHk=:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMzI4MTQxNDY3ODY0NDI2NCJ9&rk3s=f64ab15b&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-sign=gnGFbYykGzqpMt4c2ABdJHGOcoM=" alt="类别命名"></p>
-<p>注意：Category 中尽量不要声明属性，能挪尽量挪到主类中声明。尽管从技术上来讲可以在分类中声明属性，但是这么做需要格外小心，因为它很容易出现内存上或其他一些问题，而且一旦出现问题很难排查。</p>
+<h3 id="类别命名"><a href="#类别命名" class="headerlink" title="类别命名"></a>类别命名</h3><p>注意：Category 中尽量不要声明属性，能挪尽量挪到主类中声明。尽管从技术上来讲可以在分类中声明属性，但是这么做需要格外小心，因为它很容易出现内存上或其他一些问题，而且一旦出现问题很难排查。</p>
 <p>格式：类名+标识+扩展。比如：<code>UIImageView+ZKR+Wep</code> -&gt; <code>UIImageView+ZKRWep</code>（wep：扩展功能，zkr：标识）。</p>
-<h3 id="Protocol-命名规范"><a href="#Protocol-命名规范" class="headerlink" title="Protocol 命名规范"></a>Protocol 命名规范</h3><p><img src="https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/342919bb58e04e7e87dbbf9b1473e2f2~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgeHh0aHk=:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMzI4MTQxNDY3ODY0NDI2NCJ9&rk3s=f64ab15b&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-sign=qW3eB3E63eZSGx/6aTpwHb2mkpc=" alt="Protocol命名"></p>
-<p>规则：以触发消息的对象名开头，如果它没有关联任何类则可以忽略这个规则。比如：<code>- (BOOL)application:(NSApplication *)sender openFile:(NSString *)filename;</code></p>
-<h3 id="常量命名"><a href="#常量命名" class="headerlink" title="常量命名"></a>常量命名</h3><p><img src="https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/4bef4ea24f0b4569af9585c8c3b670f9~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgeHh0aHk=:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMzI4MTQxNDY3ODY0NDI2NCJ9&rk3s=f64ab15b&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-sign=VVnoA4Pg2YsNDBtaXVhjjK/BNXc=" alt="常量命名"></p>
-<p>解释：常量（宏定义，枚举，局部常量等）。</p>
+<h3 id="Protocol-命名规范"><a href="#Protocol-命名规范" class="headerlink" title="Protocol 命名规范"></a>Protocol 命名规范</h3><p>规则：以触发消息的对象名开头，如果它没有关联任何类则可以忽略这个规则。比如：<code>- (BOOL)application:(NSApplication *)sender openFile:(NSString *)filename;</code></p>
+<h3 id="常量命名"><a href="#常量命名" class="headerlink" title="常量命名"></a>常量命名</h3><p>解释：常量（宏定义，枚举，局部常量等）。</p>
 <ol>
 <li><p>宏定义：<code>#define kScreenWidth</code></p>
 </li>
@@ -382,8 +376,7 @@
 <li><p>常量：<code>const CGFloat kAnimationDuration = 2.0;</code>、<code>const CGFloat UIActivityIndicatorViewAnimationDuration = 2.0;</code></p>
 </li>
 </ol>
-<h3 id="Notification-命名规范"><a href="#Notification-命名规范" class="headerlink" title="Notification 命名规范"></a>Notification 命名规范</h3><p><img src="https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/11e238ed79e240d4a6f6617a264dd8ee~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgeHh0aHk=:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMzI4MTQxNDY3ODY0NDI2NCJ9&rk3s=f64ab15b&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-sign=f07BATsr915FT/E3Ae0zeF3nZL4=" alt="Notification命名"></p>
-<p>格式：Notification 的命名风格由「类名前缀」+「通知事件名称」+「Notification」3 个部分组成。比如 <code>UIApplicationDidBecomeActiveNotification</code>：UIApplication 表示该通知属于谁，DidBecomeActive 表示该通知的作用，Notification 表示它是一个通知。</p>
+<h3 id="Notification-命名规范"><a href="#Notification-命名规范" class="headerlink" title="Notification 命名规范"></a>Notification 命名规范</h3><p>格式：Notification 的命名风格由「类名前缀」+「通知事件名称」+「Notification」3 个部分组成。比如 <code>UIApplicationDidBecomeActiveNotification</code>：UIApplication 表示该通知属于谁，DidBecomeActive 表示该通知的作用，Notification 表示它是一个通知。</p>
 <h3 id="图片命名规范"><a href="#图片命名规范" class="headerlink" title="图片命名规范"></a>图片命名规范</h3><p>规则：文件名全部小写；采用 <code>_</code> 连接单词；命名风格为「标识_模块_属性描述」，可根据项目适当增加描述。比如：<code>zkr_mine_scan</code>。公共类建议使用方法。</p>
 <h2 id="二：编码规范"><a href="#二：编码规范" class="headerlink" title="二：编码规范"></a>二：编码规范</h2><h3 id="通用编码规范"><a href="#通用编码规范" class="headerlink" title="通用编码规范"></a>通用编码规范</h3><ol>
 <li><p>禁止使用过时的方法或类，应该及时去了解和使用新方法或类。</p>
