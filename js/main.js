@@ -31,13 +31,11 @@ const app = Vue.createApp({
             // iOS/iPadOS Safari 顶部下拉回弹时 scrollTop 会先变负再回 0，
             // 回弹阶段会被误判为“向下滚动”而隐藏菜单；钳到非负并在顶部强制显示。
             let newScrollTop = Math.max(0, document.documentElement.scrollTop || 0);
-            if (newScrollTop <= 0) {
-                this.hiddenMenu = false;
+            // 站点定制：导航栏常驻，不随滚动隐藏；向下滚动仅收起移动端展开的菜单
+            this.hiddenMenu = false;
+            if (newScrollTop <= 0 || this.scrollTop < newScrollTop) {
                 this.showMenuItems = false;
-            } else if (this.scrollTop < newScrollTop) {
-                this.hiddenMenu = true;
-                this.showMenuItems = false;
-            } else this.hiddenMenu = false;
+            }
             if (wrap) {
                 if (newScrollTop <= window.innerHeight - 100) this.menuColor = true;
                 else this.menuColor = false;

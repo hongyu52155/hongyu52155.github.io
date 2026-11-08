@@ -1,0 +1,806 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>埋点实时调试 · ALLENYUKIN</title>
+<style>
+    :root {
+        --accent: #ff9f43;
+        --accent-soft: rgba(255, 159, 67, 0.14);
+        --violet: #a78bfa;
+        --bg: #0f1417;
+        --panel: rgba(255, 255, 255, 0.04);
+        --panel-2: rgba(255, 255, 255, 0.07);
+        --border: rgba(255, 255, 255, 0.1);
+        --border-strong: rgba(255, 255, 255, 0.18);
+        --text: #eceef0;
+        --muted: #8b949e;
+        --good: #34d399;
+        --bad: #f87171;
+        --mono: "SF Mono", "Fira Code", Menlo, monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scrollbar-width: thin; scrollbar-color: rgba(255,159,67,.35) transparent; }
+    body {
+        background:
+            radial-gradient(800px 400px at 85% -10%, rgba(255, 159, 67, 0.07), transparent 60%),
+            radial-gradient(700px 380px at -10% 20%, rgba(126, 184, 154, 0.06), transparent 60%),
+            var(--bg);
+        color: var(--text);
+        font-family: "Inter", "PingFang SC", "Microsoft YaHei", sans-serif;
+        min-height: 100vh;
+        padding: 76px 20px 44px;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== 顶栏 ===== */
+    header {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 0 22px;
+        background: rgba(15, 20, 23, 0.82);
+        -webkit-backdrop-filter: blur(18px) saturate(1.3);
+        backdrop-filter: blur(18px) saturate(1.3);
+        border-bottom: 1px solid var(--border);
+        z-index: 20;
+    }
+    header a.home {
+        display: flex; align-items: center; gap: 8px;
+        color: var(--text); text-decoration: none;
+        font-weight: 700; letter-spacing: 1.5px; font-size: 0.82rem;
+    }
+    header a.home .logo-dot {
+        width: 8px; height: 8px; border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 10px var(--accent);
+        animation: logo-pulse 3s ease-in-out infinite;
+    }
+    @keyframes logo-pulse { 50% { box-shadow: 0 0 4px var(--accent); } }
+    header .divider { width: 1px; height: 18px; background: var(--border-strong); }
+    header .title { font-size: 0.85rem; color: var(--muted); letter-spacing: 1px; }
+
+    .conn {
+        margin-left: auto;
+        display: flex; align-items: center; gap: 8px;
+        font-size: 0.74rem; color: var(--muted);
+        padding: 5px 14px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: var(--panel);
+        transition: border-color 0.3s;
+    }
+    .conn .dot { width: 8px; height: 8px; border-radius: 50%; background: #555; transition: all 0.3s; }
+    .conn.online { border-color: rgba(52, 211, 153, 0.4); color: var(--good); }
+    .conn.online .dot { background: var(--good); box-shadow: 0 0 8px var(--good); }
+    .conn.connecting { border-color: rgba(255, 159, 67, 0.4); color: var(--accent); }
+    .conn.connecting .dot { background: var(--accent); animation: blink 1s infinite; }
+    .conn.offline { border-color: rgba(248, 113, 113, 0.4); color: var(--bad); }
+    .conn.offline .dot { background: var(--bad); box-shadow: 0 0 8px var(--bad); }
+    @keyframes blink { 50% { opacity: 0.3; } }
+
+    /* ===== 布局 ===== */
+    .layout {
+        display: flex;
+        gap: 20px;
+        max-width: 1320px;
+        margin: 0 auto;
+        align-items: flex-start;
+    }
+    .panel {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        overflow: hidden;
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    }
+    .events { flex: 1; min-width: 0; }
+    .sidebar { width: 312px; flex-shrink: 0; }
+
+    .panel-head {
+        display: flex; align-items: center; gap: 10px;
+        padding: 14px 18px;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.78rem; font-weight: 700; letter-spacing: 2px;
+    }
+    .panel-head .head-icon {
+        width: 26px; height: 26px;
+        display: flex; align-items: center; justify-content: center;
+        border-radius: 8px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-size: 0.72rem;
+    }
+    .panel-head .count {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        color: var(--accent);
+        background: var(--accent-soft);
+        padding: 2px 9px;
+        border-radius: 99px;
+        min-width: 26px;
+        text-align: center;
+        transition: transform 0.2s;
+    }
+    .panel-head .count.bump { transform: scale(1.3); }
+    .panel-head .spacer { flex: 1; }
+
+    .btn {
+        display: inline-flex; align-items: center; gap: 5px;
+        border: 1px solid var(--border);
+        background: var(--panel-2);
+        color: var(--muted);
+        border-radius: 9px;
+        padding: 6px 13px;
+        font-size: 0.73rem;
+        cursor: pointer;
+        transition: all 0.22s cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+    .btn:hover {
+        color: var(--accent);
+        border-color: rgba(255, 159, 67, 0.55);
+        background: var(--accent-soft);
+        transform: translateY(-1px);
+    }
+    .btn:active { transform: scale(0.95); }
+    .btn.warn:hover {
+        color: var(--bad);
+        border-color: rgba(248, 113, 113, 0.55);
+        background: rgba(248, 113, 113, 0.1);
+    }
+
+    .search-wrap { position: relative; flex: 1; min-width: 110px; }
+    .search-wrap i {
+        position: absolute; left: 11px; top: 50%;
+        transform: translateY(-50%);
+        color: var(--muted); font-size: 0.68rem;
+        pointer-events: none;
+        transition: color 0.2s;
+    }
+    .search-wrap input {
+        width: 100%;
+        background: var(--panel-2);
+        border: 1px solid var(--border);
+        border-radius: 9px;
+        color: var(--text);
+        padding: 6px 12px 6px 30px;
+        font-size: 0.76rem;
+        outline: none;
+        transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .search-wrap input:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(255, 159, 67, 0.12);
+    }
+    .search-wrap:focus-within i { color: var(--accent); }
+
+    /* ===== 选中设备横幅 ===== */
+    .device-banner {
+        display: none;
+        align-items: center;
+        gap: 9px;
+        padding: 9px 18px;
+        background: linear-gradient(90deg, rgba(255, 159, 67, 0.14), transparent 75%);
+        border-bottom: 1px solid var(--border);
+        font-size: 0.76rem;
+        animation: banner-in 0.4s ease;
+    }
+    .device-banner.show { display: flex; }
+    @keyframes banner-in { from { opacity: 0; transform: translateY(-6px); } }
+    .device-banner .b-dot {
+        width: 7px; height: 7px; border-radius: 50%;
+        background: var(--good);
+        box-shadow: 0 0 8px var(--good);
+        animation: blink 2s infinite;
+    }
+    .device-banner b { color: var(--accent); font-weight: 700; }
+    .device-banner .hint { color: var(--muted); font-size: 0.7rem; margin-left: 4px; }
+    .device-banner .unset {
+        margin-left: auto;
+        border: none; background: none; color: var(--muted);
+        cursor: pointer; font-size: 0.72rem;
+        padding: 3px 8px; border-radius: 7px;
+        transition: all 0.2s;
+    }
+    .device-banner .unset:hover { color: var(--bad); background: rgba(248, 113, 113, 0.1); }
+
+    /* ===== 事件流 ===== */
+    #event-list {
+        max-height: max(280px, calc(100vh - 230px));
+        overflow-y: auto;
+        padding: 12px;
+        display: flex; flex-direction: column; gap: 10px;
+    }
+    #event-list::-webkit-scrollbar { width: 8px; }
+    #event-list::-webkit-scrollbar-thumb { background: rgba(255, 159, 67, 0.3); border-radius: 8px; }
+    #event-list > .ev { flex-shrink: 0; } /* 防止条目过多时被 flex 压扁 */
+
+    .ev {
+        background: var(--panel-2);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 12px 16px;
+        cursor: pointer;
+        transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+        animation: ev-in 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+        position: relative;
+        overflow: hidden;
+    }
+    @keyframes ev-in {
+        from { opacity: 0; transform: translateY(-14px) scale(0.97); filter: blur(3px); }
+        to { opacity: 1; transform: none; filter: blur(0); }
+    }
+    .ev::before {
+        content: "";
+        position: absolute;
+        left: 0; top: 0; bottom: 0;
+        width: 3px;
+        background: var(--accent);
+        opacity: 0.85;
+    }
+    .ev.pv::before { background: var(--violet); }
+    .ev:hover {
+        border-color: rgba(255, 159, 67, 0.4);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
+    }
+    .ev .row1 { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+    .ev .tag {
+        font-size: 0.6rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        padding: 2px 8px;
+        border-radius: 6px;
+        line-height: 1.5;
+        flex-shrink: 0;
+    }
+    .ev .tag.custom { background: var(--accent-soft); color: var(--accent); }
+    .ev .tag.pv-tag { background: rgba(167, 139, 250, 0.15); color: var(--violet); }
+    .ev .name {
+        font-family: var(--mono);
+        font-weight: 600;
+        font-size: 0.82rem;
+        color: var(--text);
+        word-break: break-all;
+    }
+    .ev .page {
+        font-size: 0.7rem;
+        color: var(--muted);
+        padding: 2px 9px;
+        background: var(--panel);
+        border-radius: 6px;
+    }
+    .ev .time {
+        margin-left: auto;
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        color: var(--muted);
+        font-variant-numeric: tabular-nums;
+    }
+    .ev pre {
+        margin-top: 10px;
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        line-height: 1.7;
+        color: var(--muted);
+        background: rgba(0, 0, 0, 0.24);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 10px 14px;
+        white-space: pre-wrap;
+        word-break: break-all;
+        max-height: 260px;
+        overflow-y: auto;
+        display: none;
+        animation: pre-in 0.3s ease;
+    }
+    @keyframes pre-in { from { opacity: 0; transform: translateY(-4px); } }
+    .ev.open pre { display: block; }
+    .ev .expand-hint {
+        font-size: 0.64rem;
+        color: var(--muted);
+        margin-top: 7px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        opacity: 0.7;
+        transition: opacity 0.2s, color 0.2s;
+    }
+    .ev:hover .expand-hint { opacity: 1; color: var(--accent); }
+    .ev.open .expand-hint { display: none; }
+
+    /* 清场动画 */
+    #event-list.clearing .ev { animation: ev-out 0.3s ease forwards; }
+    @keyframes ev-out { to { opacity: 0; transform: translateY(-12px) scale(0.96); } }
+
+    .empty {
+        text-align: center;
+        color: var(--muted);
+        padding: 56px 0;
+        animation: empty-in 0.5s ease;
+    }
+    @keyframes empty-in { from { opacity: 0; } }
+    .empty i {
+        font-size: 1.7rem;
+        opacity: 0.45;
+        margin-bottom: 14px;
+        display: block;
+        animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float { 50% { transform: translateY(-6px); } }
+    .empty .t1 { font-size: 0.82rem; margin-bottom: 5px; color: var(--text); opacity: 0.75; }
+    .empty .t2 { font-size: 0.7rem; }
+
+    /* ===== 设备列表 ===== */
+    #device-list {
+        padding: 12px;
+        display: flex; flex-direction: column; gap: 10px;
+        max-height: max(280px, calc(100vh - 230px));
+        overflow-y: auto;
+    }
+    .dev-card {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: var(--panel-2);
+        border: 1px solid var(--border);
+        border-radius: 15px;
+        padding: 12px 14px;
+        cursor: pointer;
+        transition: all 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+    #device-list > .dev-card { flex-shrink: 0; }
+    .dev-card:hover {
+        border-color: rgba(255, 159, 67, 0.45);
+        transform: translateX(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+    .dev-card .avatar {
+        width: 38px; height: 38px;
+        border-radius: 12px;
+        display: flex; align-items: center; justify-content: center;
+        font-weight: 700;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+        background: linear-gradient(135deg, rgba(255, 159, 67, 0.25), rgba(255, 159, 67, 0.08));
+        color: var(--accent);
+        border: 1px solid rgba(255, 159, 67, 0.3);
+        transition: all 0.3s;
+    }
+    .dev-card.wolfbox .avatar {
+        background: linear-gradient(135deg, rgba(167, 139, 250, 0.25), rgba(167, 139, 250, 0.08));
+        color: var(--violet);
+        border-color: rgba(167, 139, 250, 0.3);
+    }
+    .dev-card .body { flex: 1; min-width: 0; }
+    .dev-card .dname { overflow-wrap: anywhere; }
+    .dev-card .dname {
+        font-weight: 700;
+        font-size: 0.8rem;
+        display: flex; align-items: center; gap: 7px;
+        flex-wrap: wrap;
+    }
+    .dev-card .app-chip {
+        font-size: 0.58rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        padding: 1px 7px;
+        border-radius: 5px;
+        background: var(--accent-soft);
+        color: var(--accent);
+    }
+    .dev-card.wolfbox .app-chip {
+        background: rgba(167, 139, 250, 0.15);
+        color: var(--violet);
+    }
+    .dev-card .dmeta {
+        font-size: 0.66rem;
+        color: var(--muted);
+        margin-top: 4px;
+        line-height: 1.65;
+        font-family: var(--mono);
+    }
+    .dev-card .dmeta b { color: var(--accent); font-weight: 600; }
+    .dev-card .sel-check {
+        width: 20px; height: 20px;
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.55rem;
+        border: 1.5px solid var(--border-strong);
+        color: transparent;
+        flex-shrink: 0;
+        transition: all 0.25s;
+    }
+    .dev-card.active {
+        border-color: var(--accent);
+        background: linear-gradient(90deg, rgba(255, 159, 67, 0.12), var(--panel-2) 60%);
+        box-shadow: 0 0 20px -4px rgba(255, 159, 67, 0.35);
+        transform: translateX(-3px);
+    }
+    .dev-card.active .sel-check {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+        animation: check-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes check-pop { from { transform: scale(0); } }
+
+    .dev-empty { text-align: center; color: var(--muted); padding: 44px 0; }
+    .dev-empty i { font-size: 1.5rem; opacity: 0.4; display: block; margin-bottom: 12px; animation: float 3s ease-in-out infinite; }
+    .dev-empty .t1 { font-size: 0.78rem; color: var(--text); opacity: 0.7; margin-bottom: 4px; }
+    .dev-empty .t2 { font-size: 0.68rem; }
+
+    @media (max-width: 900px) {
+        .layout { flex-direction: column; }
+        .sidebar { width: 100%; }
+        #event-list, #device-list { max-height: 46vh; }
+    }
+</style>
+</head>
+<body>
+<header>
+    <a class="home" href="/"><span class="logo-dot"></span>ALLENYUKIN</a>
+    <span class="divider"></span>
+    <span class="title">埋点实时调试台</span>
+    <div class="conn connecting" id="conn"><span class="dot"></span><span id="conn-text">连接中…</span></div>
+</header>
+
+<div class="layout">
+    <section class="panel events">
+        <div class="panel-head">
+            <span class="head-icon"><i class="fa-solid fa-bolt"></i></span>事件流
+            <span class="count" id="ev-count">0</span>
+            <div class="search-wrap">
+                <input class="search" id="q" placeholder="搜索点位 / 页面 / 参数…" />
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <button class="btn warn" id="clear-ev"><i class="fa-solid fa-eraser"></i>清空</button>
+            <button class="btn" id="sim"><i class="fa-solid fa-wand-magic-sparkles"></i>模拟</button>
+        </div>
+        <div class="device-banner" id="device-banner">
+            <span class="b-dot"></span>
+            正在接收 <b id="banner-name">-</b> 的点位
+            <span class="hint">其他设备不进流</span>
+            <button class="unset" id="unset-device"><i class="fa-solid fa-xmark"></i> 取消选择</button>
+        </div>
+        <div id="event-list"></div>
+    </section>
+
+    <aside class="panel sidebar">
+        <div class="panel-head">
+            <span class="head-icon"><i class="fa-solid fa-mobile-screen"></i></span>设备
+            <span class="count" id="dev-count">0</span>
+            <span class="spacer"></span>
+            <button class="btn warn" id="clear-dev"><i class="fa-solid fa-eraser"></i>清空</button>
+            <button class="btn" id="rescan"><i class="fa-solid fa-rotate"></i>扫描</button>
+        </div>
+        <div id="device-list"></div>
+    </aside>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+<script>
+(function () {
+    var TOPIC_EVENT = "alleyny/track/event";
+    var TOPIC_DEVICE = "alleyny/track/device";
+    var events = [];
+    var devices = {};
+    var filterText = "";
+    var filterDevice = null;
+
+    var connEl = document.getElementById("conn");
+    var connText = document.getElementById("conn-text");
+    var listEl = document.getElementById("event-list");
+    var devEl = document.getElementById("device-list");
+    var q = document.getElementById("q");
+    var banner = document.getElementById("device-banner");
+    var bannerName = document.getElementById("banner-name");
+    var evCount = document.getElementById("ev-count");
+    var devCount = document.getElementById("dev-count");
+
+    function setConn(state, text) {
+        connEl.className = "conn " + state;
+        connText.textContent = text;
+    }
+
+    /* ===== MQTT 连接（三 broker 自动切换） ===== */
+    var client = null;
+    var BROKERS = [
+        { url: "wss://broker.emqx.io:8084/mqtt", name: "emqx" },
+        { url: "wss://broker.hivemq.com:8884/mqtt", name: "hivemq" },
+        { url: "wss://test.mosquitto.org:8081", name: "mosquitto" },
+    ];
+    var brokerIdx = 0;
+    var switchTimer = null;
+    function connect() {
+        clearTimeout(switchTimer);
+        setConn("connecting", "连接中…");
+        try { if (client) client.end(true); } catch (e) {}
+        client = mqtt.connect(BROKERS[brokerIdx % BROKERS.length].url, {
+            clientId: "track-console-" + Math.random().toString(16).slice(2, 8),
+            connectTimeout: 8000,
+            reconnectPeriod: 0,
+        });
+        client.on("connect", function () {
+            clearTimeout(switchTimer);
+            client.subscribe([TOPIC_EVENT, TOPIC_DEVICE], function () {});
+            setConn("online", "已连接 · " + BROKERS[brokerIdx % BROKERS.length].name);
+        });
+        client.on("message", function (topic, payload) {
+            try {
+                var data = JSON.parse(payload.toString());
+                if (topic === TOPIC_DEVICE) {
+                    upsertDevice(data);
+                } else {
+                    addEvent(data);
+                }
+            } catch (e) {}
+        });
+        client.on("reconnect", function () { setConn("connecting", "重连中…"); });
+        client.on("close", function () {
+            if (connEl.className.indexOf("online") === -1) {
+                brokerIdx++;
+                switchTimer = setTimeout(connect, 600);
+            } else setConn("offline", "已断开");
+        });
+        client.on("error", function () { try { client.end(true); } catch (e) {} });
+        switchTimer = setTimeout(function () {
+            if (connEl.className.indexOf("online") === -1) {
+                brokerIdx++;
+                try { client.end(true); } catch (e) {}
+                connect();
+            }
+        }, 8000);
+    }
+
+    function fmtTime(ts) {
+        var d = ts ? new Date(ts) : new Date();
+        function p(n) { return (n < 10 ? "0" : "") + n; }
+        return p(d.getHours()) + ":" + p(d.getMinutes()) + ":" + p(d.getSeconds());
+    }
+    function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, function (c) {
+            return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+        });
+    }
+    function bumpCount(el) {
+        el.classList.remove("bump");
+        void el.offsetWidth;
+        el.classList.add("bump");
+        setTimeout(function () { el.classList.remove("bump"); }, 220);
+    }
+
+    /* ===== 事件：仅选中设备后进流 ===== */
+    function addEvent(data) {
+        var evName = data.event || "unknown";
+        var isCustom = evName.indexOf("$") !== 0;
+        var isMappedPv = /_page_view$/.test(evName);
+        if (!isCustom && !isMappedPv) return; // 只收自定义埋点与映射 PV
+        var accepted = filterDevice !== null && data.deviceId === filterDevice;
+        if (data.deviceId && !devices[data.deviceId]) {
+            // 事件自带设备信息，未收到上线消息也能补建设备
+            devices[data.deviceId] = {
+                device: data.device || data.deviceId,
+                app: (data.app || "").toLowerCase(),
+                ip: "",
+                version: "",
+                count: 0,
+                last: Date.now(),
+            };
+            renderDevices();
+        }
+        if (data.deviceId && devices[data.deviceId]) {
+            devices[data.deviceId].last = Date.now();
+            if (!accepted) renderDevices();
+        }
+        if (!accepted) return;
+
+        events.unshift({
+            name: data.event || "unknown",
+            page: data.page || "",
+            deviceId: data.deviceId || "",
+            ts: data.ts || Date.now(),
+            params: data.params || {},
+        });
+        if (events.length > 300) events.length = 300;
+        if (devices[data.deviceId]) devices[data.deviceId].count++;
+        bumpCount(evCount);
+        renderDevices();
+        prependEventCard(events[0]);
+    }
+
+    function upsertDevice(data) {
+        var id = data.deviceId || data.device || "unknown";
+        devices[id] = {
+            device: data.device || id,
+            app: (data.app || "").toLowerCase(),
+            ip: data.ip || "",
+            version: data.version || "",
+            count: (devices[id] && devices[id].count) || 0,
+            last: Date.now(),
+        };
+        renderDevices();
+    }
+
+    function matchFilter(ev) {
+        if (!filterText) return true;
+        var s = filterText.toLowerCase();
+        return (ev.name + " " + ev.page + " " + JSON.stringify(ev.params)).toLowerCase().indexOf(s) !== -1;
+    }
+
+    function buildEventCard(ev) {
+        var isPv = /_page_view$/.test(ev.name);
+        var paramsStr = "";
+        try { paramsStr = JSON.stringify(ev.params, null, 2); } catch (e) {}
+        var hasParams = paramsStr && paramsStr !== "{}";
+        var div = document.createElement("div");
+        div.className = "ev" + (isPv ? " pv" : "");
+        div.innerHTML =
+            '<div class="row1">' +
+            '<span class="tag ' + (isPv ? 'pv-tag">PV' : 'custom">自定义') + "</span>" +
+            '<span class="name">' + escapeHtml(ev.name) + "</span>" +
+            (ev.page ? '<span class="page">' + escapeHtml(ev.page) + "</span>" : "") +
+            '<span class="time">' + fmtTime(ev.ts) + "</span>" +
+            "</div>" +
+            (hasParams
+                ? '<div class="expand-hint"><i class="fa-solid fa-chevron-down"></i>点击展开参数</div><pre>' + escapeHtml(paramsStr) + "</pre>"
+                : "");
+        div.onclick = function () { div.classList.toggle("open"); };
+        return div;
+    }
+
+    function prependEventCard(ev) {
+        if (filterText && !matchFilter(ev)) return;
+        var emptyEl = listEl.querySelector(".empty");
+        if (emptyEl) emptyEl.remove();
+        listEl.prepend(buildEventCard(ev));
+        while (listEl.children.length > 100) listEl.removeChild(listEl.lastChild);
+        evCount.textContent = events.length;
+    }
+
+    function renderEvents() {
+        evCount.textContent = events.length;
+        var shown = events.filter(matchFilter);
+        if (!shown.length) {
+            listEl.innerHTML =
+                '<div class="empty">' +
+                (events.length
+                    ? '<i class="fa-solid fa-magnifying-glass"></i><div class="t1">无匹配结果</div><div class="t2">换个关键词试试</div>'
+                    : '<i class="fa-solid fa-tower-broadcast"></i><div class="t1">' +
+                      (filterDevice ? "已选中设备，等待该设备的点位…" : "请先在右侧选择设备") +
+                      '</div><div class="t2">选中后实时接收该设备的埋点</div>') +
+                "</div>";
+            return;
+        }
+        listEl.innerHTML = "";
+        shown.slice(0, 100).forEach(function (ev) {
+            listEl.appendChild(buildEventCard(ev));
+        });
+    }
+
+    function renderDevices() {
+        var ids = Object.keys(devices);
+        devCount.textContent = ids.length;
+        if (!ids.length) {
+            devEl.innerHTML =
+                '<div class="dev-empty"><i class="fa-solid fa-mobile-screen-button"></i>' +
+                '<div class="t1">暂无设备</div><div class="t2">App（Debug 包）启动后自动出现</div></div>';
+            return;
+        }
+        devEl.innerHTML = "";
+        ids.forEach(function (id) {
+            var d = devices[id];
+            var card = document.createElement("div");
+            card.className = "dev-card" +
+                (d.app === "wolfbox" ? " wolfbox" : "") +
+                (filterDevice === id ? " active" : "");
+            var initial = (d.device || "?").replace(/[^A-Za-z0-9\u4e00-\u9fa5]/g, "").slice(0, 1) || "?";
+            card.innerHTML =
+                '<div class="avatar">' + escapeHtml(initial) + "</div>" +
+                '<div class="body">' +
+                '<div class="dname">' + escapeHtml(d.device) +
+                (d.app ? ' <span class="app-chip">' + escapeHtml(d.app.toUpperCase()) + "</span>" : "") +
+                "</div>" +
+                '<div class="dmeta">' +
+                (d.version ? "v" + escapeHtml(d.version) + " · " : "") +
+                (d.ip ? escapeHtml(d.ip) + " · " : "") +
+                "事件 <b>" + d.count + "</b> · 活跃 " + fmtTime(d.last) +
+                "</div></div>" +
+                '<div class="sel-check"><i class="fa-solid fa-check"></i></div>';
+            card.onclick = function () {
+                if (filterDevice === id) return;
+                selectDevice(id);
+            };
+            devEl.appendChild(card);
+        });
+    }
+
+    /* ===== 选中设备：清空流 + 横幅 ===== */
+    function clearStreamAnimated(cb) {
+        var cards = listEl.querySelectorAll(".ev");
+        if (!cards.length) { cb(); return; }
+        listEl.classList.add("clearing");
+        setTimeout(function () {
+            listEl.classList.remove("clearing");
+            cb();
+        }, 280);
+    }
+
+    function selectDevice(id) {
+        clearStreamAnimated(function () {
+            filterDevice = id;
+            events = [];
+            q.value = "";
+            filterText = "";
+            var d = devices[id];
+            banner.classList.add("show");
+            bannerName.textContent = d ? d.device : id;
+            renderEvents();
+            renderDevices();
+        });
+    }
+
+    function unsetDevice() {
+        clearStreamAnimated(function () {
+            filterDevice = null;
+            events = [];
+            q.value = "";
+            filterText = "";
+            banner.classList.remove("show");
+            renderEvents();
+            renderDevices();
+        });
+    }
+
+    /* ===== 交互绑定 ===== */
+    q.addEventListener("input", function () { filterText = q.value.trim(); renderEvents(); });
+    document.getElementById("clear-ev").onclick = function () {
+        clearStreamAnimated(function () { events = []; renderEvents(); });
+    };
+    document.getElementById("clear-dev").onclick = function () {
+        devices = {};
+        if (filterDevice) unsetDevice();
+        else renderDevices();
+    };
+    document.getElementById("rescan").onclick = function () {
+        devices = {};
+        renderDevices();
+        if (filterDevice) unsetDevice();
+        connect();
+    };
+    document.getElementById("unset-device").onclick = unsetDevice;
+
+    document.getElementById("sim").onclick = function () {
+        upsertDevice({ deviceId: "SIM-0001", device: "模拟 iPhone", app: "redtiger", ip: "192.168.1.66", version: "5.3.0" });
+        if (filterDevice !== "SIM-0001") {
+            selectDevice("SIM-0001");
+            setTimeout(fireSim, 340);
+        } else fireSim();
+        function fireSim() {
+            var names = ["home_banner_click", "video_mp4_playback_access", "post_detail_view", "share_click", "home_page_view"];
+            var pages = ["首页", "预览页", "详情页", "我的"];
+            addEvent({
+                event: names[Math.floor(Math.random() * names.length)],
+                page: pages[Math.floor(Math.random() * pages.length)],
+                deviceId: "SIM-0001",
+                ts: Date.now(),
+                params: { simulated: true, rid: Math.floor(Math.random() * 999), bitrate: Math.floor(Math.random() * 8e8) },
+            });
+        }
+    };
+
+    renderEvents();
+    renderDevices();
+    connect();
+})();
+</script>
+</body>
+</html>

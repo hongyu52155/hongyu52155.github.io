@@ -2660,14 +2660,575 @@ summary {
     content: "";
     width: 46px;
     height: 46px;
-    border: 4px solid rgba(255, 72, 72, 0.25);
-    border-top-color: #ff4848;
+    border: 4px solid rgba(255, 159, 67, 0.25);
+    border-top-color: #ff9f43;
     border-radius: 50%;
-    animation: ff4848-spin 0.9s linear infinite;
+    animation: accent-spin 0.9s linear infinite;
     margin-top: 12px;
 }
-@keyframes ff4848-spin {
+@keyframes accent-spin {
     to {
         transform: rotate(360deg);
     }
+}
+
+/* ====================================
+   UI 升级（2026-11）：过渡/卡片/进度条/流星/代码块/滚动条等
+   ==================================== */
+
+/* --- 1. 页面切换过渡（View Transitions，支持的浏览器生效） --- */
+@view-transition {
+    navigation: auto;
+}
+@media (prefers-reduced-motion: no-preference) {
+    ::view-transition-old(root) {
+        animation: vt-out 0.26s ease both;
+    }
+    ::view-transition-new(root) {
+        animation: vt-in 0.34s ease both;
+    }
+}
+@keyframes vt-out {
+    to {
+        opacity: 0;
+        transform: translateY(-14px);
+    }
+}
+@keyframes vt-in {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+}
+
+/* --- 2. 卡片点击波纹 --- */
+#home-posts .post,
+.related-card {
+    position: relative;
+    overflow: hidden;
+}
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 159, 67, 0.32);
+    transform: scale(0);
+    animation: ripple-fx 0.65s ease-out forwards;
+    pointer-events: none;
+    z-index: 1;
+}
+@keyframes ripple-fx {
+    to {
+        transform: scale(2.6);
+        opacity: 0;
+    }
+}
+
+/* --- 3. 卡片悬浮：上浮 + 强调色描边光晕 --- */
+#home-posts .post {
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+    will-change: transform;
+}
+#home-posts .post:hover {
+    transform: translateY(-6px);
+    box-shadow:
+        0 16px 36px rgba(0, 0, 0, 0.42),
+        0 0 0 1.5px var(--accent),
+        0 0 18px -4px var(--accent);
+}
+
+/* --- 4. 列表入场动画（JS 加 .in-view） --- */
+@media (prefers-reduced-motion: no-preference) {
+    #home-posts .post {
+        opacity: 0;
+        transform: translateY(26px);
+    }
+    #home-posts .post.in-view {
+        opacity: 1;
+        transform: none;
+        transition:
+            opacity 0.6s ease,
+            transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+    #home-posts .post.in-view:hover {
+        transform: translateY(-6px);
+        transition:
+            opacity 0.6s ease,
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
+    }
+}
+
+/* --- 5. 阅读进度条 --- */
+#read-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0;
+    z-index: 9999;
+    background: linear-gradient(90deg, var(--accent), rgba(255, 216, 168, 0.9));
+    border-radius: 0 3px 3px 0;
+    transition: width 0.08s linear;
+}
+
+/* --- 6. 流星 --- */
+.meteor {
+    position: fixed;
+    height: 2px;
+    width: 150px;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0),
+        #ffffff 70%,
+        var(--accent)
+    );
+    border-radius: 2px;
+    transform: rotate(35deg);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 3;
+    animation: meteor-fly 1.15s ease-in forwards;
+}
+@keyframes meteor-fly {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) rotate(35deg);
+    }
+    12% {
+        opacity: 0.9;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(44vw, 58vh) rotate(35deg);
+    }
+}
+
+/* --- 7. 首页统计条 --- */
+#home-stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 20px 16px 4px;
+    font-size: 0.85rem;
+    opacity: 0.78;
+}
+#home-stats i {
+    color: var(--accent);
+    margin-right: 5px;
+}
+#home-stats .dot {
+    opacity: 0.45;
+    margin: 0 4px;
+}
+
+/* --- 8. 相关文章 --- */
+.related-posts {
+    margin-top: 44px;
+}
+.related-posts h2 {
+    font-size: 1.15rem;
+    margin-bottom: 14px;
+}
+.related-posts h2 i {
+    color: var(--accent);
+    margin-right: 8px;
+}
+.related-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+}
+.related-card {
+    display: block;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg-surface);
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+.related-card:hover {
+    transform: translateY(-3px);
+    box-shadow:
+        0 10px 26px rgba(0, 0, 0, 0.32),
+        0 0 0 1px var(--accent);
+}
+.related-card .related-title {
+    font-weight: 600;
+    line-height: 1.5;
+}
+.related-card .related-date {
+    font-size: 0.75rem;
+    opacity: 0.55;
+    margin-top: 6px;
+}
+
+/* --- 10. 归档年份分组 --- */
+#archives .timeline-year {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 2px;
+    margin: 30px 0 14px;
+    opacity: 0.9;
+}
+#archives .timeline-year:first-child {
+    margin-top: 10px;
+}
+
+/* --- 11. 代码块：macOS 窗口点 + 统一圆角阴影 --- */
+.code-block {
+    border-radius: 12px !important;
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+}
+.code-block .code-toolbar {
+    position: relative;
+    padding-left: 68px !important;
+}
+.code-block .code-toolbar::before {
+    content: "";
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ff5f56;
+    box-shadow:
+        20px 0 0 #ffbd2e,
+        40px 0 0 #27c93f;
+}
+
+/* --- 12. 滚动条 --- */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 159, 67, 0.45);
+    border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+html {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 159, 67, 0.45) transparent;
+}
+
+/* --- 13. 选中与焦点 --- */
+::selection {
+    background: rgba(255, 159, 67, 0.35);
+}
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* --- 14. 主题切换全局过渡（JS 临时加 .theme-anim） --- */
+html.theme-anim,
+html.theme-anim *,
+html.theme-anim *::before,
+html.theme-anim *::after {
+    transition:
+        background-color 0.35s ease,
+        color 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease !important;
+}
+
+/* --- 导航 tab：常驻显示 + 悬浮/点击特效 --- */
+#desktop-menu > a {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    transition:
+        color 0.25s ease,
+        background-color 0.25s ease,
+        transform 0.25s ease;
+}
+#desktop-menu > a:active {
+    transform: translateY(0) scale(0.95);
+}
+/* --- 目录悬浮按钮：隐藏（桌面端有侧栏目录，浮钮冗余） --- */
+.toc-fab {
+    display: none !important;
+}
+
+
+/* ====================================
+   目录 UI 重做：玻璃拟态面板 + 胶囊高亮
+   ==================================== */
+.toc-panel {
+    gap: 10px;
+    padding: 18px 16px;
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    background: rgba(24, 30, 28, 0.72);
+    -webkit-backdrop-filter: blur(22px) saturate(1.4);
+    backdrop-filter: blur(22px) saturate(1.4);
+    box-shadow:
+        0 18px 48px rgba(0, 0, 0, 0.38),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    box-sizing: border-box;
+}
+[data-theme="light"] .toc-panel {
+    background: rgba(255, 255, 255, 0.82);
+    box-shadow:
+        0 18px 44px rgba(0, 0, 0, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+.toc-panel-header {
+    padding: 0 6px 10px;
+    border-bottom: 1px solid var(--border);
+}
+.toc-header {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+.toc-header i {
+    color: var(--accent);
+    margin-right: 6px;
+}
+.toc-close {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    transition:
+        transform 0.3s ease,
+        color 0.3s ease,
+        background-color 0.3s ease;
+}
+.toc-close:hover {
+    color: var(--accent);
+    background: rgba(255, 159, 67, 0.14);
+    transform: rotate(90deg);
+}
+.toc-wrapper {
+    padding: 4px 2px;
+}
+.toc-wrapper .toc-link,
+.toc-wrapper .toc-child .toc-link {
+    display: block;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border-left: none !important;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    transition:
+        background-color 0.22s ease,
+        color 0.22s ease,
+        transform 0.22s ease;
+}
+.toc-wrapper .toc-link:hover {
+    background: rgba(255, 159, 67, 0.1);
+    color: var(--accent);
+    transform: translateX(3px);
+}
+.toc-wrapper .toc-link.active,
+.toc-wrapper .toc-child .toc-link.active {
+    background: rgba(255, 159, 67, 0.16);
+    color: var(--accent);
+    font-weight: 600;
+    box-shadow: inset 3px 0 0 var(--accent);
+    border-radius: 4px 10px 10px 4px;
+    transform: none;
+}
+.toc-child {
+    border-left: 1px solid var(--border);
+    margin-left: 14px;
+}
+.toc-nav-buttons {
+    display: flex;
+    gap: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+}
+.toc-btn {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+    transition:
+        color 0.22s ease,
+        border-color 0.22s ease,
+        background-color 0.22s ease,
+        transform 0.22s ease;
+}
+.toc-btn:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: rgba(255, 159, 67, 0.1);
+    transform: translateY(-2px);
+}
+
+/* ===== 导航 tab 点击特效：粒子爆发 ===== */
+#desktop-menu > a {
+    position: relative;
+}
+#desktop-menu > a:active {
+    transform: translateY(0) scale(0.95);
+    transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.tab-particle {
+    position: fixed;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+    pointer-events: none;
+    z-index: 9999;
+    animation: tab-particle-fly 0.65s cubic-bezier(0.16, 0.84, 0.44, 1) forwards;
+}
+.tab-particle.p-white {
+    background: #ffffff;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+}
+@keyframes tab-particle-fly {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy)))
+            scale(0.1);
+        opacity: 0;
+    }
+}
+
+/* ====================================
+   归档页 3.0：CollectionView 网格卡片
+   ==================================== */
+#archives #timeline-wrap {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+@media (min-width: 641px) {
+    #archives #timeline-wrap { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1000px) {
+    #archives #timeline-wrap { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 1400px) {
+    #archives #timeline-wrap { grid-template-columns: repeat(4, 1fr); }
+}
+#archives .timeline-year {
+    grid-column: 1 / -1;
+    position: static;
+    margin: 34px 0 10px;
+    padding: 0;
+    background: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+#archives .timeline {
+    margin: 0 !important;
+    width: auto !important;
+}
+#archives .timeline .timeline-tail {
+    display: none;
+}
+#archives .timeline::before {
+    display: none !important;
+}
+#archives .timeline-content {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 22px 24px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition:
+        transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1),
+        border-color 0.28s ease,
+        box-shadow 0.28s ease;
+}
+#archives .timeline-content:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255, 159, 67, 0.5);
+    box-shadow:
+        0 16px 34px rgba(0, 0, 0, 0.35),
+        0 0 18px -6px rgba(255, 159, 67, 0.45);
+}
+#archives .timeline-content .item-time {
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    opacity: 0.9;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+#archives .timeline-content h3 {
+    transition: color 0.25s ease;
+    line-height: 1.55;
+    font-size: 0.98rem;
+}
+#archives .timeline-content:hover h3 {
+    color: var(--accent);
+}
+#archives .timeline-content .info {
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+}
+/* 入场动效 */
+@media (prefers-reduced-motion: no-preference) {
+    #archives .timeline {
+        opacity: 0;
+        transform: translateY(24px) scale(0.97);
+    }
+    #archives .timeline.arch-in {
+        opacity: 1;
+        transform: none;
+        transition:
+            opacity 0.55s ease,
+            transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+}
+
+
+/* 归档容器自适应宽度（覆盖主题 800px 固定值） */
+@media (min-width: 768px) {
+    #archives {
+        width: min(1300px, calc(100vw - 48px));
+    }
+}
+
+/* 修复卡片高度循环：格子项改 flex 拉伸，内容盒 border-box，杜绝溢出叠行 */
+#archives .timeline {
+    display: flex;
+}
+#archives .timeline-content {
+    flex: 1;
+    box-sizing: border-box;
+    height: auto;
+    min-height: 0;
 }

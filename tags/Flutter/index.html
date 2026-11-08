@@ -90,71 +90,71 @@
 
 <style>
 :root {
-  --bg-page: #1b1818;
-  --bg-surface: #252222;
-  --bg-surface-elevated: #2e2929;
-  --bg-code: #1d1b1b;
-  --bg-inline-code: #282424;
-  --text-primary: #cdc6c6;
-  --text-secondary: #918888;
-  --text-heading: #d8d4d4;
-  --accent: #ff4848;
-  --accent-hover: #ff7f7f;
-  --accent-muted: #ac3e3e;
-  --border: #403b3b;
+  --bg-page: #1b1918;
+  --bg-surface: #252422;
+  --bg-surface-elevated: #2e2b29;
+  --bg-code: #1d1c1b;
+  --bg-inline-code: #282624;
+  --text-primary: #cdc9c6;
+  --text-secondary: #918c88;
+  --text-heading: #d8d6d4;
+  --accent: #FF9F43;
+  --accent-hover: #ffbc7b;
+  --accent-muted: #b37a43;
+  --border: #403d3b;
   --shadow: rgba(0, 0, 0, 0.25);
   --danger: #e06c75;
   --success: #6bbf8a;
   --shadow-card: 0 4px 24px var(--shadow);
-  --menu-bg: rgba(37, 34, 34, 0.92);
-  --menu-bg-scrolled: rgba(27, 24, 24, 0.55);
-  --overlay-bg: rgba(27, 24, 24, 0.85);
-  --home-info-bg: rgba(27, 24, 24, 0.72);
+  --menu-bg: rgba(37, 36, 34, 0.92);
+  --menu-bg-scrolled: rgba(27, 25, 24, 0.55);
+  --overlay-bg: rgba(27, 25, 24, 0.85);
+  --home-info-bg: rgba(27, 25, 24, 0.72);
   --on-accent: #ffffff;
-  --accent-rgb: 255, 72, 72;
-  --accent-muted-rgb: 172, 62, 62;
+  --accent-rgb: 255, 159, 67;
+  --accent-muted-rgb: 179, 122, 67;
   --danger-rgb: 224, 108, 117;
   --success-rgb: 107, 191, 138;
   --shadow-rgb: 0, 0, 0;
   --shadow-card-hover: 0 8px 20px rgba(0, 0, 0, 0.35);
-  --loop-bg-1: #aa3636;
-  --loop-bg-2: #f24d4d;
-  --loop-bg-3: #8d3030;
-  --loop-bg-4: #cb616c;
+  --loop-bg-1: #ae7037;
+  --loop-bg-2: #f7a14e;
+  --loop-bg-3: #926132;
+  --loop-bg-4: #cb9969;
 }
 
 [data-theme="light"] {
-  --bg-page: #f1efef;
+  --bg-page: #f1f0ef;
   --bg-surface: #fdfcfc;
-  --bg-surface-elevated: #e9e7e7;
-  --bg-code: #e7e4e4;
-  --bg-inline-code: #e2dfdf;
-  --text-primary: #322a2a;
-  --text-secondary: #645959;
-  --text-heading: #241e1e;
-  --accent: #ff4848;
-  --accent-hover: #cc3a3a;
-  --accent-muted: #efabab;
-  --border: #d1cccc;
+  --bg-surface-elevated: #e9e8e7;
+  --bg-code: #e7e5e4;
+  --bg-inline-code: #e2e0df;
+  --text-primary: #322e2a;
+  --text-secondary: #645e59;
+  --text-heading: #24211e;
+  --accent: #FF9F43;
+  --accent-hover: #cc7f36;
+  --accent-muted: #f5d1af;
+  --border: #d1cecc;
   --shadow: rgba(40, 36, 28, 0.12);
   --danger: #c94c57;
   --success: #3d8f5c;
   --shadow-card: 0 4px 24px var(--shadow);
   --menu-bg: rgba(253, 252, 252, 0.92);
-  --menu-bg-scrolled: rgba(241, 239, 239, 0.7);
-  --overlay-bg: rgba(241, 239, 239, 0.88);
-  --home-info-bg: rgba(241, 239, 239, 0.82);
+  --menu-bg-scrolled: rgba(241, 240, 239, 0.7);
+  --overlay-bg: rgba(241, 240, 239, 0.88);
+  --home-info-bg: rgba(241, 240, 239, 0.82);
   --on-accent: #ffffff;
-  --accent-rgb: 255, 72, 72;
-  --accent-muted-rgb: 239, 171, 171;
+  --accent-rgb: 255, 159, 67;
+  --accent-muted-rgb: 245, 209, 175;
   --danger-rgb: 201, 76, 87;
   --success-rgb: 61, 143, 92;
   --shadow-rgb: 40, 36, 28;
   --shadow-card-hover: 0 8px 20px rgba(0, 0, 0, 0.35);
-  --loop-bg-1: #c34646;
-  --loop-bg-2: #f17c7c;
-  --loop-bg-3: #ea6f67;
-  --loop-bg-4: #cb616c;
+  --loop-bg-1: #cc8a4c;
+  --loop-bg-2: #f6b97e;
+  --loop-bg-3: #eaa864;
+  --loop-bg-4: #cb9969;
 }
 </style>
 
@@ -201,6 +201,11 @@
         <a href="/about">
             <i class="fa-solid fa-id-card fa-fw"></i>
             <span>&ensp;About</span>
+        </a>
+        
+        <a href="/track">
+            <i class="fa-solid fa-satellite-dish fa-fw"></i>
+            <span>&ensp;Track</span>
         </a>
         
         
@@ -258,6 +263,15 @@
                     </div>
                 </a>
                 
+                <a href="/track">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-satellite-dish fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Track</div>
+                    </div>
+                </a>
+                
                 
             </div>
         </transition>
@@ -281,7 +295,18 @@
         
         
         <span>
-            <a href="/tags/Android/" style="background: #8f9a5c">
+            <a href="/tags/GLM/" style="background: #5a9aa8">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                GLM
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/Android/" style="background: #c48a82">
                 <span class="icon">
                     <i class="fa-solid fa-tags fa-fw"></i>
                 </span>
@@ -305,18 +330,7 @@
         
         
         <span>
-            <a href="/tags/GLM/" style="background: #ff4848">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                GLM
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/iOS/" style="background: #c48a82">
+            <a href="/tags/iOS/" style="background: #8f7ad6">
                 <span class="icon">
                     <i class="fa-solid fa-tags fa-fw"></i>
                 </span>
@@ -354,7 +368,7 @@
                     
                     <span class="tag">
                         
-                        <a href="/tags/Flutter/" style="color: #ff4848">
+                        <a href="/tags/Flutter/" style="color: #6a8fb0">
                             Flutter
                         </a>
                     </span>
@@ -400,5 +414,128 @@
     <script src="/js/lib/stellars.js"></script>
     
     
+    
+    <script>
+        (function () {
+            var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+            // 卡片点击波纹
+            document.addEventListener("pointerdown", function (e) {
+                if (!e.target.closest) return;
+                var card = e.target.closest("#home-posts .post, .related-card, #archives .timeline-content");
+                if (!card) return;
+                var rect = card.getBoundingClientRect();
+                var d = Math.max(rect.width, rect.height);
+                var span = document.createElement("span");
+                span.className = "ripple";
+                span.style.width = span.style.height = d + "px";
+                span.style.left = e.clientX - rect.left - d / 2 + "px";
+                span.style.top = e.clientY - rect.top - d / 2 + "px";
+                card.appendChild(span);
+                setTimeout(function () { span.remove(); }, 700);
+            });
+
+            // 首页列表入场动画（错峰渐显）
+            var posts = document.querySelectorAll("#home-posts .post");
+            if (reduceMotion || !("IntersectionObserver" in window)) {
+                posts.forEach(function (p) { p.classList.add("in-view"); });
+            } else {
+                var io = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (en) {
+                        if (en.isIntersecting) {
+                            en.target.classList.add("in-view");
+                            io.unobserve(en.target);
+                        }
+                    });
+                }, { threshold: 0.08 });
+                posts.forEach(function (p, i) {
+                    p.style.transitionDelay = Math.min(i * 90, 450) + "ms";
+                    io.observe(p);
+                });
+            }
+
+            // 文章页阅读进度条
+            var article = document.querySelector(".post-main-wrapper .article");
+            if (article) {
+                var bar = document.createElement("div");
+                bar.id = "read-progress";
+                document.body.appendChild(bar);
+                var update = function () {
+                    var top = article.getBoundingClientRect().top + window.scrollY;
+                    var total = Math.max(1, article.offsetHeight - window.innerHeight * 0.5);
+                    var passed = Math.max(0, window.scrollY - top + 80);
+                    bar.style.width = Math.min(100, (passed / total) * 100) + "%";
+                };
+                window.addEventListener("scroll", update, { passive: true });
+                update();
+            }
+
+            // 导航 tab 点击粒子爆发
+            document.addEventListener("pointerdown", function (e) {
+                if (reduceMotion || !e.target.closest) return;
+                var link = e.target.closest("#desktop-menu > a");
+                if (!link) return;
+                var colors = ["", "", "", "p-white"];
+                for (var i = 0; i < 14; i++) {
+                    (function (i) {
+                        var p = document.createElement("span");
+                        p.className = "tab-particle " + colors[i % colors.length];
+                        var angle = (Math.PI * 2 * i) / 14 + Math.random() * 0.5;
+                        var dist = 28 + Math.random() * 42;
+                        p.style.left = e.clientX + "px";
+                        p.style.top = e.clientY + "px";
+                        p.style.width = p.style.height = (3 + Math.random() * 4) + "px";
+                        p.style.setProperty("--dx", Math.cos(angle) * dist + "px");
+                        p.style.setProperty("--dy", Math.sin(angle) * dist + "px");
+                        p.style.animationDelay = Math.random() * 60 + "ms";
+                        document.body.appendChild(p);
+                        setTimeout(function () { p.remove(); }, 900);
+                    })(i);
+                }
+            });
+
+            // 星空流星（随机 8~15s 一颗）
+            function shootMeteor() {
+                var m = document.createElement("div");
+                m.className = "meteor";
+                m.style.left = 8 + Math.random() * 68 + "vw";
+                m.style.top = 4 + Math.random() * 26 + "vh";
+                document.body.appendChild(m);
+                setTimeout(function () { m.remove(); }, 1400);
+                setTimeout(shootMeteor, 2500 + Math.random() * 3000);
+            }
+            if (!reduceMotion) setTimeout(shootMeteor, 1500);
+
+            // 归档页：网格卡片入场动效
+            var archCards = document.querySelectorAll("#archives .timeline");
+            if (archCards.length) {
+                if (reduceMotion || !("IntersectionObserver" in window)) {
+                    archCards.forEach(function (c) { c.classList.add("arch-in"); });
+                } else {
+                    var archIO = new IntersectionObserver(function (entries) {
+                        entries.forEach(function (en) {
+                            if (en.isIntersecting) {
+                                en.target.style.transitionDelay = Math.min(archIO._n * 70, 420) + "ms";
+                                archIO._n = (archIO._n || 0) + 1;
+                                en.target.classList.add("arch-in");
+                                archIO.unobserve(en.target);
+                            }
+                        });
+                    }, { threshold: 0.1 });
+                    archIO._n = 0;
+                    archCards.forEach(function (c) { archIO.observe(c); });
+                }
+            }
+
+            // 主题切换时短暂开启全局颜色过渡
+            document.addEventListener("pointerdown", function (e) {
+                if (!e.target.closest || !e.target.closest("#theme-toggle")) return;
+                document.documentElement.classList.add("theme-anim");
+                setTimeout(function () {
+                    document.documentElement.classList.remove("theme-anim");
+                }, 480);
+            }, true);
+        })();
+    </script>
 </body>
 </html>
