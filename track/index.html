@@ -110,7 +110,7 @@
         gap: 16px;
         max-width: 1320px;
         margin: 0 auto;
-        align-items: flex-start;
+        align-items: stretch;
     }
     .panel {
         background: var(--panel);
@@ -122,11 +122,14 @@
     .sidebar { width: 308px; flex-shrink: 0; }
 
     .panel-head {
-        display: flex; align-items: center; gap: 9px;
-        padding: 12px 16px;
+        display: flex; align-items: center; gap: 8px;
+        min-height: 48px;
+        padding: 8px 14px;
         border-bottom: 1px solid var(--border);
         font-size: 0.74rem; font-weight: 600; letter-spacing: 1.5px;
+        flex-wrap: wrap;
     }
+    .panel-head .btn { padding: 4.5px 10px; }
     .panel-head .head-icon {
         width: 24px; height: 24px;
         display: flex; align-items: center; justify-content: center;
@@ -175,10 +178,10 @@
 
     .search-wrap { position: relative; flex: 1; min-width: 100px; }
     .search-wrap svg.search-ico {
-        position: absolute; left: 10px; top: 50%;
+        position: absolute; left: 11px; top: 50%;
         transform: translateY(-50%);
-        width: 13px; height: 13px;
-        stroke: var(--muted); stroke-width: 1.6; fill: none; stroke-linecap: round;
+        width: 14px; height: 14px;
+        stroke: var(--muted); fill: none; stroke-linecap: round; stroke-linejoin: round;
         pointer-events: none;
         transition: stroke 0.2s;
     }
@@ -355,7 +358,7 @@
 
     #device-list {
         padding: 10px;
-        display: flex; flex-direction: column; gap: 8px;
+        display: grid; grid-template-columns: 1fr; gap: 8px; align-items: stretch;
         max-height: max(280px, calc(100vh - 230px));
         overflow-y: auto;
     }
@@ -566,7 +569,7 @@
             <span class="count" id="ev-count">0</span>
             <div class="search-wrap">
                 <input class="search" id="q" placeholder="搜索点位 / 页面 / 参数…" />
-                <svg class="search-ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+                <svg class="search-ico" viewBox="0 0 24 24"><circle cx="10.6" cy="10.6" r="7.2" stroke-width="2"/><path d="M15.9 15.9 21.2 21.2" stroke-width="2.2"/></svg>
             </div>
             <button class="btn warn" id="clear-ev"><svg class="ico sm" viewBox="0 0 24 24"><path d="M9.4 20.2 3.5 14.3a2 2 0 0 1 0-2.8l7.9-7.9a2 2 0 0 1 2.8 0l5.9 5.9a2 2 0 0 1 0 2.8l-7.9 7.9h8.4"/><path d="M8 8.6 15 15.6"/></svg>清空</button>
             <button class="btn" id="sim"><svg class="ico sm" viewBox="0 0 24 24"><path d="M3.8 20.2 13 11"/><path d="M15.5 3.2l.87 2.13 2.13.87-2.13.87-.87 2.13-.87-2.13-2.13-.87 2.13-.87z"/><circle cx="19.8" cy="15.4" r="1.1"/><circle cx="13.9" cy="20" r="0.8"/></svg>模拟</button>
