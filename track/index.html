@@ -437,6 +437,111 @@
     .dev-empty .t1 { font-size: 0.78rem; color: var(--text); opacity: 0.7; margin-bottom: 4px; }
     .dev-empty .t2 { font-size: 0.68rem; }
 
+    /* ===== 回归校验面板 ===== */
+    .check-panel { margin-top: 20px; }
+    .check-body { padding: 16px 18px; display: flex; flex-direction: column; gap: 14px; }
+    .check-textarea {
+        width: 100%;
+        min-height: 110px;
+        background: var(--panel-2);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        color: var(--text);
+        padding: 12px 14px;
+        font-family: var(--mono);
+        font-size: 0.74rem;
+        line-height: 1.7;
+        outline: none;
+        resize: vertical;
+        transition: border-color 0.25s;
+    }
+    .check-textarea:focus { border-color: var(--accent); }
+    .check-toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .check-toolbar .file-label {
+        display: inline-flex; align-items: center; gap: 5px;
+        border: 1px solid var(--border);
+        background: var(--panel-2);
+        color: var(--muted);
+        border-radius: 9px;
+        padding: 6px 13px;
+        font-size: 0.73rem;
+        cursor: pointer;
+        transition: all 0.22s;
+    }
+    .check-toolbar .file-label:hover { color: var(--accent); border-color: rgba(255,159,67,0.55); }
+    .check-toolbar input[type="file"] { display: none; }
+    .btn.primary {
+        color: #14191c;
+        background: var(--accent);
+        border-color: var(--accent);
+        font-weight: 700;
+    }
+    .btn.primary:hover { background: #ffb066; color: #14191c; transform: translateY(-1px); }
+    .btn.primary:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+        transform: none;
+    }
+    .check-progress {
+        display: none;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.78rem;
+        padding: 10px 14px;
+        border: 1px solid rgba(255,159,67,0.4);
+        border-radius: 12px;
+        background: rgba(255,159,67,0.08);
+    }
+    .check-progress.show { display: flex; }
+    .check-progress .bar {
+        flex: 1;
+        height: 6px;
+        border-radius: 6px;
+        background: var(--panel-2);
+        overflow: hidden;
+    }
+    .check-progress .bar > i {
+        display: block;
+        height: 100%;
+        width: 0;
+        background: linear-gradient(90deg, var(--accent), #ffd8a8);
+        border-radius: 6px;
+        transition: width 0.4s ease;
+    }
+    .expected-list { display: flex; flex-direction: column; gap: 6px; max-height: 220px; overflow-y: auto; }
+    .expected-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 9px;
+        padding: 8px 12px;
+        background: var(--panel-2);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        font-size: 0.74rem;
+        animation: dev-in 0.4s ease;
+    }
+    .expected-item input { margin-top: 3px; accent-color: var(--accent); }
+    .expected-item .ename { font-family: var(--mono); font-weight: 600; word-break: break-all; }
+    .expected-item .eparams { color: var(--muted); font-family: var(--mono); font-size: 0.68rem; word-break: break-all; }
+    .result-table { width: 100%; border-collapse: collapse; font-size: 0.74rem; }
+    .result-table th, .result-table td {
+        text-align: left;
+        padding: 9px 12px;
+        border-bottom: 1px solid var(--border);
+        vertical-align: top;
+    }
+    .result-table th { color: var(--muted); font-size: 0.68rem; letter-spacing: 1px; }
+    .result-table td.name { font-family: var(--mono); word-break: break-all; }
+    .result-table .st { font-weight: 700; white-space: nowrap; }
+    .result-table .st.ok { color: var(--good); }
+    .result-table .st.miss { color: var(--bad); }
+    .result-table .st.param { color: var(--accent); }
+    .result-table .detail { color: var(--muted); font-family: var(--mono); font-size: 0.68rem; word-break: break-all; }
+    .result-summary { font-size: 0.78rem; line-height: 1.9; }
+    .result-summary b.ok { color: var(--good); }
+    .result-summary b.miss { color: var(--bad); }
+    .result-summary b.param { color: var(--accent); }
+
     @media (max-width: 900px) {
         .layout { flex-direction: column; }
         .sidebar { width: 100%; }
@@ -484,6 +589,40 @@
         <div id="device-list"></div>
     </aside>
 </div>
+
+<section class="panel check-panel">
+    <div class="panel-head">
+        <span class="head-icon"><i class="fa-solid fa-list-check"></i></span>回归校验
+        <span class="count" id="chk-count">0</span>
+        <span class="spacer"></span>
+        <button class="btn" id="chk-copy" style="display:none"><i class="fa-solid fa-copy"></i>复制报告</button>
+    </div>
+    <div class="check-body">
+        <div class="check-toolbar">
+            <label class="file-label"><i class="fa-solid fa-file-arrow-up"></i>上传 .md
+                <input type="file" id="chk-file" accept=".md,.markdown,.txt" />
+            </label>
+            <button class="btn" id="chk-parse"><i class="fa-solid fa-wand-magic-sparkles"></i>解析</button>
+            <button class="btn warn" id="chk-clear"><i class="fa-solid fa-eraser"></i>清空</button>
+            <span class="spacer" style="flex:1"></span>
+            <button class="btn primary" id="chk-start"><i class="fa-solid fa-play"></i>开始回归校验</button>
+            <button class="btn warn" id="chk-stop" style="display:none"><i class="fa-solid fa-stop"></i>结束校验</button>
+        </div>
+        <textarea class="check-textarea" id="chk-input" placeholder="粘贴或上传埋点文档内容，支持：
+1) 表格行：| home_page_view | id, type |
+2) 列表：- home_page_view(id, type)
+3) 行文本：home_page_view 参数：id、type
+解析后可在下方勾选剔除误识别项。"></textarea>
+        <div class="expected-list" id="chk-list"></div>
+        <div class="check-progress" id="chk-progress">
+            <i class="fa-solid fa-tower-broadcast" style="color:var(--accent)"></i>
+            <span id="chk-progress-text">0 / 0</span>
+            <div class="bar"><i id="chk-bar"></i></div>
+            <span style="font-size:0.68rem;color:var(--muted)">全部命中自动结束，也可手动结束</span>
+        </div>
+        <div id="chk-result"></div>
+    </div>
+</section>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
@@ -612,6 +751,7 @@
         });
         if (events.length > 300) events.length = 300;
         if (devices[data.deviceId]) devices[data.deviceId].count++;
+        if (window.__chkHook) { try { window.__chkHook(events[0]); } catch (e) {} }
         bumpCount(evCount);
         renderDevices();
         prependEventCard(events[0]);
@@ -796,6 +936,241 @@
             });
         }
     };
+
+
+    /* ===================== 回归校验 ===================== */
+    var chkInput = document.getElementById("chk-input");
+    var chkList = document.getElementById("chk-list");
+    var chkCount = document.getElementById("chk-count");
+    var chkStart = document.getElementById("chk-start");
+    var chkStop = document.getElementById("chk-stop");
+    var chkProgress = document.getElementById("chk-progress");
+    var chkProgressText = document.getElementById("chk-progress-text");
+    var chkBar = document.getElementById("chk-bar");
+    var chkResult = document.getElementById("chk-result");
+    var chkCopy = document.getElementById("chk-copy");
+    var expected = [];        // [{name, params:[], checked}]
+    var chk = { running: false, items: [], startedAt: 0, endReason: "" };
+
+    var TOKEN_RE = /^[a-z][a-z0-9_]*[a-z0-9]$/i;
+    var SKIP_TOKENS = { string: 1, number: 1, bool: 1, boolean: 1, true: 1, false: 1, ios: 1, android: 1, app: 1, id: 1, name: 1, type: 1 };
+
+    function parseTrackDoc(text) {
+        var map = {};
+        var order = [];
+        var CELL_TOKEN = /^([A-Za-z][A-Za-z0-9_]*[A-Za-z0-9])(?:\([^)]*\))?[:：]?$/; // 整格变量形态（允许括号参数/尾冒号）
+        var lines = text.split(/\r?\n/);
+        lines.forEach(function (line) {
+            if (!line.trim()) return;
+            if (line.indexOf("事件编号") !== -1 && line.indexOf("事件英文变量名") !== -1) return;
+
+            // 剥离前导空白/表格线/项目符号，并统计前导 tab 深度
+            var lead = line.match(/^[\t ]*(?:\|[	 |]*)?(?:[-*•][ ]+)?/)[0];
+            var leadTabs = (lead.match(/\t/g) || []).length;
+            var leadPipes = (lead.match(/\|/g) || []).length;
+            var cells = line
+                .slice(lead.length)
+                .split(/\t+|\|+/)
+                .map(function (c) { return c.trim(); });
+
+            // 提取整格变量 token（idx 保留）
+            var tokens = [];
+            cells.forEach(function (c, idx) {
+                var m = c.match(CELL_TOKEN);
+                if (m) tokens.push({ raw: m[1], cell: c, idx: idx });
+            });
+
+            // 属性行：前导 tab>=2（完整表格缩进属性行），或 pipe 表格前导含 >=2 个竖线空档
+            if ((leadTabs >= 2 || leadPipes >= 2) && order.length) {
+                tokens.forEach(function (tk) {
+                    if (!SKIP_TOKENS[tk.raw.toLowerCase()] && tk.raw.indexOf("$") !== 0) {
+                        map[order[order.length - 1]].params[tk.raw] = true;
+                    }
+                });
+                return;
+            }
+
+            // 事件行：第一个合法整格 token = 事件名
+            var ev = null;
+            for (var i = 0; i < tokens.length; i++) {
+                var t = tokens[i].raw;
+                if (!SKIP_TOKENS[t.toLowerCase()]) { ev = tokens[i]; ev.name = t; break; }
+            }
+            if (!ev) return;
+            if (!map[ev.name]) { map[ev.name] = { name: ev.name, params: {} }; order.push(ev.name); }
+            var target = map[ev.name];
+
+            // 括号参数：home_page_view(id, type)
+            var paren = ev.cell.match(/\(([^)]*)\)/);
+            if (paren) {
+                paren[1].split(/[,，、;；]+/).forEach(function (pk) {
+                    pk = pk.trim().split(/[=＝:：]/)[0].trim();
+                    if (pk && pk.indexOf("$") !== 0) target.params[pk] = true;
+                });
+            }
+            // 同行第 5 列起（idx>=4，无折叠）的整格 token = 行内首个属性
+            tokens.forEach(function (tk) {
+                if (tk !== ev && tk.idx >= 4 && !SKIP_TOKENS[tk.raw.toLowerCase()] && tk.raw.indexOf("$") !== 0) {
+                    target.params[tk.raw] = true;
+                }
+            });
+        });
+        return order.map(function (n) {
+            return { name: n, params: Object.keys(map[n].params) };
+        });
+    }
+
+    function renderExpected() {
+        chkCount.textContent = expected.length;
+        if (!expected.length) {
+            chkList.innerHTML = '<div class="empty" style="padding:18px 0"><i class="fa-solid fa-file-lines" style="font-size:1rem"></i><div class="t1">解析后这里显示点位清单</div></div>';
+            return;
+        }
+        chkList.innerHTML = "";
+        expected.forEach(function (it) {
+            var div = document.createElement("label");
+            div.className = "expected-item";
+            div.innerHTML =
+                '<input type="checkbox" checked data-name="' + escapeHtml(it.name) + '" />' +
+                '<span><span class="ename">' + escapeHtml(it.name) + "</span>" +
+                (it.params.length ? '<div class="eparams">参数：' + escapeHtml(it.params.join("、")) + "</div>" : '<div class="eparams">无参数</div>') +
+                "</span>";
+            chkList.appendChild(div);
+        });
+    }
+
+    function checkedExpected() {
+        var boxes = chkList.querySelectorAll("input[type=checkbox]");
+        var picked = {};
+        boxes.forEach && boxes.forEach(function (b) { if (b.checked) picked[b.dataset.name] = true; });
+        if (!boxes.forEach) for (var i = 0; i < boxes.length; i++) if (boxes[i].checked) picked[boxes[i].dataset.name] = true;
+        return expected.filter(function (it) { return picked[it.name]; });
+    }
+
+    function startCheck() {
+        var list = checkedExpected();
+        if (!list.length) { alert("请先粘贴/上传并解析出点位"); return; }
+        if (!filterDevice) { alert("请先在右侧选择设备"); return; }
+        chk.running = true;
+        chk.startedAt = Date.now();
+        chk.endReason = "";
+        chk.items = list.map(function (it) {
+            return { name: it.name, params: it.params, status: "pending", firstTs: 0, missing: [], received: [] };
+        });
+        chkStart.disabled = true;
+        chkStop.style.display = "";
+        chkProgress.classList.add("show");
+        chkResult.innerHTML = "";
+        chkCopy.style.display = "none";
+        updateChkProgress();
+    }
+
+    function updateChkProgress() {
+        var done = chk.items.filter(function (i) { return i.status !== "pending"; }).length;
+        var ok = chk.items.filter(function (i) { return i.status === "ok"; }).length;
+        chkProgressText.textContent = ok + " / " + chk.items.length + " 命中";
+        chkBar.style.width = (chk.items.length ? (done / chk.items.length) * 100 : 0) + "%";
+    }
+
+    function chkMatch(ev) {
+        if (!chk.running) return;
+        chk.items.forEach(function (item) {
+            if (item.status !== "pending" || item.name !== ev.name) return;
+            item.firstTs = item.firstTs || ev.ts;
+            var recv = ev.params || {};
+            var recvKeys = Object.keys(recv);
+            item.received = recvKeys;
+            if (!item.params.length) {
+                item.status = "ok";
+            } else {
+                item.missing = item.params.filter(function (k) { return !(k in recv); });
+                item.status = item.missing.length ? "param" : "ok";
+            }
+        });
+        updateChkProgress();
+        var allDone = chk.items.every(function (i) { return i.status !== "pending"; });
+        if (allDone) finishCheck("自动结束：全部点位已上报");
+    }
+
+    function finishCheck(reason) {
+        if (!chk.running) return;
+        chk.running = false;
+        chk.endReason = reason;
+        chkStart.disabled = false;
+        chkStop.style.display = "none";
+        chkProgress.classList.remove("show");
+        renderChkResult();
+        chkCopy.style.display = "";
+    }
+
+    function renderChkResult() {
+        var ok = 0, miss = 0, param = 0;
+        var rows = chk.items.map(function (it) {
+            var stTxt, stCls, detail;
+            if (it.status === "ok") { ok++; stTxt = "✓ 已上报"; stCls = "ok"; detail = it.params.length ? "参数齐全：" + it.params.join("、") : "无参数要求"; }
+            else if (it.status === "param") { param++; stTxt = "⚠ 参数不符"; stCls = "param"; detail = "缺失参数：" + it.missing.join("、") + "；实收：" + (it.received.join("、") || "无"); }
+            else { miss++; stTxt = "✗ 未上报"; stCls = "miss"; detail = "校验期间未收到该点位"; }
+            return { it: it, stTxt: stTxt, stCls: stCls, detail: detail };
+        });
+        var html = '<div class="result-summary">校验结果（' + escapeHtml(chk.endReason || "手动结束") + "）：" +
+            "<b class='ok'>" + ok + " 正确</b> · <b class='param'>" + param + " 参数不符</b> · <b class='miss'>" + miss + " 缺失</b></div>";
+        html += '<table class="result-table"><tr><th>点位</th><th>状态</th><th>核对明细</th><th>首报时间</th></tr>';
+        rows.forEach(function (r) {
+            html += '<tr><td class="name">' + escapeHtml(r.it.name) + "</td>" +
+                '<td class="st ' + r.stCls + '">' + r.stTxt + "</td>" +
+                '<td class="detail">' + escapeHtml(r.detail) + "</td>" +
+                '<td class="detail">' + (r.it.firstTs ? fmtTime(r.it.firstTs) : "-") + "</td></tr>";
+        });
+        html += "</table>";
+        chkResult.innerHTML = html;
+    }
+
+    function buildReport() {
+        var lines = ["# 埋点回归校验报告", "", "- 设备：" + (filterDevice && devices[filterDevice] ? devices[filterDevice].device : filterDevice || "-"), "- 结束方式：" + (chk.endReason || "手动结束"), ""];
+        chk.items.forEach(function (it) {
+            var mark = it.status === "ok" ? "✅" : it.status === "param" ? "⚠️" : "❌";
+            lines.push("- " + mark + " **" + it.name + "**");
+            if (it.status === "param") lines.push("  - 缺失参数：" + it.missing.join("、") + "；实收：" + (it.received.join("、") || "无"));
+            if (it.status === "pending") lines.push("  - 校验期间未上报");
+        });
+        return lines.join("\n");
+    }
+
+    document.getElementById("chk-parse").onclick = function () {
+        expected = parseTrackDoc(chkInput.value);
+        renderExpected();
+        if (!expected.length) alert("未解析出点位，请检查内容格式");
+    };
+    document.getElementById("chk-clear").onclick = function () {
+        if (chk.running) finishCheck("手动中止");
+        chkInput.value = "";
+        expected = [];
+        renderExpected();
+        chkResult.innerHTML = "";
+        chkCopy.style.display = "none";
+    };
+    document.getElementById("chk-file").onchange = function (e) {
+        var f = e.target.files && e.target.files[0];
+        if (!f) return;
+        var reader = new FileReader();
+        reader.onload = function () {
+            chkInput.value = reader.result;
+            expected = parseTrackDoc(chkInput.value);
+            renderExpected();
+        };
+        reader.readAsText(f);
+        e.target.value = "";
+    };
+    chkStart.onclick = startCheck;
+    chkStop.onclick = function () { finishCheck("手动结束"); };
+    chkCopy.onclick = function () {
+        var text = buildReport();
+        if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () { chkCopy.innerHTML = '<i class="fa-solid fa-check"></i>已复制'; setTimeout(function () { chkCopy.innerHTML = '<i class="fa-solid fa-copy"></i>复制报告'; }, 1500); });
+        else alert(text);
+    };
+    // 事件接入点：addEvent 内部调用
+    window.__chkHook = chkMatch;
+    renderExpected();
 
     renderEvents();
     renderDevices();
