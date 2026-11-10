@@ -604,17 +604,12 @@
             <label class="file-label"><svg class="ico sm" viewBox="0 0 24 24"><path d="M12 15.2V3.6"/><path d="M7.4 8.2 12 3.6l4.6 4.6"/><path d="M4 16.4v2.6a2.4 2.4 0 0 0 2.4 2.4h11.2a2.4 2.4 0 0 0 2.4-2.4v-2.6"/></svg>上传 .md
                 <input type="file" id="chk-file" accept=".md,.markdown,.txt" />
             </label>
-            <button class="btn" id="chk-parse"><svg class="ico sm" viewBox="0 0 24 24"><path d="M3.8 20.2 13 11"/><path d="M15.5 3.2l.87 2.13 2.13.87-2.13.87-.87 2.13-.87-2.13-2.13-.87 2.13-.87z"/><circle cx="19.8" cy="15.4" r="1.1"/><circle cx="13.9" cy="20" r="0.8"/></svg>解析</button>
-            <button class="btn warn" id="chk-clear"><svg class="ico sm" viewBox="0 0 24 24"><path d="M9.4 20.2 3.5 14.3a2 2 0 0 1 0-2.8l7.9-7.9a2 2 0 0 1 2.8 0l5.9 5.9a2 2 0 0 1 0 2.8l-7.9 7.9h8.4"/><path d="M8 8.6 15 15.6"/></svg>清空</button>
+                        <button class="btn warn" id="chk-clear"><svg class="ico sm" viewBox="0 0 24 24"><path d="M9.4 20.2 3.5 14.3a2 2 0 0 1 0-2.8l7.9-7.9a2 2 0 0 1 2.8 0l5.9 5.9a2 2 0 0 1 0 2.8l-7.9 7.9h8.4"/><path d="M8 8.6 15 15.6"/></svg>清空</button>
             <span class="spacer" style="flex:1"></span>
             <button class="btn primary" id="chk-start"><svg class="ico sm" viewBox="0 0 24 24"><path d="M7.5 5.3v13.4a.6.6 0 0 0 .92.5l10.6-6.7a.6.6 0 0 0 0-1L8.42 4.8a.6.6 0 0 0-.92.5z" fill="currentColor" stroke="none"/></svg>开始回归校验</button>
             <button class="btn warn" id="chk-stop" style="display:none"><svg class="ico sm" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2.5" fill="currentColor" stroke="none"/></svg>结束校验</button>
         </div>
-        <textarea class="check-textarea" id="chk-input" placeholder="粘贴或上传埋点文档内容，支持：
-1) 表格行：| home_page_view | id, type |
-2) 列表：- home_page_view(id, type)
-3) 行文本：home_page_view 参数：id、type
-解析后可在下方勾选剔除误识别项。"></textarea>
+        <textarea class="check-textarea" id="chk-input" placeholder="粘贴埋点文档或上传 .md 文件，自动解析…"></textarea>
         <div class="expected-list" id="chk-list"></div>
         <div class="check-progress" id="chk-progress">
             <span style="color:var(--accent);display:inline-flex"><svg viewBox="0 0 24 24" width="17" height="17" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9.4" r="1.3" fill="currentColor" stroke="none"/><path d="M12 21V11"/><path d="M8.6 7.6 12 11l3.4-3.4"/><path d="M5.9 3.1A9.2 9.2 0 0 0 4 9.1c0 2.1.72 4.06 1.94 5.62"/><path d="M18.1 3.1A9.2 9.2 0 0 1 20 9.1c0 2.1-.72 4.06-1.94 5.62"/></svg></span>
@@ -1137,11 +1132,16 @@
         return lines.join("\n");
     }
 
-    document.getElementById("chk-parse").onclick = function () {
-        expected = parseTrackDoc(chkInput.value);
-        renderExpected();
-        if (!expected.length) alert("未解析出点位，请检查内容格式");
-    };
+    var autoParseTimer = null;
+    function autoParse() {
+        clearTimeout(autoParseTimer);
+        autoParseTimer = setTimeout(function () {
+            expected = parseTrackDoc(chkInput.value);
+            renderExpected();
+        }, 350);
+    }
+    chkInput.addEventListener("input", autoParse);
+    chkInput.addEventListener("paste", function () { setTimeout(autoParse, 60); });
     document.getElementById("chk-clear").onclick = function () {
         if (chk.running) finishCheck("手动中止");
         chkInput.value = "";
