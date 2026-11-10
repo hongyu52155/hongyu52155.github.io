@@ -89,7 +89,7 @@
 
     .hero {
         max-width: 1320px;
-        margin: 0 auto 18px;
+        margin: 0 auto 16px;
         padding: 2px 4px 0;
     }
     .hero h1 {
@@ -114,8 +114,13 @@
         margin-top: 6px;
         font-size: 0.64rem;
         letter-spacing: 4px;
-        color: var(--muted);
-        opacity: 0.75;
+        background: linear-gradient(90deg, #9db9ff 0%, #5f8bff 55%, #3d67d8 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        filter: drop-shadow(0 0 8px rgba(95, 139, 255, 0.35));
+        display: inline-block;
     }
     .layout {
         display: flex;
@@ -451,7 +456,10 @@
     .dev-empty .t1 { font-size: 0.74rem; color: var(--text); opacity: 0.7; margin-bottom: 3px; }
     .dev-empty .t2 { font-size: 0.66rem; }
 
-    .check-panel { margin-top: 16px; }
+    .check-panel {
+        max-width: 1320px;
+        margin: 16px auto 0;
+    }
     .check-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; }
     .check-textarea {
         width: 100%;
