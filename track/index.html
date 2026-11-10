@@ -7,24 +7,27 @@
 <title>埋点实时调试 · ALLENYUKIN</title>
 <style>
     :root {
-        --accent: #ff9f43;
-        --accent-soft: rgba(255, 159, 67, 0.12);
+        --accent: #ff8a3c;
+        --accent-soft: rgba(255, 138, 60, 0.13);
         --violet: #a78bfa;
-        --bg: #0b0e12;
-        --panel: rgba(255, 255, 255, 0.028);
-        --panel-2: rgba(255, 255, 255, 0.05);
-        --border: rgba(255, 255, 255, 0.075);
-        --border-strong: rgba(255, 255, 255, 0.14);
+        --bg: #020408;
+        --panel: rgba(17, 32, 52, 0.38);
+        --panel-2: rgba(23, 41, 64, 0.5);
+        --border: rgba(146, 176, 222, 0.11);
+        --border-strong: rgba(146, 176, 222, 0.22);
         --text: #f2f4f6;
-        --muted: #8a9099;
+        --muted: #8b95a5;
         --good: #3ddc97;
         --bad: #ff6b6b;
         --mono: "SF Mono", "Fira Code", Menlo, monospace;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.12) transparent; }
+    html { scrollbar-width: thin; scrollbar-color: rgba(146,176,222,0.2) transparent; }
     body {
-        background: var(--bg);
+        background:
+            radial-gradient(1000px 520px at 72% -12%, rgba(28, 54, 92, 0.4), transparent 62%),
+            radial-gradient(820px 420px at -12% 42%, rgba(20, 38, 66, 0.32), transparent 60%),
+            var(--bg);
         color: var(--text);
         font-family: "Inter", "PingFang SC", "Microsoft YaHei", sans-serif;
         min-height: 100vh;
@@ -43,7 +46,7 @@
         align-items: center;
         gap: 12px;
         padding: 0 22px;
-        background: rgba(11, 14, 18, 0.85);
+        background: rgba(2, 4, 8, 0.88);
         -webkit-backdrop-filter: blur(16px);
         backdrop-filter: blur(16px);
         border-bottom: 1px solid var(--border);
@@ -57,9 +60,9 @@
     header a.home .logo-mark {
         width: 22px; height: 22px;
         border-radius: 7px;
-        background: linear-gradient(135deg, #ffb066, #f2803a);
+        background: linear-gradient(135deg, #ffa05c, #f07020);
         display: flex; align-items: center; justify-content: center;
-        color: #14191c; font-size: 11px; font-weight: 800;
+        color: #1a0e04; font-size: 11px; font-weight: 800;
     }
     header .divider { width: 1px; height: 16px; background: var(--border-strong); }
     header .title { font-size: 0.8rem; color: var(--muted); letter-spacing: 0.5px; }
@@ -144,12 +147,12 @@
     .btn:active { transform: scale(0.97); }
     .btn.warn:hover { color: var(--bad); border-color: rgba(255, 107, 107, 0.35); background: rgba(255, 107, 107, 0.07); }
     .btn.primary {
-        color: #14191c;
+        color: #1a0e04;
         background: var(--accent);
         border-color: var(--accent);
         font-weight: 650;
     }
-    .btn.primary:hover { background: #ffb066; color: #14191c; }
+    .btn.primary:hover { background: #ffa05c; color: #1a0e04; }
     .btn.primary:disabled { opacity: 0.35; cursor: not-allowed; }
 
     .search-wrap { position: relative; flex: 1; min-width: 100px; }
@@ -214,7 +217,7 @@
     }
     #event-list::-webkit-scrollbar, #device-list::-webkit-scrollbar, .expected-list::-webkit-scrollbar { width: 6px; }
     #event-list::-webkit-scrollbar-thumb, #device-list::-webkit-scrollbar-thumb, .expected-list::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.1); border-radius: 6px;
+        background: rgba(146, 176, 222, 0.16); border-radius: 6px;
     }
     #event-list > .ev { flex-shrink: 0; }
 
@@ -242,7 +245,7 @@
         opacity: 0.75;
     }
     .ev.pv::before { background: var(--violet); }
-    .ev:hover { border-color: var(--border-strong); background: rgba(255, 255, 255, 0.07); }
+    .ev:hover { border-color: var(--border-strong); background: rgba(146, 176, 222, 0.09); }
     .ev .row1 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     .ev .tag {
         font-size: 0.56rem;
@@ -282,7 +285,7 @@
         font-size: 0.68rem;
         line-height: 1.7;
         color: var(--muted);
-        background: rgba(0, 0, 0, 0.28);
+        background: rgba(0, 0, 0, 0.42);
         border: 1px solid var(--border);
         border-radius: 8px;
         padding: 9px 12px;
@@ -407,7 +410,7 @@
     .dev-card.active .sel-check {
         background: var(--accent);
         border-color: var(--accent);
-        color: #14191c;
+        color: #1a0e04;
         animation: check-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     @keyframes check-pop { from { transform: scale(0.2); } }
@@ -468,7 +471,7 @@
         flex: 1;
         height: 4px;
         border-radius: 4px;
-        background: rgba(255, 255, 255, 0.07);
+        background: rgba(146, 176, 222, 0.08);
         overflow: hidden;
     }
     .check-progress .bar > i {
