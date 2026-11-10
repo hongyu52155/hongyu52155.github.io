@@ -562,31 +562,31 @@
 <div class="layout">
     <section class="panel events">
         <div class="panel-head">
-            <span class="head-icon"><svg class="ico" viewBox="0 0 24 24"><path d="M13 2 4.5 13.5H11L9.5 22 19 10h-6.5L13 2z"/></svg></span>事件流
+            <span class="head-icon"><svg class="ico" viewBox="0 0 24 24"><path d="M13.2 2.2 5.4 13.1a.5.5 0 0 0 .41.79h4.79L9.4 21.4a.5.5 0 0 0 .89.43l7.9-11a.5.5 0 0 0-.41-.78h-4.9l1.3-7.42a.5.5 0 0 0-.98-.43z"/></svg></span>事件流
             <span class="count" id="ev-count">0</span>
             <div class="search-wrap">
                 <input class="search" id="q" placeholder="搜索点位 / 页面 / 参数…" />
                 <svg class="search-ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
             </div>
-            <button class="btn warn" id="clear-ev"><svg class="ico sm" viewBox="0 0 24 24"><path d="M4 16l8-8 6 6-5 5H8l-4-3z"/><path d="M9 21h11"/></svg>清空</button>
-            <button class="btn" id="sim"><svg class="ico sm" viewBox="0 0 24 24"><path d="M5 19L17 7"/><path d="M14.5 4.5l1 2.5 2.5 1-2.5 1-1 2.5-1-2.5L11 8l2.5-1 1-2.5z"/></svg>模拟</button>
+            <button class="btn warn" id="clear-ev"><svg class="ico sm" viewBox="0 0 24 24"><path d="M9.4 20.2 3.5 14.3a2 2 0 0 1 0-2.8l7.9-7.9a2 2 0 0 1 2.8 0l5.9 5.9a2 2 0 0 1 0 2.8l-7.9 7.9h8.4"/><path d="M8 8.6 15 15.6"/></svg>清空</button>
+            <button class="btn" id="sim"><svg class="ico sm" viewBox="0 0 24 24"><path d="M3.8 20.2 13 11"/><path d="M15.5 3.2l.87 2.13 2.13.87-2.13.87-.87 2.13-.87-2.13-2.13-.87 2.13-.87z"/><circle cx="19.8" cy="15.4" r="1.1"/><circle cx="13.9" cy="20" r="0.8"/></svg>模拟</button>
         </div>
         <div class="device-banner" id="device-banner">
             <span class="b-dot"></span>
             正在接收 <b id="banner-name">-</b> 的点位
             <span class="hint">其他设备不进流</span>
-            <button class="unset" id="unset-device"><svg class="ico sm" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg> 取消选择</button>
+            <button class="unset" id="unset-device"><svg class="ico sm" viewBox="0 0 24 24"><path d="M6.2 6.2 17.8 17.8M17.8 6.2 6.2 17.8"/></svg> 取消选择</button>
         </div>
         <div id="event-list"></div>
     </section>
 
     <aside class="panel sidebar">
         <div class="panel-head">
-            <span class="head-icon"><svg class="ico" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg></span>设备
+            <span class="head-icon"><svg class="ico" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="3"/><path d="M10.2 4.4h3.6"/><path d="M10.4 18.6h3.2" stroke-width="2.4"/></svg></span>设备
             <span class="count" id="dev-count">0</span>
             <span class="spacer"></span>
-            <button class="btn warn" id="clear-dev"><svg class="ico sm" viewBox="0 0 24 24"><path d="M4 16l8-8 6 6-5 5H8l-4-3z"/><path d="M9 21h11"/></svg>清空</button>
-            <button class="btn" id="rescan"><svg class="ico sm" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.6-6.3"/><path d="M21 3v6h-6"/></svg>扫描</button>
+            <button class="btn warn" id="clear-dev"><svg class="ico sm" viewBox="0 0 24 24"><path d="M9.4 20.2 3.5 14.3a2 2 0 0 1 0-2.8l7.9-7.9a2 2 0 0 1 2.8 0l5.9 5.9a2 2 0 0 1 0 2.8l-7.9 7.9h8.4"/><path d="M8 8.6 15 15.6"/></svg>清空</button>
+            <button class="btn" id="rescan"><svg class="ico sm" viewBox="0 0 24 24"><path d="M20.4 12a8.4 8.4 0 1 1-2.46-5.94"/><path d="M20.6 2.8v3.8h-3.8"/></svg>扫描</button>
         </div>
         <div id="device-list"></div>
     </aside>
@@ -594,21 +594,21 @@
 
 <section class="panel check-panel">
     <div class="panel-head">
-        <span class="head-icon"><svg class="ico" viewBox="0 0 24 24"><path d="M3.5 5.5l2 2 3.5-3.5"/><path d="M3.5 12.5l2 2 3.5-3.5"/><path d="M3.5 19.5l2 2 3.5-3.5"/><path d="M12 6.5h8.5M12 13.5h8.5M12 20.5h8.5"/></svg></span>回归校验
+        <span class="head-icon"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3.2" width="6" height="6" rx="1.6"/><path d="M4.6 6.2l1.15 1.15L8 5.1"/><rect x="3" y="14.8" width="6" height="6" rx="1.6"/><path d="M4.6 17.8l1.15 1.15L8 16.7"/><path d="M13 5.2h8M13 8.4h5.5M13 16.8h8M13 20h5.5"/></svg></span>回归校验
         <span class="count" id="chk-count">0</span>
         <span class="spacer"></span>
-        <button class="btn" id="chk-copy" style="display:none"><svg class="ico sm" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>复制报告</button>
+        <button class="btn" id="chk-copy" style="display:none"><svg class="ico sm" viewBox="0 0 24 24"><rect x="8.6" y="8.6" width="12" height="12" rx="2.4"/><path d="M5.4 15.4H4.8A2.4 2.4 0 0 1 2.4 13V4.8a2.4 2.4 0 0 1 2.4-2.4H13a2.4 2.4 0 0 1 2.4 2.4v.6"/></svg>复制报告</button>
     </div>
     <div class="check-body">
         <div class="check-toolbar">
-            <label class="file-label"><svg class="ico sm" viewBox="0 0 24 24"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16.5V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2.5"/></svg>上传 .md
+            <label class="file-label"><svg class="ico sm" viewBox="0 0 24 24"><path d="M12 15.2V3.6"/><path d="M7.4 8.2 12 3.6l4.6 4.6"/><path d="M4 16.4v2.6a2.4 2.4 0 0 0 2.4 2.4h11.2a2.4 2.4 0 0 0 2.4-2.4v-2.6"/></svg>上传 .md
                 <input type="file" id="chk-file" accept=".md,.markdown,.txt" />
             </label>
-            <button class="btn" id="chk-parse"><svg class="ico sm" viewBox="0 0 24 24"><path d="M5 19L17 7"/><path d="M14.5 4.5l1 2.5 2.5 1-2.5 1-1 2.5-1-2.5L11 8l2.5-1 1-2.5z"/></svg>解析</button>
-            <button class="btn warn" id="chk-clear"><svg class="ico sm" viewBox="0 0 24 24"><path d="M4 16l8-8 6 6-5 5H8l-4-3z"/><path d="M9 21h11"/></svg>清空</button>
+            <button class="btn" id="chk-parse"><svg class="ico sm" viewBox="0 0 24 24"><path d="M3.8 20.2 13 11"/><path d="M15.5 3.2l.87 2.13 2.13.87-2.13.87-.87 2.13-.87-2.13-2.13-.87 2.13-.87z"/><circle cx="19.8" cy="15.4" r="1.1"/><circle cx="13.9" cy="20" r="0.8"/></svg>解析</button>
+            <button class="btn warn" id="chk-clear"><svg class="ico sm" viewBox="0 0 24 24"><path d="M9.4 20.2 3.5 14.3a2 2 0 0 1 0-2.8l7.9-7.9a2 2 0 0 1 2.8 0l5.9 5.9a2 2 0 0 1 0 2.8l-7.9 7.9h8.4"/><path d="M8 8.6 15 15.6"/></svg>清空</button>
             <span class="spacer" style="flex:1"></span>
-            <button class="btn primary" id="chk-start"><svg class="ico sm" viewBox="0 0 24 24"><path d="M7 4.5l13 7.5-13 7.5v-15z"/></svg>开始回归校验</button>
-            <button class="btn warn" id="chk-stop" style="display:none"><svg class="ico sm" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>结束校验</button>
+            <button class="btn primary" id="chk-start"><svg class="ico sm" viewBox="0 0 24 24"><path d="M7.5 5.3v13.4a.6.6 0 0 0 .92.5l10.6-6.7a.6.6 0 0 0 0-1L8.42 4.8a.6.6 0 0 0-.92.5z" fill="currentColor" stroke="none"/></svg>开始回归校验</button>
+            <button class="btn warn" id="chk-stop" style="display:none"><svg class="ico sm" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2.5" fill="currentColor" stroke="none"/></svg>结束校验</button>
         </div>
         <textarea class="check-textarea" id="chk-input" placeholder="粘贴或上传埋点文档内容，支持：
 1) 表格行：| home_page_view | id, type |
@@ -617,7 +617,7 @@
 解析后可在下方勾选剔除误识别项。"></textarea>
         <div class="expected-list" id="chk-list"></div>
         <div class="check-progress" id="chk-progress">
-            <span style="color:var(--accent);display:inline-flex"><svg class="ico" viewBox="0 0 24 24"><path d="M12 21V10"/><path d="M8.5 6.5L12 10l3.5-3.5"/><path d="M6.2 3.2A9 9 0 0 0 4.5 9c0 2 .7 3.9 1.9 5.4"/><path d="M17.8 3.2A9 9 0 0 1 19.5 9c0 2-.7 3.9-1.9 5.4"/></svg></span>
+            <span style="color:var(--accent);display:inline-flex"><svg viewBox="0 0 24 24" width="17" height="17" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9.4" r="1.3" fill="currentColor" stroke="none"/><path d="M12 21V11"/><path d="M8.6 7.6 12 11l3.4-3.4"/><path d="M5.9 3.1A9.2 9.2 0 0 0 4 9.1c0 2.1.72 4.06 1.94 5.62"/><path d="M18.1 3.1A9.2 9.2 0 0 1 20 9.1c0 2.1-.72 4.06-1.94 5.62"/></svg></span>
             <span id="chk-progress-text">0 / 0</span>
             <div class="bar"><i id="chk-bar"></i></div>
             <span style="font-size:0.68rem;color:var(--muted)">全部命中自动结束，也可手动结束</span>
@@ -792,7 +792,7 @@
             '<span class="time">' + fmtTime(ev.ts) + "</span>" +
             "</div>" +
             (hasParams
-                ? '<div class="expand-hint"><svg viewBox="0 0 24 24" width="11" height="11" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>点击展开参数</div><pre>' + escapeHtml(paramsStr) + "</pre>"
+                ? '<div class="expand-hint"><svg viewBox="0 0 24 24" width="11" height="11" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9.2 12 16.2 19 9.2"/></svg>点击展开参数</div><pre>' + escapeHtml(paramsStr) + "</pre>"
                 : "");
         div.onclick = function () { div.classList.toggle("open"); };
         return div;
@@ -814,7 +814,7 @@
             listEl.innerHTML =
                 '<div class="empty">' +
                 (events.length
-                    ? '<div class="empty-ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></div><div class="t1">无匹配结果</div><div class="t2">换个关键词试试</div>'
+                    ? '<div class="empty-ico"><svg viewBox="0 0 24 24" width="17" height="17" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.8" cy="10.8" r="7.1"/><path d="M16.1 16.1 21 21"/></svg></div><div class="t1">无匹配结果</div><div class="t2">换个关键词试试</div>'
                     : '<div class="empty-ico"><svg viewBox="0 0 24 24"><path d="M12 21V10"/><path d="M8.5 6.5L12 10l3.5-3.5"/><path d="M6.2 3.2A9 9 0 0 0 4.5 9c0 2 .7 3.9 1.9 5.4"/><path d="M17.8 3.2A9 9 0 0 1 19.5 9c0 2-.7 3.9-1.9 5.4"/></svg></div><div class="t1">' +
                       (filterDevice ? "已选中设备，等待该设备的点位…" : "请先在右侧选择设备") +
                       '</div><div class="t2">选中后实时接收该设备的埋点</div>') +
@@ -855,7 +855,7 @@
                 (d.ip ? escapeHtml(d.ip) + " · " : "") +
                 "事件 <b>" + d.count + "</b> · 活跃 " + fmtTime(d.last) +
                 "</div></div>" +
-                '<div class="sel-check"><svg viewBox="0 0 24 24" width="9" height="9" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></div>';
+                '<div class="sel-check"><svg viewBox="0 0 24 24" width="9" height="9" stroke="currentColor" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.6l4.8 4.8L20 6.2"/></svg></div>';
             card.onclick = function () {
                 if (filterDevice === id) return;
                 selectDevice(id);
