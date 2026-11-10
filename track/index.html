@@ -31,7 +31,7 @@
         color: var(--text);
         font-family: "Inter", "PingFang SC", "Microsoft YaHei", sans-serif;
         min-height: 100vh;
-        padding: 72px 20px 40px;
+        padding: 74px 20px 40px;
         -webkit-font-smoothing: antialiased;
         font-feature-settings: "tnum";
     }
@@ -87,6 +87,36 @@
     .conn.offline .dot { background: var(--bad); }
     @keyframes blink { 50% { opacity: 0.25; } }
 
+    .hero {
+        max-width: 1320px;
+        margin: 0 auto 18px;
+        padding: 2px 4px 0;
+    }
+    .hero h1 {
+        font-size: 1.72rem;
+        font-weight: 800;
+        letter-spacing: 3px;
+        line-height: 1.3;
+        background: linear-gradient(94deg, #ffc998 0%, #ff8a3c 34%, #d06038 72%, #a84c43 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        filter: drop-shadow(0 0 16px rgba(255, 122, 60, 0.3));
+        display: inline-block;
+    }
+    .hero h1 .hero-dot {
+        margin: 0 8px;
+        font-weight: 400;
+        filter: drop-shadow(0 0 10px rgba(255, 138, 60, 0.6));
+    }
+    .hero p {
+        margin-top: 6px;
+        font-size: 0.64rem;
+        letter-spacing: 4px;
+        color: var(--muted);
+        opacity: 0.75;
+    }
     .layout {
         display: flex;
         gap: 16px;
@@ -533,6 +563,11 @@
     <span class="title">埋点实时调试台</span>
     <div class="conn connecting" id="conn"><span class="dot"></span><span id="conn-text">连接中…</span></div>
 </header>
+
+<div class="hero">
+    <h1>Track<span class="hero-dot">·</span>埋点实时调试</h1>
+    <p>REALTIME ANALYTICS CONSOLE</p>
+</div>
 
 <div class="layout">
     <section class="panel events">
