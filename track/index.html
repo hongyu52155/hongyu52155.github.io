@@ -7,14 +7,14 @@
 <title>埋点实时调试 · ALLENYUKIN</title>
 <style>
     :root {
-        --accent: #ff8a3c;
-        --accent-soft: rgba(255, 138, 60, 0.13);
+        --accent: #e8813a;
+        --accent-soft: rgba(232, 129, 58, 0.12);
         --violet: #a78bfa;
-        --bg: #020509;
-        --panel: rgba(24, 45, 76, 0.45);
-        --panel-2: rgba(32, 62, 104, 0.52);
-        --border: rgba(150, 185, 235, 0.13);
-        --border-strong: rgba(150, 185, 235, 0.26);
+        --bg: #030407;
+        --panel: rgba(15, 24, 38, 0.52);
+        --panel-2: rgba(20, 32, 50, 0.58);
+        --border: rgba(148, 168, 200, 0.09);
+        --border-strong: rgba(148, 168, 200, 0.19);
         --text: #f2f4f6;
         --muted: #8b95a5;
         --good: #3ddc97;
@@ -22,11 +22,11 @@
         --mono: "SF Mono", "Fira Code", Menlo, monospace;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scrollbar-width: thin; scrollbar-color: rgba(146,176,222,0.2) transparent; }
+    html { scrollbar-width: thin; scrollbar-color: rgba(148,168,200,0.15) transparent; }
     body {
         background:
-            radial-gradient(1000px 520px at 72% -12%, rgba(30, 63, 106, 0.45), transparent 62%),
-            radial-gradient(820px 420px at -12% 42%, rgba(28, 72, 92, 0.3), transparent 60%),
+            radial-gradient(1000px 520px at 72% -12%, rgba(22, 42, 68, 0.24), transparent 62%),
+            radial-gradient(820px 420px at -12% 42%, rgba(18, 46, 58, 0.18), transparent 60%),
             var(--bg);
         color: var(--text);
         font-family: "Inter", "PingFang SC", "Microsoft YaHei", sans-serif;
@@ -97,12 +97,12 @@
         font-size: 0.92rem;
         font-weight: 700;
         letter-spacing: 6px;
-        background: linear-gradient(90deg, #a8c2ff 0%, #6d95ff 50%, #3d67d8 100%);
+        background: linear-gradient(90deg, #7e94c4 0%, #5470ad 50%, #35496e 100%);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
         color: transparent;
-        filter: drop-shadow(0 0 10px rgba(109, 149, 255, 0.4));
+        filter: drop-shadow(0 0 8px rgba(84, 112, 173, 0.32));
         display: inline-block;
     }
     .layout {
@@ -170,7 +170,7 @@
         border-color: var(--accent);
         font-weight: 650;
     }
-    .btn.primary:hover { background: #ff9d57; color: #1a0e04; }
+    .btn.primary:hover { background: #f0934e; color: #1a0e04; }
     .btn.primary:disabled { opacity: 0.35; cursor: not-allowed; }
 
     .search-wrap { position: relative; flex: 1; min-width: 100px; }
@@ -235,7 +235,7 @@
     }
     #event-list::-webkit-scrollbar, #device-list::-webkit-scrollbar, .expected-list::-webkit-scrollbar { width: 6px; }
     #event-list::-webkit-scrollbar-thumb, #device-list::-webkit-scrollbar-thumb, .expected-list::-webkit-scrollbar-thumb {
-        background: rgba(146, 176, 222, 0.16); border-radius: 6px;
+        background: rgba(148, 168, 200, 0.13); border-radius: 6px;
     }
     #event-list > .ev { flex-shrink: 0; }
 
@@ -263,7 +263,7 @@
         opacity: 0.75;
     }
     .ev.pv::before { background: var(--violet); }
-    .ev:hover { border-color: var(--border-strong); background: rgba(146, 176, 222, 0.09); }
+    .ev:hover { border-color: var(--border-strong); background: rgba(148, 168, 200, 0.07); }
     .ev .row1 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     .ev .tag {
         font-size: 0.56rem;
@@ -303,7 +303,7 @@
         font-size: 0.68rem;
         line-height: 1.7;
         color: var(--muted);
-        background: rgba(0, 0, 0, 0.42);
+        background: rgba(0, 0, 0, 0.5);
         border: 1px solid var(--border);
         border-radius: 8px;
         padding: 9px 12px;
@@ -492,7 +492,7 @@
         flex: 1;
         height: 4px;
         border-radius: 4px;
-        background: rgba(146, 176, 222, 0.08);
+        background: rgba(148, 168, 200, 0.06);
         overflow: hidden;
     }
     .check-progress .bar > i {
@@ -556,7 +556,7 @@
 </header>
 
 <div class="hero">
-    <p>REALTIME ANALYTICS CONSOLE</p>
+    <p>TL TRACK CONSOLE</p>
 </div>
 
 <div class="layout">
